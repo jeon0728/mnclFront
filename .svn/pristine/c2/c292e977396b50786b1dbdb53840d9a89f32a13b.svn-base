@@ -1,0 +1,27 @@
+@use '../variable' as *;
+@use '../mixins/tables' as table;
+
+// si 현황 테이블
+.si-status {
+  > ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    > li {
+      flex: 1 1 470px;
+      display: flex;
+      flex-direction: column;
+      .title{
+        margin-bottom: 16px;
+        text-align: center;
+        font-size: $fs-m;
+        font-weight: 700;
+        @include black('color', 30);
+      }
+    }
+  }
+}
+
+.si-status-table {
+  @include table.status-table;
+}

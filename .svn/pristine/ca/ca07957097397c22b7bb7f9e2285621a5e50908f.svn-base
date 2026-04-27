@@ -1,0 +1,2 @@
+$font-default: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Verdana, 돋움, sans-serif !default;

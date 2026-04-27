@@ -1,0 +1,313 @@
+@use '../../variable' as *;
+
+
+.booking-card {
+	* {
+		line-height: 1;
+	}
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	margin-bottom: 32px;
+	border-radius: $rM;
+	overflow: hidden;
+	border: 1px solid;
+	animation: slideUp 0.5s ease-out;
+	@include black('border-color', 80);
+	@include black('background-color', 100);
+    
+	&:hover {
+		box-shadow: $shadow-normal;
+	}
+
+	// 스테이터스 없음
+	&.none {
+		padding: 14px;
+		margin-bottom: 0;
+		animation: none;
+		border: none;
+		gap: 8px;
+		align-items: center;
+		text-align: center;
+		@include black('background-color', white);
+		p {
+			font-size: $fs-s;
+			line-height: 1.5;
+			@include black('color', 30);
+		}
+		&:hover {
+			box-shadow: none;
+		}
+	}
+}
+
+// 카드 접기
+.booking-card.active {
+	.route-section {
+		border-radius: 0 0 $rM $rM;
+	}
+}
+
+// card-head
+.booking-card-header {
+	padding: 8px 12px;
+	border-radius: $rL $rL 0 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	overflow: hidden;
+	cursor: pointer;
+	filter: grayscale(0.4);
+	@include black('color', white);
+	&-left {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	&-right {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+	}
+}
+
+.booking-number {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.badge {
+	padding: 4px 8px;
+	border-radius: $rS;
+	font-size: $fs-xs;
+	font-weight: 500;
+	border: 1px solid;
+	transition: all 0.2s ease;
+	@include black('background-color', white);
+}
+
+.badge-carrier {
+	@include colors('border-color', carrier);
+	@include colors('color', carrier);
+}
+
+.divider {
+	font-weight: 700;
+	font-size: 13px;
+	@include black('color', 90);
+}
+
+.date-text {
+	font-size: $fs-s;
+	font-weight: 400;
+	@include black('color', white);
+}
+
+.actual-shipper-text {
+	margin-left: 12px;
+	font-size: $fs-s;
+	font-weight: 400;
+	strong {
+		font-weight: 500;
+	}
+}
+
+.btn-toggle {
+	background: transparent;
+	border: none;
+	padding: 4px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border-radius: $rS;
+	transition: all 0.2s ease;
+	&:hover {
+		@include black('background-color', white, 0.2, rgba(255, 255, 255, 0.2));
+	}
+	svg {
+		width: 16px;
+		height: 16px;
+		transition: transform 0.3s ease;
+		@include black('fill', white);
+	}
+	span {
+		transition: all 0.5s ease-out;
+	}
+	&.active span {
+		transform: rotate(180deg);
+	}
+}
+// card-head end
+
+// card-center
+.route-section {
+	padding: 16px;
+	display: grid;
+	grid-template-columns: 1fr 80px 1fr;
+	gap: 48px;
+	border-radius: 0;
+	position: relative;
+	@include black('background-color', 90);
+}
+
+.location {
+	&-info {
+		&:first-child {
+			justify-self: flex-end;
+		}
+		.flex {
+				gap: 16px;
+		}
+	}
+	&-label {
+		margin-bottom: 4px;
+		font-size: $fs-xs;
+		font-weight: 700;
+		@include black('color', 40);
+	}
+	&-name {
+		font-size: clamp($fs-m, 2vw, 18px);
+		font-weight: 600;
+		white-space: pre-wrap;
+		line-height: 1.3;
+		&.departure {
+			@include colors('color', primary);
+		}
+		&.arrival {
+			@include black('color', black);
+		}
+	}
+	&-date {
+		font-size: $fs-xs;
+		@include black('color', 0);
+	}
+}
+
+.route-icon {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	position: relative;
+}
+
+.route-line {
+	width: 80px;
+	height: 1px;
+	position: relative;
+	@include black('background-color', 30);
+}
+// card-center end
+
+// card-foot
+.details{
+	&-section{
+		padding: 12px;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 24px;
+	}
+	&-grid{
+		flex: 2;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 20px;
+	}
+}
+.detail {
+	&-row {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(140px, 1fr) 1fr);
+		gap: 4px;
+	}
+	&-label {
+		font-size: $fs-s;
+		font-weight: 600;
+		@include black('color', 10);
+	}
+	&-value {
+		font-size: $fs-s;
+		@include black('color', 20);
+	}
+}
+
+.action-section {
+	flex-basis: auto;
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+}
+
+.footer-info {
+	padding: 0 12px 12px 0;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 8px;
+	font-size: $fs-xs;
+}
+
+.footer-label {
+	@include black('color', 30);
+}
+
+.footer-value {
+	font-weight: 500;
+	@include black('color', 10);
+}
+// card-foot end
+
+@media (max-width: 1024px) {
+	.details-grid {
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	}
+	.detail-row {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 768px) {
+	.bookking-card-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+	}
+
+	.bookking-card-header-left {
+		flex-wrap: wrap;
+	}
+
+	.route-section {
+		padding: 24px;
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.location-info:first-child {
+		text-align: start;
+		.flex {
+			flex-direction: row;
+		}
+	}
+
+	.route-line {
+		width: 24px;
+	}
+
+	.route-icon {
+		transform: rotate(90deg);
+	}
+
+	.action-section {
+		flex-direction: column;
+	}
+
+	.btn {
+		width: 100%;
+	}
+}

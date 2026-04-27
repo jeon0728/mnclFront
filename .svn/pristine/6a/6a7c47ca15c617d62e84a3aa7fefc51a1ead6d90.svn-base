@@ -1,0 +1,101 @@
+<template>
+  <div class="mncl-page">
+    <h1 class="mncl-page__title">등록</h1>
+    <p class="mncl-page__desc">등록 화면입니다. 입력 폼·저장 API를 이 페이지에 연결하세요.</p>
+    <GridButton buttonType="download" buttonVariant="excel" @click="handleDownloadTemplate">
+      {{ 'Excel 양식 다운로드' }}
+    </GridButton>
+    <GridButton buttonType="upload" buttonVariant="excel" @click="() => excelRef?.click()">
+      {{ 'Excel 업로드' }}
+    </GridButton>
+    <input
+      ref="excelRef"
+      type="file"
+      :style="{ display: 'none' }"
+      @change="(e) => handleUploadExcel(e)"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { downloadMnclTemplate, uploadExcel, type MnclExcelUploadResponse } from '@/ui/mncl/api'
+  import { usePage, useHttp } from '@/shared/composables'
+  import { GsabisGridButton as GridButton } from '@/shared/ui'
+  import { FormBuilder } from '@/shared/utils'
+
+  const excelRef = ref<HTMLInputElement | null>(null)
+
+  useHead({ title: '등록' })
+  const [excelRequest] = useHttp()
+  const { questionMessage, errorMessage, successNotify } = usePage()
+
+  const handleUploadExcel = async (e: Event) => {
+    const target = e.target as HTMLInputElement
+    const { files } = target
+    if (!files || files.length === 0) return
+
+    // 업로드 전에 컨펌 다이얼로그 표시
+    const isConfirm = await questionMessage('엑셀 파일을 업로드하시겠습니까?')
+    if (!isConfirm) {
+      // 취소 시 input 초기화
+      if (excelRef.value) {
+        excelRef.value.value = ''
+      }
+      return
+    }
+
+    const form = FormBuilder.create()
+      .appendFile('file', files.item(0))
+      .appendJson('param', null)
+      .build()
+
+    const { data, error } = await excelRequest<MnclExcelUploadResponse>(uploadExcel(form))
+
+    if (error) {
+      errorMessage(error.message)
+    } else if (data?.code === '0000') {
+      // data.mnclLocalChangeListDtoList — 필요 시 목록·그리드에 연결
+      successNotify(data.message || '엑셀 업로드가 완료되었습니다.')
+      //await navigateTo('/mncl/list')
+    } else {
+      // 서버에서 내려온 실패 메시지 표시
+      errorMessage(data?.message || '엑셀 업로드에 실패했습니다.')
+    }
+
+    if (excelRef.value) {
+      excelRef.value.value = ''
+    }
+  }
+
+  const handleDownloadTemplate = async () => {
+    try {
+      const response = await downloadMnclTemplate()
+      const blob = new Blob([response.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = 'MNCL_업로드양식.xlsx'
+      link.click()
+      window.URL.revokeObjectURL(url)
+    } catch (e) {
+      errorMessage('양식 다운로드에 실패했습니다.')
+    }
+  }
+</script>
+
+<style scoped>
+  .mncl-page {
+    padding: 24px;
+  }
+  .mncl-page__title {
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .mncl-page__desc {
+    margin: 0;
+    color: #666;
+  }
+</style>

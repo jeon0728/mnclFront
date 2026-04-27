@@ -1,0 +1,217 @@
+@use '../../variable' as *;
+
+// 선박 상세 정보 패널 (하단 팝업)
+.vessel-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 0.3s ease;
+  @include black('background-color', 20, 0.1, #2e2e2e1a);
+}
+
+.vessel-detail-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.vessel-detail-panel {
+  width: 100%;
+  max-width: 1200px;
+  max-height: 85vh;
+  margin: 0;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+  transform: translateY(0);
+  box-shadow: $shadow-normal;
+  display: flex;
+  flex-direction: column;
+  @include black('background-color', white);
+}
+
+// Table container with padding
+.vessel-table-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 24px 16px 24px;
+}
+
+// Table styles
+.vessel-info-table {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 8px;
+  overflow: hidden;
+  @include black('border-color', 60);
+
+  th, td {
+    padding: 8px 12px;
+    text-align: left;
+    font-size: $fs-s;
+    vertical-align: middle;
+    border-bottom: 1px solid;
+    @include black('border-color', 60);
+  }
+
+  tbody {
+    
+    tr {
+      &:last-of-type th,
+      &:last-of-type td {
+        border-bottom: 0;
+      }
+
+      th {
+        font-weight: 600;
+        @include black('color', 0);
+      }
+
+      td {
+        font-weight: 400;
+        @include black('color', 20);
+      }
+    }
+
+      // Remove border between closing times row and VGM row
+      .closing-times-row {
+        border-bottom: none;
+      }
+
+      .vgm-row {
+        border-top: none;
+      }
+
+      // Port information styling
+      .port-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+
+      .port-name {
+        margin-bottom: 8px;
+        font-size: $fs-s;
+        font-weight: 600;
+        white-space: pre-wrap; 
+        @include black('color', 20);
+      }
+
+      .port-details {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          font-size: 12px;
+          font-weight: 400;
+          @include black('color', 20);
+      }
+    }
+  }
+
+  // Vessel row with gray background
+  .vessel-row {
+    border-bottom: 1px solid;
+    border-color: inherit;
+    @include black('background-color', 80);
+
+    .flex{
+      gap: 8px;
+      align-items: center;
+    }
+
+    .vessel-label-cell {
+      font-size: 16px;
+      font-weight: 600;
+      @include black('color', 40);
+    }
+
+    span {
+      font-size: $fs-xs;
+      @include black('color', 60);
+    }
+
+    .vessel-name-cell {
+      text-align: left;
+
+      .vessel-name-link {
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-position: from-font;
+        @include colors('color', primary);
+      }
+    }
+  }
+}
+
+// Action buttons
+.vessel-actions {
+display: flex;
+justify-content: center;
+gap: 12px;
+padding: 10px 24px;
+padding-bottom: 48px;
+
+  .action-button {
+    border-radius: 4px;
+    height: 32px;
+    font-size: $fs-s;
+    @include default;
+    &.booking-button {
+      @include primaryColor;
+    }
+
+    &.close-button {
+      @include defaultOutlineColor;
+    }
+  }
+}
+
+// 하단 팝업 슬라이드 애니메이션
+.slide-up-enter-active {
+  .vessel-detail-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .vessel-detail-wrapper {
+    transform: translateY(0);
+  }
+}
+
+.slide-up-leave-active {
+  .vessel-detail-overlay {
+      background-color: rgba(0, 0, 0, 0);
+  }
+  .vessel-detail-wrapper {
+      transform: translateY(50%);
+  }
+}
+
+.slide-up-enter-from {
+  .vessel-detail-overlay {
+      background-color: rgba(0, 0, 0, 0);
+  }
+  .vessel-detail-wrapper {
+      transform: translateY(50%);
+  }
+}
+
+.slide-up-leave-to {
+  .vessel-detail-overlay {
+      background-color: rgba(0, 0, 0, 0);
+  }
+  .vessel-detail-wrapper {
+      transform: translateY(100%);
+  }
+}
+
+//하단 팝업 닫기 버튼
+.close-button.close-bottom {
+  @include buttonCloseDown;
+}

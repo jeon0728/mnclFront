@@ -1,0 +1,110 @@
+@use '../variable' as *;
+@use '../mixins/buttons' as button;
+
+h1,h2 {
+  margin: 0;
+}
+
+// 공통
+.login-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include black('background-color', 100);
+  .input-container{
+    height: 40px !important;
+    border-radius: $rM;
+    // input 클릭위치 이슈 해결용
+    > input {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+  .gsabis-button {
+    width: 100%;
+    border-radius: $rM;
+    @include button.default;
+    @include button.primaryColor;
+    &.none {
+      min-height: 0;
+      height: auto;
+    }
+    &.default {
+      @include button.defaultOutlineColor;
+    }
+    &.disabled {
+      @include button.disabledColor;
+    }
+  }
+  .label{
+    display: inline-flex;
+    margin-bottom: 4px;
+    font-size: $fs-xs;
+  }
+}
+
+// 레이아웃
+.login{
+  &-content-wrapper{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: $r2XL;
+    @include black('background-color', white);
+  }
+  &-container{
+    flex: 1;
+    height: 100vh;
+    width: 100%;
+    padding: 48px 0 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    // @include custom-scrollbar;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+    > .layout{
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &-img-wrapper{
+    flex: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: $r2XL;
+    overflow: hidden;
+    background: linear-gradient(180deg, #EEEEEE 0.01%, #A5C8FF 184.52%);
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &-contents{
+    max-width: 324px;
+    padding: 0 12px;
+  }
+  &-logo{
+    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 128px;
+    padding-bottom: min(128px, 8vh);
+  }
+  &-title{
+    font-size: $fs-xl;
+    font-weight: $fw-semibold;
+  }
+  &-noaccount-text{
+    font-size: $fs-xs;
+    @include black('color', 30);
+  }
+}

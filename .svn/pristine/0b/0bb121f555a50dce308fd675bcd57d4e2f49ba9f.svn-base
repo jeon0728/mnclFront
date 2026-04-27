@@ -1,0 +1,153 @@
+@use "../../variable" as *;
+
+.notify-container {
+  z-index: 9999;
+  position: fixed;
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  left: 50%;
+  transform: translate(-50%);
+  top: 72px;
+  gap: 10px;
+
+  &.top-left {
+    top: 10px;
+    left: 24px;
+    right: auto;
+  }
+
+  &.top-right {
+    top: 10px;
+    right: 24px;
+    left: auto;
+  }
+
+  &.bottom-left {
+    bottom: 80px;
+    left: 24px;
+    right: auto;
+  }
+
+  &.bottom-right {
+    bottom: 80px;
+    right: 24px;
+    left: auto;
+  }
+}
+
+.notify-wrapper {
+  min-width: 288px;
+  height: 55px;
+  padding: 10px 10px 10px 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: $rM;
+  box-shadow: $shadow-normal;
+  box-sizing: border-box;
+  font-weight: 500;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: auto;
+  @include black("background-color", white);
+
+  &::before {
+    content: "";
+    display: block;
+    width: 2px;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  &.active {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(-320px);
+  }
+
+  &.success {
+    @include shadows($shadow-default, success, 0.2);
+
+    .notify-icon{
+      @include colors("color", success);
+    }
+
+    &.outline {
+      // @include colors("color", success);
+    }
+    &::before {
+      @include colors("background-color", success, 0);
+    }
+  }
+
+  &.info {
+    @include shadows($shadow-default, info, 0.2);
+
+    .notify-icon{
+      @include colors("color", info);
+    }
+
+    &.outline {
+      @include colors("color", info);
+    }
+    &::before {
+      @include colors("background-color", info, 0);
+    }
+  }
+
+  &.warning {
+    @include shadows($shadow-default, warn, 0.2);
+
+    .notify-icon{
+      @include colors("color", warn);
+    }
+
+    &.outline {
+      @include colors("color", warn);
+    }
+    &::before {
+      @include colors("background-color", warn, 0);
+    }
+  }
+
+  &.alert {
+    @include shadows($shadow-default, alert, 0.2);
+
+    .notify-icon{
+      @include colors("color", alert);
+    }
+
+    &.outline {
+      @include colors("color", alert);
+    }
+    &::before {
+      @include colors("background-color", alert, 0);
+    }
+  }
+  //위치조정용
+  .notify-icon {
+    transform: translateY(2px);
+  }
+
+  .notify-message {
+    cursor: default;
+    font-size: $fs-s;
+    line-height: 1;
+  }
+
+  .notify-close {
+    margin-left: auto;
+
+    button {
+      padding: 0;
+      border: 0;
+      min-width: 26px;
+      box-shadow: none;
+      background-color: inherit;
+      color: inherit;
+      cursor: pointer;
+      @include black("color", 40);
+    }
+  }
+}

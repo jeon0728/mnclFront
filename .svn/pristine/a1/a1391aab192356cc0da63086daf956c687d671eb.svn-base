@@ -1,0 +1,87 @@
+@use '../../variable' as *;
+
+// 어싱크박스 스타일 조정
+// 구조: .button(tag) > input > .button(caret, search)
+// .button은 참고로 이미 flex, item center
+:deep(.input-container.async) {
+	padding: 0 0 0 4px;
+
+	.button{
+		padding: 0;
+		margin-right: 0;
+
+		&:hover{
+			background-color: transparent;
+		}
+		// tagbox 껍데기
+		// 높이값 16으로 강제
+		// 최소값 컨텐츠의 넓이
+		&:first-child {
+			height: 22px;
+			gap: 2px;
+			flex: 0 1 max-content;
+			justify-content: flex-start;
+			aspect-ratio: auto;
+		}
+	}
+
+	// 넓이 벗어나면 ...
+	.async-code-box-tag {
+		align-self: flex-start;
+		line-height: 22px;
+		height: 22px;
+		padding: 0 4px;
+		border-radius: 4px;
+		font-size: 12px;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
+		white-space: normal;
+		word-break: break-all;
+		text-overflow: ellipsis;
+		@include black('background-color', 90);
+		@include black('color', 30);
+	}
+
+	// 100픽셀 넘으면 플렉스박스 넘어감 방지
+	.input-wrapper{
+		flex: 1 1 16px;
+		padding: 0 4px;
+	}
+
+	.ui-button-caret {
+		margin-right: 2px;
+		transition: all $tr-short;
+		
+		&:active svg{
+			transform: scale(0.9);
+		}
+	}
+
+	// 어싱크코드박스 검색버튼
+	.ui-button-search {
+		padding: 0;
+		width: 20px;
+		height: 20px;
+		transition: opacity $tr-short, transform $tr-short, background-color $tr-short;
+		border-radius: $rS;
+		will-change: opacity, transform;
+		border-color: transparent;
+		@include black('background-color', 70);
+
+		svg {
+			width: 14px;
+			height: 14px;
+			transition: transform $tr-short;
+		}
+		
+		&:hover{
+			opacity: 0.8;
+		}
+
+		&:active svg{
+			transform: scale(0.9);
+		}
+	}
+}

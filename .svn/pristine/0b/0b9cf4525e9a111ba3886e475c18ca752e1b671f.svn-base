@@ -1,0 +1,257 @@
+<template>
+  <PageLayout>
+    <template #actions>
+      <Button
+        buttonType="save"
+      >
+        저장
+      </Button>
+      <Button
+        class="fill"
+        buttonType="send"
+        buttonVariant="transactional"
+      >
+        전송
+      </Button>
+    </template>
+    <template #content>
+      <!-- si 등록 예시 -->
+      <Card>
+        <template #content>
+          <div class="contents-inner si">
+            <ul class="lists">
+              <li>
+                <Label>CARRIER BOOKIN NO.</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>CARRIER</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>템플릿</Label>
+                <CodeBox/>
+              </li>
+              <li></li>
+            </ul>
+            <ul>
+              <li>
+                <div class="title mb-1">Contract Details of Documentation</div>
+                <div class="input-label-column">
+                  <Label>Contract Person</Label>
+                  <TextBox/>
+                </div>
+                <div class="input-label-column">
+                  <Label>Telephone</Label>
+                  <TextBox/>
+                </div>
+                <div class="input-label-column">
+                  <Label>E-Mail</Label>
+                  <TextBox/>
+                </div>
+              </li>
+              <li>
+                <div class="title">House  B/L 여부</div>
+                <RadioGroup
+                  v-model="model.radio"
+                  :source="[
+                    { value: '1', name: 'House B/L' },
+                    { value: '2', name: 'Direct B/L' },
+                  ]"
+                />
+                <div class="title mt-7">B/L TYPE</div>
+                <RadioGroup
+                  v-model="model.radio"
+                  :source="[
+                    { value: '3', name: 'Original' },
+                    { value: '4', name: 'Seawaybill' },
+                  ]"
+                />
+              </li>
+              <li class="flex-1">
+                <div class="title">미주 세관신고 정보</div>
+                <div class="input-label-flex">
+                  <Label>AMS for House B/L</Label>
+                  <SelectBox/>
+                  <Label>SCAC Code</Label>
+                  <TextBox/>
+                </div>
+                <div class="title mt-7">캐나다 세관신고 정보</div>
+                <div class="input-label-flex">
+                  <Label>ACI for House B/L</Label>
+                  <SelectBox/>
+                  <Label>8000 Code</Label>
+                  <TextBox/>
+                </div>
+              </li>
+            </ul>
+            <ul class="lists">
+              <li>
+                <Label>POL</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>POD</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>Final Dest.</Label>
+                <TextBox/>
+              </li>
+              <li></li>
+            </ul>
+            <ul class="lists">
+              <li>
+                <Label>Vessel (H.VESSEL)</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>Voyage</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>Freight Term</Label>
+                <SelectBox/>
+              </li>
+              <li></li>
+            </ul>
+            <ul class="lists">
+              <li>
+                <div class="title mb-1">
+                  Shipper
+                  <Button
+                    class="iconSizeS fill"
+                    buttonVariant="transactional"
+                  >
+                    <PhMagnifyingGlass :size="16"/>
+                  </Button>
+                </div>
+                <div class="input-label-column">
+                  <Label>Name</Label>
+                  <TextBox/>
+                </div>
+                <div class="input-label-column">
+                  <Label>ADDRESS</Label>
+                  <Textarea :height="68"/>
+                </div>
+              </li>
+              <li>
+                <div class="title mb-1">
+                  Consignee
+                  <Button
+                    class="iconSizeS fill"
+                    buttonVariant="transactional"
+                  >
+                    <PhMagnifyingGlass :size="16"/>
+                  </Button>
+                </div>
+                <div class="input-label-column">
+                  <Label>Name</Label>
+                  <TextBox/>
+                </div>
+                <div class="input-label-column">
+                  <div class="title">
+                    <Label>ADDRESS</Label>
+                    <Button 
+                      class="sizeXS auto"
+                      buttonVariant="transactional" 
+                    >Add Detail</Button>
+                  </div>
+                  <Textarea :height="58"/>
+                </div>
+              </li>
+              <li>
+                <div class="title mb-1">
+                  NOTIFY PARTY
+                  <Button
+                    class="iconSizeS fill"
+                    buttonVariant="transactional"
+                  >
+                    <PhMagnifyingGlass :size="16"/>
+                  </Button>
+                  <Button 
+                    class="sizeXS auto"
+                    buttonVariant="transactional" 
+                  >SAME AS Consignee</Button>
+                </div>
+                <div class="input-label-column">
+                  <Label>Name</Label>
+                  <TextBox/>
+                </div>
+                <div class="input-label-column">
+                  <div class="title">
+                    <Label>ADDRESS</Label>
+                    <Button 
+                      class="sizeXS auto"
+                      buttonVariant="transactional" 
+                    >Add Detail</Button>
+                  </div>
+                  <Textarea :height="58"/>
+                </div>
+              </li>
+              <li>
+                <div class="title mb-1">
+                  Forwarding Agent
+                  <Button
+                    class="iconSizeS fill"
+                    buttonVariant="transactional"
+                  >
+                    <PhMagnifyingGlass :size="16"/>
+                  </Button>
+                </div>
+                <div class="input-label-column">
+                  <Label>Name</Label>
+                  <TextBox/>
+                </div>
+                <div class="input-label-column">
+                  <Label>ADDRESS</Label>
+                  <Textarea :height="68"/>
+                </div>
+              </li>
+            </ul>
+            <ul class="lists">
+              <li>
+                <Label>Marks & No.</Label>
+                <Textarea :height="150"/>
+              </li>
+              <li>
+                <Label>Description of Packages</Label>
+                <Textarea :height="150"/>
+              </li>
+            </ul>
+          </div>
+        </template>
+      </Card>
+      <Card title="CARGO DETAIL">
+        <template #content>
+          <div class="contents-inner si">
+            <ul class="lists">
+              <li>
+                <Label>Package</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>Package Unit</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>Weight</Label>
+                <TextBox/>
+              </li>
+              <li>
+                <Label>Measurement</Label>
+                <TextBox/>
+              </li>
+            </ul>
+          </div>
+        </template>
+      </Card>
+      <div class="content-button">
+        <Button class="sizeL light accent">SAVE</Button>
+        <Button class="sizeL fill secondAccent">SEND</Button>
+      </div>
+    </template>
+  </PageLayout>
+</template>
+
+<style scoped lang="scss" src="@/shared/assets/scss/components/containers/input-label.scss"></style>

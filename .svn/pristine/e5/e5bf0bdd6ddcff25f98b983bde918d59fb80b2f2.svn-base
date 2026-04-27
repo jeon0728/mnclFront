@@ -1,0 +1,25 @@
+@use '../functions/colors' as *;
+@use '../variables/size' as *;
+@use '../variables/radius' as *;
+
+@mixin badge () {
+	display: inline-flex;
+	padding: 4px 8px;
+	justify-content: center;
+	align-items: center;
+	border-radius: $rS;
+	border: 1px solid;
+	font-size: $fs-xs;
+	font-weight: 500;
+	line-height: 100%;
+}
+
+@mixin badge-outline ($color) {
+	@include black('background-color', white);
+	@include colors('color', $color);
+}
+
+@mixin badge-fill ($color, $bg) {
+	@include colors('color', $color);
+	@include colors('background-color', $bg);
+}

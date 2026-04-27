@@ -1,0 +1,24 @@
+<template>
+  <div class="login-wrapper">
+    <main class="login-content-wrapper">
+      <div class="login-container">
+        <h1 class="login-logo">
+          <NuxtLink to="/login"><img src="@/shared/assets/image/logo-login.svg" alt="logo" width="85" height="49"/></NuxtLink>
+        </h1>
+        <slot/>
+      </div>
+      <div class="login-img-wrapper"></div>
+    </main>
+    <ModalPage/>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import ModalPage from '@/shared/containers/ModalPage/index.vue'
+
+  defineSlots< {
+    default: () => any,
+  }> ()
+</script>
+<style scoped src="@/shared/assets/scss/pages/login.scss" lang="scss">
+</style>

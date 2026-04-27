@@ -1,0 +1,23 @@
+@use '../functions/colors' as *;
+@use '../variables/size' as *;
+
+@mixin status-table() {
+	display: flex;
+  border: 1px solid;
+  @include black('border-color', 60);
+  &-list {
+    flex: 1;
+    text-align: center;
+    line-height: 50px;
+  }
+  &-title{
+    border-bottom: 1px solid;
+    @include black('border-color', 60);
+    @include black('color', 30);
+  }
+  &-value{
+    font-size: $fs-m;
+    font-weight: 700;
+    @include colors('color', primary);
+  }
+}

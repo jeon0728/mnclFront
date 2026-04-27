@@ -1,0 +1,118 @@
+<template>
+  <div>
+    <div
+      class="side-menu-item flex"
+      :class="[
+        `menu-depth-${menuDepth}`,
+        {
+          active: isActive,
+          children: hasChildren
+        }
+      ]"
+      @click.stop="handleMenuItemClick"
+    >
+      <!-- 메뉴 깊이에 따른 아이콘 -->
+      <SideMenuIcon v-if="menuDepthIcon" :icon="menuDepthIcon"/>
+      <SideMenuIcon v-if="menuDepth === 1" :icon="menuIcon"/>
+      <div v-if="menuDepth === 1 && !hasChildren" style="width: 16px"/>
+      <SideMenuFoldingIcon v-if="hasChildren" :icon="foldingIcon" :isFolding="isFolding"/>
+      <span class="side-menu-item__title">{{ lang(menuNm) }}</span>
+    </div>
+
+    <!-- 하위 메뉴 -->
+    <div v-if="isSubMenuExpand && hasChildren" class="menu-items">
+      <SideMenuItem
+        v-for="subMenu in menuChildren"
+        :key="subMenu.menuId"
+        :menu="subMenu"
+        :menuDepth="menuDepth + 1"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { computed, ref, watch } from 'vue'
+  import SideMenuIcon from './SideMenuIcon.vue'
+  import SideMenuFoldingIcon from './SideMenuFoldingIcon.vue'
+  import type { MenuData } from '@/shared/types/store'
+  import { useLanguage, useLink, useGrid, useHttp, usePage, usePageParams, useMenuPermission  } from '@/shared/composables'
+  import { useMenuStore, useTabStore } from '@/shared/store'
+  import type { PageBaseProps } from '@/shared/types/app/page'
+    
+  const menuStore = useMenuStore()
+  const tabStore = useTabStore()
+  const router = useRouter()
+  const props = defineProps<SideMenuItemProps>()
+  const { menu, menuDepth, isMenuCollapse } = props
+  const { menuId, menuIcon, children: menuChildren, menuNm, menuUrl } = menu
+  const hasChildren = computed(() => menuChildren && menuChildren.length > 0)
+  const link = useLink()
+  const lang = useLanguage()
+
+
+  const { session, errorMessage, questionMessage, successNotify } = usePage()
+
+  const isActive = computed(() => {
+    if (menuStore.selectedMenuId === menu.menuId) return true
+    return (
+      hasChildren.value && menuChildren.some((child) => child.menuId === menuStore.selectedMenuId)
+    )
+  })
+
+  const isSubMenuExpand = ref(false)
+  const foldingIcon = ref('mdi-chevron-down')
+  const isFolding = ref(false)
+
+  // 메뉴 클릭 (리프 메뉴 클릭 시 탭 카운트 증가 → 같은 메뉴 재클릭 시 페이지에서 폼 해제 등 감지 가능)
+  const handleMenuItemClick = () => {
+    if (hasChildren.value) {
+      isSubMenuExpand.value = !isSubMenuExpand.value
+    } else {
+      menuStore.selectMenu(menuId)
+      tabStore.increaseTabCount(menuId)
+      if (menuId === '4010') {
+        questionMessage('[SHIPPING SCHEDULE] 또는 [BOOKING > 부킹 스케줄] 메뉴를 이용해주세요.')
+        return
+      }
+      link(menuId, {})
+    }
+  }
+
+  watch(isSubMenuExpand, (val) => {
+    isFolding.value = val
+  })
+
+  watch(
+    () => menuStore.selectedMenuId,
+    (newValue) => {
+      if (!newValue) return
+
+      // 현재 메뉴가 선택된 상태면 자동 펼침
+      if (menu.menuId === newValue) {
+        isSubMenuExpand.value = true
+        return
+      }
+
+      // 선택된 아이템이 현재 메뉴의 자식이면 상위 메뉴 열어주기
+      if (hasChildren.value && menuChildren.some((child) => child.menuId === newValue)) {
+        isSubMenuExpand.value = true
+      }
+    },
+    { immediate: true }
+  )
+
+  const getMenuDepthIcon = (menuDepth: number, hasChildren = false) => {
+    if (menuDepth === 2) return menuIcon
+    if (menuDepth === 3) return ''
+    return ''
+  }
+
+  const menuDepthIcon = computed(() => getMenuDepthIcon(menuDepth, hasChildren.value))
+
+  interface SideMenuItemProps {
+    menu: MenuData
+    menuDepth: number
+    isMenuCollapse?: boolean
+  }
+</script>

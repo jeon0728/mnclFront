@@ -1,0 +1,23 @@
+@use "../../variable" as *;
+
+.header {
+  width: 100%;
+  border-bottom: 1px solid;
+  font-size: $fs-m;
+  @include black("background-color", 70);
+  @include black("border-bottom-color", 70);
+  @include black("color", 80);
+
+  &-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px 0;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .header-inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

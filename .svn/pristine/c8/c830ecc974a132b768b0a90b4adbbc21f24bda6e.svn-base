@@ -1,0 +1,16 @@
+<template>
+  <div :class="['side-menu-folding-icon', { active: isFolding }]">
+    <PhCaretDown size="16"/>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { PhCaretDown } from '@phosphor-icons/vue'
+
+  const props = defineProps<SideMenuFoldingIconProps>()
+
+  interface SideMenuFoldingIconProps {
+    icon: string
+    isFolding: boolean
+  }
+</script>

@@ -1,0 +1,73 @@
+import viteTsconfigPaths from 'vite-tsconfig-paths'
+import { fileURLToPath, URL } from 'node:url'
+
+export default defineNuxtConfig({
+  ssr: false,
+  compatibilityDate: '2025-07-15',
+  devtools: { enabled: true },
+
+  app: {
+    buildAssetsDir: '_nuxt/',
+    keepalive: true
+  },
+
+  routeRules: {
+    '/': { redirect: '/mncl/list' },
+    '/api/**': {
+      proxy: {
+        to: process.env.NUXT_API_BASE || 'http://127.0.0.1:8080/api'
+      }
+    }},
+
+  alias: {
+    '@': fileURLToPath(new URL('./app', import.meta.url))
+  },
+
+  build: {
+    transpile: ['ag-grid-vue3'],
+  },
+
+  components: {
+    dirs: [{ path: 'shared/layouts', extensions: ['vue'] }]
+  },
+
+  // ✅ dev 모드에서 proxy 작동
+  nitro: {
+    devProxy: {
+      '/api': {
+        target: process.env.NUXT_API_BASE || 'http://127.0.0.1:8080/api',
+        changeOrigin: true
+      }
+    },
+    externals: {
+      inline: [],
+      external: ['zenith-pulse-vue']
+    },
+    preset: 'static'
+  },
+
+  vite: {
+    optimizeDeps: { include: ['ag-grid-vue3', 'ag-grid-community'] },
+    plugins: [viteTsconfigPaths()],
+  },
+
+  css: [
+    '@/shared/assets/scss/global.scss',
+  ],
+
+  modules: ['@pinia/nuxt', '@nuxt/eslint'],
+
+  plugins: [
+    '@/shared/plugins/ag-grid.ts',
+    '@/shared/plugins/axios.ts',
+    { src: '@/shared/plugins/ui.ts', mode: 'client' },
+    { src: '@/shared/plugins/common.client.ts', mode: 'client' },
+    { src: '@/shared/plugins/init.client.ts', mode: 'client' },
+  ],
+
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_API_BASE ?? 'http://127.0.0.1:8080',
+    },
+  },
+})

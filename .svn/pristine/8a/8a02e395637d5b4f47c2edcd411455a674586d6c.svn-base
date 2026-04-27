@@ -1,0 +1,156 @@
+@use '../functions/colors' as *;
+@use '../variables/shadow' as *;
+@use '../variables/size' as *;
+
+@mixin default(){
+  cursor: pointer;
+  padding: 2px 12px;
+  flex: 0 0 auto;
+  gap: 8px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: inherit;
+  outline: none;
+  border: 1px solid;
+  transition: all 0.3s, color 0s;
+  box-shadow: none;
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@mixin none(){
+  width: fit-content;
+  min-width: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding: 4px 10px;
+  @include colors('color', primary);
+  &:hover,&:focus,&:active{
+    @include black('background-color', 80);
+    @include colors('color', primary);
+  }
+}
+
+// color 정리
+@mixin defaultColor(){
+  @include black('background-color', white);
+  @include black('border-color', 40);
+  @include black('color', 20);
+    &:where(:hover, :focus) {
+    border-color: transparent;
+    @include black('color', white);
+    @include black('background-color', 30);
+  }
+}
+
+@mixin defaultOutlineColor(){
+  @include black('background-color', white);
+  @include black('border-color', 40);
+  @include black('color', 20);
+  &:is(:hover, :focus) {
+    opacity: 1;
+    @include black('background-color', 90);
+  }
+}
+
+@mixin primaryColor(){
+  @include black('color', white);
+  @include colors('border-color', primary);
+  @include colors('background-color', primary);
+  &:where(:hover, :focus) {
+    opacity: 0.8;
+  }
+}
+
+@mixin primaryColorLight(){
+  @include colors('color', primary);
+  @include black('border-color', 40);
+  @include black('background-color', white);
+  &:where(:hover, :focus) {
+    opacity: 0.8;
+  }
+}
+
+@mixin noneColor(){
+  @include black('color', 10);
+}
+
+@mixin noneHoverOpacity() {
+  &:is(:hover, :focus) {
+    opacity: 1;
+    @include black('background-color', 80);
+  }
+}
+
+@mixin noneBorder() {
+  border: 0;
+  @include black('background-color', 80);
+  &:is(:hover, :focus) {
+    opacity: 1;
+    @include black('color', 30);
+  }
+}
+
+//기능별 타입 정의
+@mixin disabledColor(){
+  cursor: not-allowed;
+  pointer-events: none;
+  @include black('color', 50);
+  @include black('background-color', 80);
+  @include black('border-color', 70);
+}
+
+@mixin sizeS() {
+  height: $bs-m;
+  padding: 2px 10px;
+   > svg {
+    width: $icons-s;
+    height: $icons-s;
+   }
+}
+
+@mixin sizeL() {
+  padding: 2px 12px;
+  height: $bs-xl;
+  font-size: $fs-m;
+   > svg {
+    width: $icons-s;
+    height: $icons-s;
+   }
+}
+
+@mixin sizeXS() {
+  height: $bs-s;
+  padding: 2px 10px;
+  font-weight: 400;
+  font-size: $fs-xs;
+   > svg {
+    width: $icons-s;
+    height: $icons-s;
+   }
+}
+
+@mixin iconSizeL() {
+  min-width: 0;
+  width: $bs-l;
+  height: $bs-l;
+  padding: 4px;
+  > svg {
+      flex-shrink: 0;
+  }
+}
+
+@mixin iconSizeS() {
+  min-width: 0;
+  width: $bs-s;
+  height: $bs-s;
+  padding: 4px;
+  > svg {
+    width: $icons-s;
+    height: $icons-s;
+    flex-shrink: 0;
+  }
+}

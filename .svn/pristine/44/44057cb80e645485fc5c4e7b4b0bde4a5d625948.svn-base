@@ -1,0 +1,587 @@
+<template>
+  <PageLayout>
+    <template #actions>
+      <Button buttonType="reset">
+        초기화
+      </Button>
+      <Button
+        buttonType="create"
+      >
+        신규
+      </Button>
+      <Button
+        class="fill"
+        buttonType="search"
+      >
+        조회
+      </Button>
+
+    </template>
+    <template #content>
+      <Tab
+        :tabData="[
+          { key: 'tab1', name: 'My Shipping Instructions', isFullHeight: true },
+          { key: 'tab2', name: 'Company Templates', isFullHeight: true },
+          { key: 'tab3', name: 'My Drafts', isFullHeight: true }
+        ]"
+      >
+        <template #tab1>
+          <!-- 서치 컨테이너 -->
+          <Card>
+            <template #content>
+              <div class="contents-inner">
+                <ul>
+                  <li>
+                    <Label>S/R Date</Label>
+                    <TextBox placeholder="예: MAERSK"/>
+                  </li>
+                  <li>
+                    <Label>Show</Label>
+                    <TextBox placeholder="예: 김영수"/>
+                  </li>
+                  <li>
+                    <Label>Within</Label>
+                    <TextBox placeholder="---"/>
+                  </li>
+                  <li>
+                    <Label>Filter by</Label>
+                    <div class="input-label-flex">
+                      <SelectBox/>
+                      <SelectBox/>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </template>
+          </Card>
+          <!-- 현황 컨테이너 -->
+          <Card>
+            <template #content>
+              <div class="si-status">
+                <ul>
+                  <li>
+                    <div class="title">
+                      Submitted Status
+                    </div>
+                    <ul class="si-status-table">
+                      <li class="si-status-table-list">
+                        <div class="si-status-table-title">Submitted</div>
+                        <div class="si-status-table-value">1</div>
+                      </li>
+                      <li class="si-status-table-list">
+                        <div class="si-status-table-title">Amended</div>
+                        <div class="si-status-table-value">1</div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div class="title">
+                      Carrier Acknowledgment Status
+                    </div>
+                    <ul class="si-status-table">
+                      <li class="si-status-table-list">
+                        <div class="si-status-table-title">Accepted</div>
+                        <div class="si-status-table-value">1</div>
+                      </li>
+                      <li class="si-status-table-list">
+                        <div class="si-status-table-title">Pending</div>
+                        <div class="si-status-table-value">1</div>
+                      </li>
+                      <li class="si-status-table-list">
+                        <div class="si-status-table-title">Rejected</div>
+                        <div class="si-status-table-value">1</div>
+                      </li>
+                      <li class="si-status-table-list">
+                        <div class="si-status-table-title">N/A</div>
+                        <div class="si-status-table-value">1</div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </template>
+          </Card>
+          <Card description="00건">
+            <template #filter>
+              <Button class="sizeXS" buttonType="filter">
+                Filter
+              </Button>
+            </template>
+            <template #content>
+              <Layout height="250px">
+                <AgGrid/>
+              </Layout>
+            </template>
+          </Card>
+        </template>
+        <template #tab2>
+          <!-- 서치 컨테이너 -->
+          <Card>
+            <template #content>
+              <div class="contents-inner">
+                <ul>
+                  <li>
+                    <Label>Show</Label>
+                    <SelectBox/>
+                  </li>
+                  <li>
+                    <Label>Filter by</Label>
+                    <div class="input-label-flex">
+                      <SelectBox/>
+                      <SelectBox/>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </template>
+          </Card>
+
+          <Card description="00건" class="booking-table">
+            <template #filter>
+              <Button class="sizeXS" buttonType="filter">
+                Filter
+              </Button>
+            </template>
+            <template #content>
+              <Layout height="250px">
+                <AgGrid/>
+              </Layout>
+              <table class="g-table">
+                <colgroup>
+                  <col style="width: 300px;">
+                  <col style="width: auto;">
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th><Label>Remark(s)</Label></th>
+                    <td colspan="2">
+                      <Textarea :height="100"/>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </template>
+          </Card>
+          <Card>
+            <template #content>
+              <!-- 부킹 입력 테이블 -->
+              <div class="booking-table">
+                <!-- 부킹 -->
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">Booking</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><Label>REF NO.</Label></th>
+                      <td>
+                        <TextBox addContainerClass="disabled" :disabled="true" placeholder="---"/>
+                      </td>
+                      <th><Label>CARRIER BOOKING NO.</Label></th>
+                      <td>
+                        <CodeBox modalType="customer"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>CARRIER</Label></th>
+                      <td>
+                        <TextBox addContainerClass="disabled" :disabled="true" placeholder="---"/>
+                      </td>
+                      <th><Label>SALES MAN</Label></th>
+                      <td>
+                        <SelectBox/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>CONTRACT NO.</Label></th>
+                      <td>
+                        <SelectBox :disabled="true" class="disabled" placeholder="---"/>
+                      </td>
+                      <th><Label>CONTRACT TYPE</Label></th>
+                      <td>
+                        <SelectBox/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">Company Information</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><Label>회사명</Label></th>
+                      <td>
+                        <TextBox addContainerClass="essential"/>
+                      </td>
+                      <th><Label>예약장소</Label></th>
+                      <td>
+                        <SelectBox :class="'essential'"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th rowspan="3"><Label>담당자 (ID 등록정보)</Label><Button class="sizeXS mt-2" buttonVariant="transactional">Edit My Profile</Button></th>
+                      <td colspan="3">
+                        <div class="booking-table-grid">
+                          <Label>이름</Label>
+                          <TextBox placeholder="---"/>
+                          <Label>Email</Label>
+                          <TextBox/>
+                          <Label>전화번호</Label>
+                          <TextBox placeholder="---"/>
+                          <Label>핸드폰번호</Label>
+                          <div class="booking-table-flex">
+                            <TextBox/>
+                            <p>(-없이 입력)</p>
+                          </div>
+                          <Label>팩스번호</Label>
+                          <TextBox placeholder="---"/>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">Shipping Information</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><Label>Vessel</Label></th>
+                      <td colspan="3">
+                        <TextBox/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>On Board Date</Label></th>
+                      <td>
+                        <TextBox/>
+                      </td>
+                      <th><Label>Arrival Date</Label></th>
+                      <td>
+                        <TextBox/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>Service Type</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-flex">
+                          <p>Origin</p>
+                          <SelectBox/>
+                          <p>Destination</p>
+                          <SelectBox/>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>선적지(Place of Loading)</Label></th>
+                      <td colspan="3">
+                        <SelectBox/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>양하지 (Discharging Port)</Label></th>
+                      <td>
+                        <TextBox/>
+                      </td>
+                      <th><Label>도착지(Place of Delivery)</Label></th>
+                      <td>
+                        <div class="booking-table-flex">
+                          <TextBox addContainerClass="essential"/>
+                          <CheckBox
+                            label="좌동"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>미주 세관신고 정보</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-flex">
+                          <p>House B/L 발행여부</p>
+                          <SelectBox/>
+                          <p>AMS for House B/L</p>
+                          <SelectBox/>
+                          <p>SCAC Code</p>
+                          <TextBox/>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>캐나다 세관신고 정보</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-flex">
+                          <p>House B/L 발행여부</p>
+                          <SelectBox/>
+                          <p>ACI for House B/L</p>
+                          <SelectBox :disabled="true" class="disabled"/>
+                          <p>8000 Code</p>
+                          <TextBox/>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">Payment Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><Label>Freight Term</Label></th>
+                      <td>
+                        <SelectBox/>
+                      </td>
+                      <th><Label>Payer</Label></th>
+                      <td>
+                        <TextBox/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">Customer Information</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th rowspan="3"><Label>Shipper</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-grid-2">
+                          <div class="booking-table-flex">
+                            <p>회사</p>
+                            <TextBox placeholder="---"/>
+                          </div>
+                          <div class="booking-table-flex">
+                            <p>주소</p>
+                            <TextBox addContainerClass="flex-1"/>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">Cargo Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><Label>Commodity</Label></th>
+                      <td>
+                        <SelectBox/>
+                      </td>
+                      <th><Label>HS CODE</Label></th>
+                      <td>
+                        <TextBox/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>총 개수</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-flex">
+                          <TextBox/>
+                          <SelectBox/>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>총 무게</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-flex">
+                          <TextBox/>
+                          <SelectBox/>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">Container Pick-Up information</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><Label>Pick-up Date</Label></th>
+                      <td colspan="3">
+                        <DateBox Class="maxW-150"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th><Label>상차지</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-flex">
+                          <SelectBox/>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p class="info-text-alert">수입 환적화물(T/S) 또는 Shipper’s Own Container(SOC) EMPTY의 경우 Wharfage 면제를 위해 아래를 선택하여 주시기 바랍니다. </p>
+      
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">한국세관</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><Label>한국세관</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-flex">
+                          <CheckBox
+                            label="T/S(수입 환적화물)"
+                          />
+                          <CheckBox
+                            label="SOC EMPTY"
+                          />
+                          <CheckBox
+                            label="DIRECT B/L"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p class="info-text">수입 환적화물(T/S)인 경우 아래의 혼재화물 적화목록 번호를 입력해 주십시오</p>
+      
+                <table class="g-table">
+                  <colgroup>
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                    <col style="width: 300px;">
+                    <col style="width: auto;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th colspan="4">수입 적하목록 관리번호</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><Label>관리번호</Label></th>
+                      <td colspan="3">
+                        <div class="booking-table-flex">
+                          <TextBox/>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+    
+            </template>
+          </Card>
+        </template>
+        <template #tab3>
+          <!-- 서치 컨테이너 -->
+          <Card>
+            <template #content>
+              <div class="contents-inner">
+                <ul>
+                  <li>
+                    <Label>Show</Label>
+                    <SelectBox/>
+                  </li>
+                  <li>
+                    <Label>Filter by</Label>
+                    <div class="input-label-flex">
+                      <SelectBox/>
+                      <SelectBox/>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </template>
+          </Card>
+
+          <Card description="00건">
+            <template #filter>
+              <Button class="sizeXS" buttonType="filter">
+                Filter
+              </Button>
+            </template>
+            <template #content>
+              <Layout height="250px">
+                <AgGrid/>
+              </Layout>
+            </template>
+          </Card>
+        </template>
+      </Tab>
+    </template>
+  </PageLayout>
+</template>
+
+<style lang="scss" scoped src="@/shared/assets/scss/pages/si-status.scss"></style>

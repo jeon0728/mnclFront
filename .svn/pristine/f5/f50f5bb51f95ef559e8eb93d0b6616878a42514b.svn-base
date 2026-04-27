@@ -1,0 +1,25 @@
+<Card class="card-container-grid">
+<template #actions>
+    <GridButton
+    buttonType="upload">
+    csv 업로드
+    </GridButton>
+    <GridButton
+    buttonType="link">
+    csv 업로드
+    </GridButton>
+    <GridButton
+    class="fill sizeGridS"
+    buttonType="add"
+    />
+    <GridButton
+    class="sizeGridS"
+    buttonType="remove"/>
+</template>
+<template #content>
+    <Layout height="250px">
+    <AgGrid
+    />
+    </Layout>
+</template>
+</Card>

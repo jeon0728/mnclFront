@@ -1,0 +1,70 @@
+/*font Noto Sans*/
+@font-face {
+	font-family: 'NotoSansKR';
+	font-style: normal;
+	src:url('../fonts/NotoSansCJKKR-Regular.eot');
+	src:url('../fonts/NotoSansCJKKR-Regular.woff2') format('woff2'),
+	url('../fonts/NotoSansCJKKR-Regular.woff') format('woff'),
+	url('../fonts/NotoSansCJKKR-Regular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'NotoSansKR';
+	font-style: normal;
+	font-weight: 300;
+	src:url('../fonts/NotoSansCJKKR-Light.eot');
+	src:url('../fonts/NotoSansCJKKR-Light.woff2') format('woff2'),
+	url('../fonts/NotoSansCJKKR-Light.woff') format('woff'),
+	url('../fonts/NotoSansCJKKR-Light.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'NotoSansKR';
+	font-style: normal;
+	font-weight: 500;
+	src:url('../fonts/NotoSansCJKKR-Medium.eot');
+	src:url('../fonts/NotoSansCJKKR-Medium.woff2') format('woff2'),
+	url('../fonts/NotoSansCJKKR-Medium.woff') format('woff'),
+	url('../fonts/NotoSansCJKKR-Medium.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'NotoSansKR';
+	font-style: normal;
+	font-weight: 700;
+	src:url('../fonts/NotoSansCJKKR-Bold.eot');
+	src:url('../fonts/NotoSansCJKKR-Bold.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/NotoSansCJKKR-Bold.woff2') format('woff2'),
+	url('../fonts/NotoSansCJKKR-Bold.woff') format('woff'),
+	url('../fonts/NotoSansCJKKR-Bold.ttf') format('truetype');
+}
+
+//pretendard
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 700;
+	font-display: swap;
+	src: url(../fonts/pretendard/Pretendard-Bold.woff2) format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 600;
+	font-display: swap;
+	src: url(../fonts/pretendard/Pretendard-SemiBold.woff2) format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 500;
+	font-display: swap;
+	src: url(../fonts/pretendard/Pretendard-Medium.woff2) format('woff2');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 400;
+	font-display: swap;
+	src: url(../fonts/pretendard/Pretendard-Regular.woff2) format('woff2');
+}
+
+.gsabis2-app, .gsabis2-modal {
+	font-family: 'Pretendard', 'NotoSansKR', sans-serif !important;
+}

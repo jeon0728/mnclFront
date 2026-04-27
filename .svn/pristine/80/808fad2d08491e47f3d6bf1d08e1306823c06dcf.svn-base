@@ -1,0 +1,387 @@
+@use "../../../../../node_modules/.pnpm/ag-grid-community@33.3.2/node_modules/ag-grid-community/styles/index" as ag;
+@use "../variable" as *;
+@use 'sass:map';
+@use 'sass:string';
+
+// ag-grid 색 관리
+$ag-palette: (
+  primary: #1976D2,
+  background: #fff,
+  selectBg: #E9F3FD,
+  hoverBg: #bbbbbb,
+  iconBg: #dedede,
+  iconBgDark: #155bbe,
+  menuBg: #fcfcfc,
+  text: #484848,
+  headerBg: #EEEEEE,
+  headerBgDark: #0D4491,
+  headerText: #484848,
+  headerTextDark: #FCFCFC,
+  tooltipBg: #dedede,
+  tooltipText: #111,
+  controlPanelBg: #f5f7f7,
+  border: #EEEEEE,
+  borderHeader: #dedede,
+  borderHeaderDark: #636363,
+  checkBorderBefore: #808080,
+  checkBorder: #1976D2,
+  borderSelect: #4bc1fb,
+  borderFocus: #046bfb,
+  oddRowBg: #fcfdfe,
+  rowHover: #f8f8f8,
+  rowSelect: #E9F3FD,
+  cellSelect: transparent,
+  inputBorder: transparent,
+  invalid: #d32f2f,
+  inputDisabledBg: #eeeeee,
+  checkboxUnchecked: #dedede,
+  inputFocusBorder: #f5f5f5,
+  scrollCornerBg: #F8F8F8,
+  popupInputBg: #eeeeee,
+  popupInputFocusBorder: #dedede
+);
+
+// 회색 그리드
+.ag-theme-balham.ag-theme-gsabis2 {
+
+  --gridH: 41px;
+  --gridHRow: 40px;
+  --gridHeaderIconBg: #{map.get($ag-palette ,iconBg)};
+
+  //폰트
+  --ag-font-family: #{$font-default};
+  --ag-icon-font-color: #{map.get($ag-palette ,text)};
+  --ag-font-size: 14px;
+
+
+  // 기본 색상
+  --ag-balham-active-color: #{map.get($ag-palette ,primary)};
+  --ag-header-foreground-color: #{map.get($ag-palette ,text)};
+  --ag-foreground-color: #{map.get($ag-palette ,text)};
+  --ag-background-color: #{map.get($ag-palette ,background)};
+  --ag-header-background-color: #{map.get($ag-palette ,headerBg)};
+  --ag-odd-row-background-color: #{map.get($ag-palette ,background)};
+  --ag-control-panel-background-color: #{map.get($ag-palette ,background)};
+  --ag-panel-background-color: white;
+  --ag-menu-background-color: #{map.get($ag-palette ,menuBg)};
+
+  // 보더
+  --ag-border-color: #{map.get($ag-palette ,border)};
+  --ag-row-border-color: #{map.get($ag-palette ,border)};
+  --ag-row-hover-color: #{map.get($ag-palette ,rowHover)};
+  // --ag-input-border-color: #{map.get($ag-palette ,subheaderBg)};
+  --ag-range-selection-border-color: #{map.get($ag-palette ,borderSelect)};
+  --ag-header-column-separator-color: #{map.get($ag-palette ,border)};
+
+  //인풋
+  --ag-borders-input: none;
+  --ag-input-border-color: transparent;
+  --ag-invalid-color: #{map.get($ag-palette ,invalid)};
+
+  //checkbox
+  --ag-checkbox-border-radius: 4px;
+  --ag-checkbox-background-color: white;
+  --ag-checkbox-checked-color: white;
+  --ag-checkbox-indeterminate-color: transparent;
+
+  // //인풋, 체크박스, 라디오박스 입력박스는 다 해당
+  --ag-input-focus-border-color: #{map.get($ag-palette ,borderFocus)};
+  --ag-input-focus-box-shadow: #{$shadow-normal};
+
+  //셀렉티드
+  --ag-selected-row-background-color: #{map.get($ag-palette ,rowSelect)};
+  //서브 셀렉티드
+  --ag-range-selection-background-color: #{map.get($ag-palette ,rowSelect)};
+
+  // 스크롤바
+  --scroll-corner-bg: #{map.get($ag-palette, scrollCornerBg)};
+  
+  // 구분선 높이
+  --ag-header-column-separator-height: 100%;
+  --ag-header-height: var(--gridH);
+  --ag-row-height: var(--gridHRow);
+  // --ag-cell-horizontal-padding: 12px;
+
+  // 그리드 팝업
+  --ag-popup-shadow: #{$shadow-normal};
+  --popup-input-bg: #{map.get($ag-palette, popupInputBg)};
+  --popup-input-focus-border: #{map.get($ag-palette, popupInputFocusBorder)};
+
+  //메뉴(드롭다운) 헤더 색상
+  .ag-menu{
+    --ag-background-color: #{map.get($ag-palette ,menuBg)};
+    &-header{
+      --ag-header-background-color: #{map.get($ag-palette ,background)};
+    }
+  }
+
+  // 플로팅 픽스 래프트 헤더 보더 right 스타일
+  .ag-pinned-left-header {
+    --ag-border-color: transparent;
+  }
+  .ag-cell.ag-cell-last-left-pinned:not(.ag-cell-range-right):not(.ag-cell-range-single-cell) {
+    --ag-border-color: transparent;
+  }
+
+  // 플로팅 픽스 라이트 헤더 보더 스타일
+  .ag-pinned-right-header {
+    --ag-border-color: transparent;
+  }
+  .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
+    --ag-border-color: transparent;
+  }
+
+  // 플로팅 하단 스타일
+  .ag-row.ag-row-pinned {
+    --ag-pinned-row-font-weight: #{$fw-bold};
+    --ag-pinned-row-text-color: #{map.get($ag-palette ,text)};
+    --ag-pinned-row-background-color: #{map.get($ag-palette ,headerBg)};
+    // 호버 오류 정정
+    &.ag-row-hover:not(.ag-full-width-row)::before{
+      --ag-row-hover-color: #{map.get($ag-palette ,headerBg)};
+    }
+  }
+  
+  //메뉴 아이콘 강제로 바꾸기
+  .ag-icon-menu{
+    &:before{
+      content: var(--ag-icon-font-code-menu-alt, "\f12b");
+      display: var(--ag-icon-font-display-menu-alt, var(--ag-icon-font-display));
+    }
+    &:after{
+        background-image: var(--ag-icon-image-menu-alt, var(--ag-icon-image));
+        display: var(--ag-icon-image-display-menu-alt, var(--ag-icon-image-display));
+        opacity: var(--ag-icon-image-opacity-menu-alt, var(--ag-icon-image-opacity, 0.9));
+    }
+  }
+
+  // 그리드 최상단
+  .ag-root-wrapper {
+    border-radius: $rM;
+    border: 0;
+  }
+
+  //헤더
+  .ag-header{
+    &-icon{
+      border-radius: $rS;
+      transition: background-color $tr-short;
+      &:hover {
+        background-color: var(--gridHeaderIconBg);
+      }
+    }
+    // 헤더 폰트웨이트 조정
+    &-row{
+      font-weight: $fw-bold;
+    }
+  }
+
+  .ag-header-cell{
+    &-comp-wrapper{
+      justify-content: center;
+    }
+    &-label{
+      justify-content: center;
+    }
+  }
+
+  .ag-floating-bottom-viewport .ag-row-hover{
+    background-color: var(--ag-header-background-color);
+  }
+  .ag-floating{
+    &-bottom{
+      &:not(.ag-invisible){
+        border-top: none;
+      }
+    }
+  }
+
+  // 체크박스
+  .ag-ltr .ag-selection-checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+  }
+
+  input[type="checkbox"] {
+    appearance: none !important;
+    @include checkRadioDefault;
+    @include checkbox;
+  }
+  
+  .ag-checkbox-input-wrapper.ag-checked {
+    background-color: #{map.get($ag-palette ,primary)};
+  }
+
+  .ag-checkbox-input-wrapper:before {
+    border-radius: var(--ag-checkbox-border-radius);
+  }
+  
+  .ag-checkbox-input-wrapper.ag-checked::before {
+    border-color: #{map.get($ag-palette ,primary)};
+  }
+
+  .ag-checkbox-input-wrapper.ag-checked::after {
+    background-image: url(icon(check, ffffff));
+    width: 8px;
+    height: 7px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: "";
+  }
+
+  .ag-cell {
+    // display: flex;
+    align-items: center;
+    align-content: center;
+    &[col-id="버튼"] {
+      display: flex;
+      align-items: center;
+    }
+    // 높이값 맞추기
+    .popover-container {
+      height: auto;
+    }
+  }
+
+  .ag-cell-wrapper {
+    width: 100%;
+    justify-content: center;
+  }
+
+  // grid cell 체크박스가 있는 경우에만 스타일
+  .ag-cell:has( > .gsabis-check-box){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  //선택된 셀 보더 꾸미기
+  .ag-cell-focus, .ag-cell-range-selected {
+    border-width: 1.5px;
+  }
+}
+
+// 다크 그리드
+.ag-theme-balham.ag-theme-gsabis2.dark {
+  --ag-header-background-color: #{map.get($ag-palette ,headerBgDark)};
+  --ag-header-foreground-color: white;
+  --ag-border-color: #{map.get($ag-palette ,checkBorderBefore)};
+  --ag-header-column-separator-color: #{map.get($ag-palette ,headerBgDark)};
+  .ag-header {
+    --gridHeaderIconBg: #{map.get($ag-palette ,iconBgDark)};
+    --ag-icon-font-color: white;
+    --ag-border-color: #{map.get($ag-palette ,borderHeaderDark)};
+  }
+  &.double {
+    --ag-header-column-separator-color: #{map.get($ag-palette ,borderHeaderDark)};
+
+  }
+}
+
+// 그리드 row 크기 조정용 클래스
+.ag-theme-balham.ag-theme-gsabis2.big {
+  --gridHRow: 56px;
+}
+
+// 그리드 헤더 2중첩 조정용 클래스
+.ag-theme-balham.ag-theme-gsabis2.double {
+  --gridH: 26px;
+  --ag-header-column-separator-color: #{map.get($ag-palette ,borderHeader)};
+  .ag-header {
+    --ag-border-color: #{map.get($ag-palette ,borderHeader)};
+  }
+  .ag-header-group-text {
+    // font-size: 12px;
+  }
+}
+
+
+
+//input 보더 오류 수정용
+.ag-root-wrapper .ag-cell-focus:not(.ag-cell-range-selected):focus-within,
+.ag-root-wrapper .ag-context-menu-open .ag-cell-focus:not(.ag-cell-range-selected),
+.ag-root-wrapper .ag-full-width-row.ag-row-focus:focus .ag-cell-wrapper.ag-row-group,
+.ag-root-wrapper .ag-cell-range-single-cell,
+.ag-root-wrapper .ag-cell-range-single-cell.ag-cell-range-handle{
+  .input-container{
+    height: 100% !important;
+    padding: 4px 12px;
+    border-radius: 0;
+    border: 0;
+    outline: 0;
+    .input-wrapper {
+      font-size: var(--ag-font-size);
+    }
+    .button {
+      width: 22px;
+      height: 22px;
+    }
+    &.async{
+      padding: 4px 12px;
+      padding-right: 24px;
+      .input-wrapper {
+        flex: 1 0 100px;
+      }
+      .ui-button-search {
+      padding: 2px;
+      width: 22px;
+      height: 22px;
+      }
+    }
+  }
+}
+
+.ag-input-field-input.ag-text-field-input{
+  border-radius: 0;
+  border: 0;
+  outline: 0;
+}
+//input 보더 오류 수정용
+
+.ag-horizontal-right-spacer.ag-scroller-corner {
+  background-color: var(--scroll-corner-bg);
+}
+
+// head menu popup
+.ag-popup
+.ag-menu{
+  border-radius: $rM;
+  font-size: 13px;
+  font-weight: 500;
+  // popup search input
+  .ag-input-field-input.ag-text-field-input{
+    padding: 4px 2px;
+    border: 1px solid;
+    border-color: transparent;
+    border-radius: $rS;
+    background-color: var(--popup-input-bg);
+    &:focus{
+      box-shadow: none;
+      border-color: var(--popup-input-focus-border);
+    }
+  }
+  &.ag-popup-child{
+    z-index: 500;
+  }
+}
+
+// 스크롤바 변경 (가러,세로 모두 포함)
+.ag-theme-balham.ag-theme-gsabis2 {
+  // 세로
+  .ag-body-vertical-scroll-viewport {
+    @include custom-scrollbar;
+  }
+  // 가로
+  .ag-body-horizontal-scroll-viewport {
+    @include custom-scrollbar;
+  }
+  // 가로 픽스드
+  .ag-horizontal-left-spacer {
+    --ag-borders-critical: transparent;
+    @include custom-scrollbar;
+  }
+}

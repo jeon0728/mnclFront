@@ -1,0 +1,6 @@
+import { axios } from '@/shared/utils'
+
+export const logout = async () => {
+  return await axios.get( `/api/auth/v1/logout` )
+}
+

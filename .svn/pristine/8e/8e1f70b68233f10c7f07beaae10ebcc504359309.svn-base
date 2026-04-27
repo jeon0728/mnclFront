@@ -1,0 +1,70 @@
+@use '../../variable' as *;
+
+.label {
+  div {
+    width: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .label__essential {
+    @include colors('color', systemRed);
+  }
+}
+
+.radio-item .radio-label {
+  @include black('color', 20);
+}
+
+.req:before {
+    display: inline-flex;
+    margin-right: 4px;
+    font-size: $fs-xs;
+    content: "*";
+    @include colors('color', systemRed);
+}
+
+p {
+  margin: 0;
+}
+
+.info-text{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: $fs-xs;
+  @include black('color', 30);
+  &::before {
+    content: "";
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    @include black('background-color', 30);
+  }
+  &-alert {
+    @extend .info-text;
+    @include colors('color', systemRed);
+  }
+}
+
+li.info-text {
+  list-style-type: disc;
+  list-style-position: inside;
+  font-size: $fs-s;
+  @include black('color', 30);
+}
+
+.info-text-alert {
+  font-size: $fs-xs;
+  @include colors('color', systemRed);
+  &::before {
+    @include colors('background-color', systemRed);
+  }
+}
+
+.required::after {
+  content: '*';
+  color: red;
+  font-weight: bold;
+}

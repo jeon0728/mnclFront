@@ -1,0 +1,28 @@
+<template>
+  <!-- 
+    * 카드 헤더는 없을 수 있음(타이틀이 없을 경우)
+    * 타이틀만 존재할 수 있음
+    * 디스크립션은 원래 설명란이지만 동적으로 작동할 필요도 있음(디스크립션만 있는 경우도 있음) => 사실상 디스크립션이 아닌...?
+    * 디스크립션만 있는 경우 있음 - 디스크립션이 있다면 반드시 버튼과 같이 등장
+    * 버튼 그룹이 필터,소트 버튼과 일반 버튼 그룹으로 나뉨
+    * 버튼 사이즈는 무조건 24px 
+-->
+  <div class="card-header">
+    <span class="card-title">
+      xkdfldl
+    </span>
+    <div class="card-header-inner">
+      <span class="card-description">
+        dddd
+      </span>
+      <div class="card-actions-left">
+        <button class="button-container gsabis-button transactional sizeS filter">filter</button>
+        <slot name="filters"/>
+      </div>
+      <div class="card-actions-right">
+        <button class="button-container gsabis-button transactional sizeS">123</button>
+        <slot name="actions"/>
+      </div>
+    </div>
+  </div>
+</template>

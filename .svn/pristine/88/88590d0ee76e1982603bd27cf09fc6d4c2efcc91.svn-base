@@ -1,0 +1,175 @@
+<template>
+  <div class="mncl-page">
+    <h1 class="mncl-page__title">LOCAL CHARGE</h1>
+    <!-- Search -->
+    <div class="search-row">
+      <span class="search-label">조회기간</span>
+      <div class="search-controls flex">
+        <DateBox v-model="fromDt" add-container-class="search-input" />
+        <DateBox v-model="toDt" add-container-class="search-input" />
+        <Button class="accent sizeL" @click="handleSearch">search</Button>
+      </div>
+      <Button class="sizeL right" buttonType="download" @click="handleDownloadTemplate">
+        {{ 'Excel 양식 다운로드' }}
+      </Button>
+      <Button class="sizeL" buttonType="upload" @click="() => excelRef?.click()">
+        {{ 'Excel 업로드' }}
+      </Button>
+      <input
+        ref="excelRef"
+        type="file"
+        :style="{ display: 'none' }"
+        @change="(e) => handleUploadExcel(e)"
+      />
+    </div>
+
+    <div class="panel panel-charge">
+      <div class="panel-head">
+        <div class="panel-head-icon">
+          <img src="@/shared/assets/image/CurrencyCircleDollar.svg" alt="charge icon" />
+        </div>
+        <span class="panel-head-label">LOCAL CHARGE 등록</span>
+      </div>
+      <div class="panel-divider"></div>
+      <div class="panel-body scroll">
+        <table class="charge-table">
+          <colgroup>
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>BL NO.</th>
+              <th class="center">업데이트 일시</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, idx) in mnclLocalChangeList" :key="idx">
+              <td>{{ row.hblNo ?? '' }}</td>
+              <td class="center">{{ row.inDateTime ?? '' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import {
+    downloadMnclTemplate,
+    getMnclLocalList,
+    uploadExcel,
+    type MnclExcelUploadResponse,
+    type MnclLocalRegistRowDto
+  } from '@/ui/mncl/api'
+  import { DISPLAY_DATE_UNIT } from '@/shared/constants/control/unit'
+  import { usePage, useHttp } from '@/shared/composables'
+  import { GsabisGridButton as GridButton } from '@/shared/ui'
+  import { DateUtil, FormBuilder } from '@/shared/utils'
+
+  const excelRef = ref<HTMLInputElement | null>(null)
+
+  const todayForDateBox = () => DateUtil.getTodayDate(DISPLAY_DATE_UNIT)
+  const fromDt = ref(todayForDateBox())
+  const toDt = ref(todayForDateBox())
+  const mnclLocalChangeList = ref<MnclLocalRegistRowDto[]>([])
+
+  const resetSearchPeriodToToday = () => {
+    const t = todayForDateBox()
+    fromDt.value = t
+    toDt.value = t
+  }
+
+  onMounted(resetSearchPeriodToToday)
+  onActivated(resetSearchPeriodToToday)
+
+  useHead({ title: '등록' })
+  const [excelRequest] = useHttp()
+  const [listRequest] = useHttp()
+  const { questionMessage, errorMessage, successNotify } = usePage()
+
+  /** `ResponseVo` 래핑 여부와 무관하게 `mnclLocalChangeList` 추출 */
+  const extractMnclLocalChangeList = (body: unknown): MnclLocalRegistRowDto[] => {
+    if (!body || typeof body !== 'object') return []
+    const b = body as Record<string, unknown>
+    const inner =
+      b.data !== undefined && b.data !== null && typeof b.data === 'object'
+        ? (b.data as Record<string, unknown>)
+        : b
+    const list = inner.mnclLocalChangeList
+    return Array.isArray(list) ? list : []
+  }
+
+  const handleSearch = async () => {
+    const { data, error } = await listRequest(
+      getMnclLocalList({ fromDt: fromDt.value, toDt: toDt.value })
+    )
+    if (error) {
+      errorMessage(error.message)
+      return
+    }
+    mnclLocalChangeList.value = extractMnclLocalChangeList(data)
+  }
+
+  const handleUploadExcel = async (e: Event) => {
+    const target = e.target as HTMLInputElement
+    const { files } = target
+    if (!files || files.length === 0) return
+
+    // 업로드 전에 컨펌 다이얼로그 표시
+    const isConfirm = await questionMessage('엑셀 파일을 업로드하시겠습니까?')
+    if (!isConfirm) {
+      // 취소 시 input 초기화
+      if (excelRef.value) {
+        excelRef.value.value = ''
+      }
+      return
+    }
+
+    const form = FormBuilder.create()
+      .appendFile('file', files.item(0))
+      .appendJson('param', null)
+      .build()
+
+    const { data, error } = await excelRequest<MnclExcelUploadResponse>(uploadExcel(form))
+
+    if (error) {
+      errorMessage(error.message)
+    } else if (data?.code === '0000') {
+      const baseMsg = data.message || '엑셀 업로드가 완료되었습니다.'
+      const hasMissing = Array.isArray(data.missingHblNoList) && data.missingHblNoList.length
+      const missing = hasMissing
+        ? `\n저장되지 않은 HBL: ${(data.missingHblNoList ?? []).join(', ')}`
+        : ''
+      successNotify(baseMsg + missing, {
+        durationMs: hasMissing ? 6500 : 4500
+      })
+    } else {
+      errorMessage(data?.message || '엑셀 업로드에 실패했습니다.')
+    }
+
+    if (excelRef.value) {
+      excelRef.value.value = ''
+    }
+  }
+
+  const handleDownloadTemplate = async () => {
+    try {
+      const response = await downloadMnclTemplate()
+      const blob = new Blob([response.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = 'MNCL_업로드양식.xlsx'
+      link.click()
+      window.URL.revokeObjectURL(url)
+    } catch (e) {
+      errorMessage('양식 다운로드에 실패했습니다.')
+    }
+  }
+</script>
+
+<style scoped lang="scss" src="@/shared/assets/scss/pages/regist.scss"></style>

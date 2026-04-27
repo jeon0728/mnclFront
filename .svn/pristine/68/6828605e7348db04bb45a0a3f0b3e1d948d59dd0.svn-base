@@ -1,0 +1,158 @@
+@use "../../variable" as *;
+
+// tab location 영역 레이아웃
+.router-tab {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow-x: auto;
+  // tabhead 영역
+  &__header-wrapper {
+    position: sticky;
+    left: 0;
+    padding: 0;
+    border: 0;
+    border-bottom-width: 1px;
+    border-style: solid;
+    height: 32px;
+    @include black("background-color", white);
+    @include black("border-bottom-color", 70);
+  }
+  // tab 왼쪽 영역
+  &__actions {
+    display: flex;
+    margin-left: auto;
+    padding: 8px;
+    // 전부 삭제
+    &-delete {
+      display: flex;
+      align-items: center;
+      user-select: none;
+      cursor: pointer;
+      font-size: $fs-xs;
+      @include colors("color", systemRed);
+    }
+    //tabhead end
+  }
+
+  &__body-wrapper {
+    overflow-y: hidden;
+    transition: 0.3s ease-out;
+    height: 100%;
+    width: 100%;
+
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 100px;
+      visibility: hidden;
+      opacity: 0;
+
+      &:hover {
+        visibility: inherit;
+        @include black('background-color', 80);
+      }
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: inherit;
+    }
+  }
+}
+
+// 헤더 영역 빼둠
+.router-tab__header{
+  padding-inline-start: 0;
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  margin: 0;
+  list-style: none;
+  align-items: center;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  //  탭 li 스타일
+  &__list {
+    height: 100%;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    font-size: $fs-xs;
+    border: 0;
+    border-right-width: 1px;
+    border-style: solid;
+    transition: background-color $tr-short, color 0s;
+    @include black("border-color", 70);
+    /* 탭은 액티브가 없고 나머지가 노 액티브가 된다
+    first는 home으로 고정
+    */
+    &:not(.tab-no-active) {
+      border-left-width: 1px; 
+      @include black("background-color", white);
+      @include colors("border-color", naviAccent);
+      @include colors("color", naviAccent);
+      &:hover {
+        @include colors("background-color", primary, 0.3, 0.1, #E5EBF6);
+        .list__icon:hover {
+          @include colors("background-color", primary, 0.3, 0.2, #d0e1ff);
+        }
+      }
+    }
+  
+    &.tab-no-active {
+      @include black("background-color", 90);
+      @include black("color", 40);
+    }
+  
+    &:hover.tab-no-active {
+      @include black("color", 0);
+      @include black("background-color", white);
+    }
+  
+    &.first {
+      @include black("background-color", 90);
+      @include black("color", 40);
+      @include black("border-color", 70);
+      // 맨 처음이 홈인 경우 보더 삭제
+      &.last {
+        border-left-color: transparent;
+      }
+    }
+  
+    .list__title {
+      user-select: none;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  
+    .list__icon {
+      width: $icons-s;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $rS;
+      transition: background-color $tr-short;
+      &:hover {
+        @include black("background-color", 70);
+      }
+    }
+  }
+  &::-webkit-scrollbar {
+    height: 2px !important;
+  }
+  &::-webkit-scrollbar-thumb {
+    visibility: visible !important;
+    @include black("background-color", 70);
+  }
+}

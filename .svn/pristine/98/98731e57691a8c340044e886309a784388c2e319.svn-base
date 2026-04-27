@@ -1,0 +1,7 @@
+export const ACCESS_TOKEN = 'access_token'
+export const REFRESH_TOKEN = 'refresh_token'
+export const REFRESH_TOKEN_ERROR = 'RefreshTokenError'
+export const CORP_ID = 'corpId'
+export const LANGUAGES = 'languages'
+export const MENU_LIST = 'menu_list'
+export const MENU_MAP = 'menu_map'

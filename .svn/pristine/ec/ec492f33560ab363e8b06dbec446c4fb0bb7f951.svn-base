@@ -1,0 +1,93 @@
+@use '../../variable' as *;
+@use '../../mixins/inputs' as input;
+
+button, input, select, textarea {
+    appearance: none;
+    border: 0;
+    background-color: inherit;
+}
+
+.gsabis2-signup {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    &-checkbox-container{
+        padding: 8px 8px 12px 8px;
+        border-radius: $rM;
+        @include black("background-color", 95);
+    }
+    .textarea-container {
+        @include black("background-color", white);
+    }
+    &-checkbox-allcheck {
+        padding: 4px 8px;
+        border-radius: $rM;
+        font-weight: 600;
+        @include black("background-color", 70);
+        @include colors("color", secondary);
+        .input-label-flex{
+            margin-top: 0;
+        }
+    }
+}
+
+// 인풋 정렬
+.input-area-flex{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    > .gsabis-button {
+        min-width: 72px;
+        flex-shrink: 0;
+        flex-basis: 72px;
+        min-height: 40px;
+        font-size: $fs-s;
+        font-weight: 400;
+    }
+}
+
+.input-area-flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-label-flex{
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: $fs-xs;
+}
+
+// 오류메시지
+.msg-text {
+    margin-top: 4px;
+    font-size: $fs-xs;
+    @include black("color", 40);
+    &.error {
+        @include colors("color", systemRed);
+    }
+    &.success {
+        @include colors("color", systemGreen);
+    }
+}
+
+// input
+// 수정은 mixin/_inputs.scss에서 수정
+.input-container.select-container {
+    @include input.select;
+}
+
+input[type="radio"],input[type="checkbox"]{
+    @include input.checkRadioDefault;
+}
+
+input[type="radio"]{
+    @include input.radio;
+}
+
+input[type="checkbox"]{
+    @include input.checkbox;
+}
+

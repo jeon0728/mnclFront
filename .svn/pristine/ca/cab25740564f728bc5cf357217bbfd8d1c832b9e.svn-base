@@ -1,0 +1,82 @@
+<template>
+  <div
+    :class="[
+      'side-mobile-menu-item',
+      menuDepth !== 1 ? 'flex' : '',
+      `menu-depth-${menuDepth}`,
+      hasChildren ? 'children' : ''
+    ]"
+    @mouseover="menuDepth === 1 && !isSubMenuExpand && (isSubMenuExpand = true)"
+    @mouseleave="menuDepth === 1 && isSubMenuExpand && (isSubMenuExpand = false)"
+    @click="handleMenuItemClick"
+  >
+    <!-- <SideMenuIcon v-if="menuDepthIcon" :icon="menuDepthIcon" /> -->
+    <span v-if="menuDepth === 2" class="line"></span>
+    <span v-if="menuDepth !== 1" class="side-menu-item__title">{{ lang(menuNm) }}</span>
+    <span v-if="menuDepth === 2" class="line"></span>
+    <SideMenuIcon v-if="menuIcon" :icon="menuIcon"/>
+    <!-- <div v-if="menuDepth === 1" class="side-menu-item__alias-title">{{ lang(menuNm) }}</div> -->
+
+    <div v-if="isSubMenuExpand && hasChildren" class="menu-items" :style="sideMobileMenuItemStyle">
+      <SideMobileMenuItem
+        v-for="subMenu in menuChildren"
+        :key="subMenu.menuId"
+        :menu="subMenu"
+        :menuDepth="menuDepth + 1"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { computed, ref } from 'vue'
+  import SideMenuIcon from './SideMenuIcon.vue'
+  import type { MenuData } from '@/shared/types/store'
+  import { useLanguage } from '@/shared/composables'
+  import { useMenuStore } from '@/shared/store'
+
+  const menuStore = useMenuStore()
+  const router = useRouter()
+
+  const props = defineProps<SideMenuItemProps>()
+  const { menuDepth, menuIdx, menu } = props
+  const { menuId, menuIcon, children: menuChildren, menuNm, menuUrl } = menu
+  const hasChildren = computed(() => menuChildren && menuChildren.length > 0)
+
+  const lang = useLanguage()
+  const isSubMenuExpand = ref(false)
+  const activeMenuIdx = ref(menuIdx ?? 0)
+
+  // const menuDepthIcon = computed(() => {
+  //   if (menuDepth === 2) {
+  //     return hasChildren.value ? '' : DEPTH_2_ICON
+  //   } else if (menuDepth === 3) {
+  //     return DEPTH_3_ICON
+  //   } else {
+  //     return ''
+  //   }
+  // })
+
+  const sideMobileMenuItemStyle = computed(() => ({
+    top: `${activeMenuIdx.value * 51 + 150}px`
+  }))
+
+  // 메뉴 클릭
+  const handleMenuItemClick = () => {
+    if (hasChildren.value) {
+      isSubMenuExpand.value = !isSubMenuExpand.value
+    } else {
+      menuStore.selectMenu(menuId)
+      router.push(menuUrl)
+    }
+  }
+
+  // const DEPTH_2_ICON = 'mdi-menu-right'
+  // const DEPTH_3_ICON = 'mdi-menu-right'
+
+  interface SideMenuItemProps {
+    menu: MenuData
+    menuIdx?: number
+    menuDepth: number
+  }
+</script>

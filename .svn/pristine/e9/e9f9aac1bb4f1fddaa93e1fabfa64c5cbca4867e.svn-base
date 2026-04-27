@@ -1,0 +1,157 @@
+{
+  "locale": {
+    "en_GB": {
+      "locNm": "English (United Kingdom)",
+      "dateFormatY4": "dd/MM/yyyy",
+      "dateFormatY2": "dd/MM/yy",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    },
+    "en_US": {
+      "locNm": "English (United States)",
+      "dateFormatY4": "MM/dd/yyyy",
+      "dateFormatY2": "MM/dd/yy",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    },
+    "es_ES": {
+      "locNm": "Spanish (Spain)",
+      "dateFormatY4": "dd/MM/yyyy",
+      "dateFormatY2": "dd/MM/yy",
+      "numberFormat": "###.###.###,00",
+      "separator": ".",
+      "point": ",",
+      "numBy": 3
+    },
+    "fr_CA": {
+      "locNm": "French (Canada)",
+      "dateFormatY4": "yyyy-MM-dd",
+      "dateFormatY2": "yy-MM-dd",
+      "numberFormat": "### ### ###,00",
+      "separator": " ",
+      "point": ",",
+      "numBy": 3
+    },
+    "fr_CH": {
+      "locNm": "French (Switzerland)",
+      "dateFormatY4": "dd.MM.yyyy",
+      "dateFormatY2": "dd.MM.yy",
+      "numberFormat": "###'###'###,00",
+      "separator": "'",
+      "point": ",",
+      "numBy": 3
+    },
+    "fr_FR": {
+      "locNm": "French (France)",
+      "dateFormatY4": "dd/MM/yyyy",
+      "dateFormatY2": "dd/MM/yy",
+      "numberFormat": "### ### ###,00",
+      "separator": " ",
+      "point": ",",
+      "numBy": 3
+    },
+    "ru_RU": {
+      "locNm": "Russian",
+      "dateFormatY4": "dd.MM.yyyy",
+      "dateFormatY2": "dd.MM.yy",
+      "numberFormat": "### ### ###,00",
+      "separator": " ",
+      "point": ",",
+      "numBy": 3
+    },
+    "uk_UA": {
+      "locNm": "Ukrainian",
+      "dateFormatY4": "dd.MM.yyyy",
+      "dateFormatY2": "dd.MM.yy",
+      "numberFormat": "### ### ###,00",
+      "separator": " ",
+      "point": ",",
+      "numBy": 3
+    },
+    "vi_VN": {
+      "locNm": "Vietnamese (Viet Nam)",
+      "dateFormatY4": "dd/MM/yyyy",
+      "dateFormatY2": "dd/MM/yy",
+      "numberFormat": "###.###.###,00",
+      "separator": ".",
+      "point": ",",
+      "numBy": 3
+    },
+    "zh_CN": {
+      "locNm": "Chinese (China)",
+      "dateFormatY4": "yyyy/MM/dd",
+      "dateFormatY2": "yy/MM/dd",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    },
+    "zh_HK": {
+      "locNm": "Chinese (Hong Kong)",
+      "dateFormatY4": "dd/MM/yyyy",
+      "dateFormatY2": "dd/MM/yy",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    },
+    "zh_SG": {
+      "locNm": "Chinese (Singapore)",
+      "dateFormatY4": "dd/MM/yyyy",
+      "dateFormatY2": "dd/MM/yy",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    },
+    "zh_TW": {
+      "locNm": "Chinese (Taiwan)",
+      "dateFormatY4": "yyyy/MM/dd",
+      "dateFormatY2": "yy/MM/dd",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    },
+    "ko_KR": {
+      "locNm": "Korean",
+      "dateFormatY4": "yyyy-MM-dd",
+      "dateFormatY2": "yy-MM-dd",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    },
+    "ja_JP": {
+      "locNm": "Japanese",
+      "dateFormatY4": "yyyy/MM/dd",
+      "dateFormatY2": "yyyy/MM/dd",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    },
+    "id_ID": {
+      "locNm": "Indonesia",
+      "dateFormatY4": "dd/MM/yyyy",
+      "dateFormatY2": "dd/MM/yyyy",
+      "numberFormat": "###,###,###.00",
+      "separator": ".",
+      "point": ",",
+      "numBy": 3
+    },
+    "th_TH": {
+      "locNm": "Thailand",
+      "dateFormatY4": "dd/MM/yyyy",
+      "dateFormatY2": "dd/MM/yyyy",
+      "numberFormat": "###,###,###.00",
+      "separator": ",",
+      "point": ".",
+      "numBy": 3
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<template>
+  <component
+    :is="IconComponent || ListIcon"
+    v-bind="attrs"
+  />
+</template>
+
+<script setup lang="ts">
+  import * as MenuIcon from '@phosphor-icons/vue'
+  import { computed, useAttrs } from 'vue'
+
+  const props = withDefaults( defineProps<SideMenuIconProps>(), {
+    icon: ''
+  } )
+  const attrs = useAttrs()
+
+  const iconName = computed( () => {
+    if ( props.icon ) {
+      return 'Ph' + props.icon.charAt( 0 ).toUpperCase() + props.icon.slice( 1 )
+    }
+    return 'PhList'
+  } )
+
+  const IconComponent = computed( () => {
+    if ( iconName.value in MenuIcon ) {
+      return MenuIcon[ iconName.value as keyof typeof MenuIcon ]
+    }
+    return null
+  } )
+
+  const ListIcon = MenuIcon.PhList
+
+  interface SideMenuIconProps {
+    icon: string
+  }
+</script>

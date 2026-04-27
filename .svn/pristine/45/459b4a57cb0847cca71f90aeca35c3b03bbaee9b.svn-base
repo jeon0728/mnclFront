@@ -1,0 +1,38 @@
+<template>
+  <div class="main-layout-container">
+    <ClientOnly>
+      <MainHeader/>
+      <MainContent class="main-layout-content">
+        <slot/>
+      </MainContent>
+    </ClientOnly>
+  </div>
+</template>
+<script lang="ts" setup>
+/**
+ * @vue/component
+ * @description 애플리케이션의 기본 레이아웃을 제공하는 컴포넌트입니다.
+ *              헤더(타이틀, 액션)와 메인 콘텐츠 영역으로 구성되며,
+ *              기본 탭 정보(홈)를 포함합니다.
+ *
+ * @example
+ * <MainLayout>
+ *   <router-view />
+ * </MainLayout>
+ *
+ * @slots
+ * - default: 메인 콘텐츠 영역에 렌더링될 내용
+ */
+  import '@/shared/assets/scss/components/layouts/main-layout.scss'
+  import { ref } from 'vue'
+  import { MainContent, MainHeader, RouterTab } from '@/shared/containers'
+
+  defineSlots<{
+    default: () => any,
+  }>()
+
+  const tab = ref( {
+    to: '/',
+    title: 'home'
+  } )
+</script>

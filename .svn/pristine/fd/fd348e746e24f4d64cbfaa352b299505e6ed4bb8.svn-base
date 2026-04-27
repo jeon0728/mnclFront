@@ -1,0 +1,419 @@
+@use 'sass:map';
+@use 'sass:string';
+
+//컬러값 저장
+$palette: (
+  primary: (
+    lightness: 0.367,
+    chroma: 0.1332,
+    hue: 257.54,
+    fallback: #003b83,
+  ),
+  primaryBg: (
+    lightness: 0.97,
+    chroma: 0.01,
+    hue: 251.29,
+    fallback: #eef6ff,
+  ),
+
+  // layout color
+  naviAccent: (
+    lightness: 0.57,
+    chroma: 0.23,
+    hue: 260,
+    fallback: #046BFB,
+  ),
+  innerBorder: (
+    lightness: 0.975,
+    chroma: 0.015,
+    hue: 229,
+    fallback: #EDF9FF,
+  ),
+  // layout color
+
+  // modal system color
+  info:
+    (
+      lightness: 0.6028,
+      chroma: 0.21777,
+      hue: 257.42,
+      fallback: #007aff,
+    ),
+  warn: (
+    lightness: 0.8652,
+    chroma: 0.1768,
+    hue: 90.38,
+    fallback: #ffcc00,
+  ),
+  alert: (
+    lightness: 0.6542,
+    chroma: 0.2321,
+    hue: 28.66,
+    fallback: #ff3b30,
+  ),
+  success: (
+    lightness: 0.7303,
+    chroma: 0.1944,
+    hue: 147.44,
+    fallback: #34c759,
+  ),
+  // modal system color
+
+  //system font color
+  systemGreen:
+    (
+      lightness: 0.5915,
+      chroma: 0.1708,
+      hue: 143.63,
+      fallback: #2a962f,
+    ),
+  systemRed: (
+    lightness: 0.568,
+    chroma: 0.2002,
+    hue: 26.41,
+    fallback: #d32f2f,
+  ),
+  //system font color
+
+  exel: (
+      lightness: 0.5335,
+      chroma: 0.1404,
+      hue: 148.8,
+      fallback: #1a823b,
+    ),
+  mainGrid: (
+    lightness: 0.9596,
+    chroma: 0.0172,
+    hue: 248.01,
+    fallback: #e9f3fd,
+  ),
+  subGrid: (
+    lightness: 0.9591,
+    chroma: 0.0213,
+    hue: 65.32,
+    fallback: #fcefe3,
+  ),
+  gridSelectCell: (
+    lightness: 0.978,
+    chroma: 0.005,
+    hue: 247.9,
+    fallback: #F5F8FB,
+  ),
+  gridSelect: (
+    lightness: 0.96,
+    chroma: 0.017,
+    hue: 248,
+    fallback: #E9F3FD,
+  ),
+  gridHover: (
+    lightness: 0.979,
+    chroma: 0,
+    hue: 0,
+    fallback: #F8F8F8,
+  ),
+  gridTop: (
+    lightness: 0.979,
+    chroma: 0,
+    hue: 0,
+    fallback: #0D4491,
+  ),
+  gridTopText: (
+    lightness: 0.979,
+    chroma: 0,
+    hue: 0,
+    fallback: #FCFCFC,
+  ),
+  gridsubTop: (
+    lightness: 0.979,
+    chroma: 0,
+    hue: 0,
+    fallback: #EEEEEE,
+  ),
+  gridsubTopText: (
+    lightness: 0.979,
+    chroma: 0,
+    hue: 0,
+    fallback: #484848,
+  ),
+  mark: (
+    lightness: 0.7652,
+    chroma: 0.1752,
+    hue: 62.57,
+    fallback: #ff9500,
+  ),
+  loader: (
+    lightness: 0.67514,
+    chroma: 0.17226,
+    hue: 259.857,
+    fallback: #5394ff,
+  ),
+  loaderSecond: (
+    lightness: 0.82697,
+    chroma: 0.08665,
+    hue: 259.323,
+    fallback: #a5c8ff,
+  ),
+  // booking system colors
+  confirm: (
+    lightness: 0.5645,
+    chroma: 0.16342,
+    hue: 253.289,
+    fallback: #1976D2,
+  ),
+  amend: (
+    lightness: 0.5679,
+    chroma: 0.2,
+    hue: 26.239,
+    fallback: #D32F2F,
+  ),
+  cancled: (
+    lightness: 0.5987,
+    chroma: 0,
+    hue: 271.152,
+    fallback: #808080,
+  ),
+  declined: (
+    lightness: 0.6531,
+    chroma: 0.232,
+    hue: 25.725,
+    fallback: #FF383C,
+  ),
+  pending: (
+    lightness: 0.7533,
+    chroma: 0.17,
+    hue: 55.7,
+    fallback: #FF8D28,
+  ),
+  replaced: (
+    lightness: 0.6328,
+    chroma: 0.07,
+    hue: 57.206,
+    fallback: #AC7F5E,
+  ),
+  requested: (
+    lightness: 0.529,
+    chroma: 0.191029,
+    hue: 278.3,
+    fallback: #5856D6,
+  ),
+  successed: (
+    lightness: 0.625,
+    chroma: 0.184833,
+    hue: 146,
+    fallback: #14A338,
+  ),
+  carrier: (
+    lightness: 0.40,
+    chroma: 0,
+    hue: 271,
+    fallback: #484848,
+  ),
+  // badge colors
+  completeBadge: (
+    lightness: 0.527,
+    chroma: 0.062734,
+    hue: 151.7,
+    fallback: #4F7659,
+  ),
+  completeBadgeBg: (
+    lightness: 0.941,
+    chroma: 0.021591,
+    hue: 154.1,
+    fallback: #E1F0E5,
+  ),
+  pendingBadge: (
+    lightness: 0.512,
+    chroma: 0.079059,
+    hue: 80.9,
+    fallback: #7E622D,
+  ),
+  pendingBadgeBg: (
+    lightness: 0.945,
+    chroma: 0.023234,
+    hue: 75.9,
+    fallback: #F6EBDC,
+  ),
+  overBadge: (
+    lightness: 0.54,
+    chroma: 0.185119,
+    hue: 28.5,
+    fallback: #C33027,
+  ),
+  overBadgeBg: (
+    lightness: 0.929,
+    chroma: 0.022043,
+    hue: 21,
+    fallback: #F6E2E1,
+  )
+);
+
+// 블랙 컬러값 저장
+$blacks: (
+  black: (
+    lightness: 0,
+    fallback: #000000,
+  ),
+  0: (
+    lightness: 0.3,
+    fallback: #2e2e2e,
+  ),
+  10: (
+    lightness: 0.32,
+    fallback: #333333,
+  ),
+  20: (
+    lightness: 0.4,
+    fallback: #484848,
+  ),
+  30: (
+    lightness: 0.5,
+    fallback: #636363,
+  ),
+  40: (
+    lightness: 0.6,
+    fallback: #808080,
+  ),
+  50: (
+    lightness: 0.7,
+    fallback: #9e9e9e,
+  ),
+  60: (
+    lightness: 0.8,
+    fallback: #bebebe,
+  ),
+  70: (
+    lightness: 0.9,
+    fallback: #dedede,
+  ),
+  80: (
+    lightness: 0.95,
+    fallback: #eeeeee,
+  ),
+  90: (
+    lightness: 0.97,
+    fallback: #f5f5f5,
+  ),
+  95: (
+    lightness: 0.98,
+    fallback: #f8f8f8,
+  ),
+  100: (
+    lightness: 0.99,
+    fallback: #fcfcfc,
+  ),
+  white: (
+    lightness: 1,
+    fallback: #ffffff,
+  ),
+);
+
+// color func 과 balck color func 분리
+// color func
+// 사용법
+// @include colors(color, primary);
+@function is-valid-color-data($color-data) {
+  @return $color-data and 
+          map.get($color-data, fallback) and 
+          map.get($color-data, lightness) and 
+          map.get($color-data, chroma) and 
+          map.get($color-data, hue);
+}
+
+// OKLCH 값 생성 헬퍼 함수
+@function build-oklch($lightness, $chroma, $hue, $alpha: 1) {
+  @if $alpha == 1 {
+    @return string.unquote('oklch(#{$lightness} #{$chroma} #{$hue})');
+  }
+  @return string.unquote('oklch(#{$lightness} #{$chroma} #{$hue} / #{$alpha})');
+}
+
+@mixin colors(
+  $property: 'color',
+  $color-name: 'name',
+  $lightness-adjust: 0,
+  $alpha: 1,
+  $fallback-alpha: rgb(52 73 92 / 0.2)
+) {
+  $color: map.get($palette, $color-name);
+  
+  // 색상 데이터가 유효하지 않으면 에러 처리하고 끝
+  @if not is-valid-color-data($color) {
+    @warn "Color '#{$color-name}' not found or invalid in palette";
+    & {
+      #{$property}: transparent;
+    }
+  }
+  
+  // 유효한 색상 데이터가 있을 때만 처리
+  @if is-valid-color-data($color) {
+    $fallback: map.get($color, fallback);
+    $lightness: map.get($color, lightness) + $lightness-adjust;
+    $chroma: map.get($color, chroma);
+    $hue: map.get($color, hue);
+    
+    // 폴백 색상 적용
+    & {
+      #{$property}: $fallback;
+    }
+    
+    // 알파값이 1이 아닐 때 추가 폴백
+    @if $alpha != 1 {
+      & {
+        #{$property}: $fallback-alpha;
+      }
+    }
+    
+    // OKLCH 지원 브라우저에서 적용
+    @supports (color: oklch(50% 0.1 180)) {
+      & {
+        #{$property}: build-oklch($lightness, $chroma, $hue, $alpha);
+      }
+    }
+  }
+}
+// color func
+
+// black func
+// 예시
+// @include black(color, 0);
+@mixin black($property, $level: 0, $alpha: 1, $fallback-alpha: rgb(0 0 0 / 0.1)) {
+  $color: map.get($blacks, $level);
+  $lightness: map.get($color, lightness);
+  $fallback: map.get($color, fallback);
+  
+  & {
+    #{$property}: $fallback;
+  }
+  
+  @if $alpha != 1 {
+    & {
+      #{$property}: $fallback-alpha;
+    }
+  }
+
+  // 지원하는 브라우저에서만 적용
+  // 문자열 치환 필요
+  @supports (color: oklch(50% 0.1 180)) {
+    #{$property}: string.unquote('oklch(#{$lightness} 0 0)');
+    @if $alpha != 1 {
+      & {
+        #{$property}: string.unquote('oklch(#{$lightness} 0 0 / #{$alpha})');
+      }
+    }
+  }
+}
+// black func
+
+//shadow func
+@mixin shadows($property: '0 0 0', $color-name: 'name', $alpha: 1) {
+  $color: map.get($palette, $color-name);
+  $lightness: map.get($color, lightness);
+  $chroma: map.get($color, chroma);
+  $hue: map.get($color, hue);
+  $fallback: map.get($color, fallback);
+
+  box-shadow: string.unquote(
+    'oklch(#{$lightness} #{$chroma} #{$hue} / #{$alpha})'
+  );
+  box-shadow: string.unquote('#{$property} #{$fallback}20');
+}

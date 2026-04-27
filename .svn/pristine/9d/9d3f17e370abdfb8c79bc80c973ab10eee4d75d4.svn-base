@@ -1,0 +1,60 @@
+@use '../variable' as *;
+
+.flex {
+    display: flex;
+    gap: $flex-column-gap;
+    flex: 1 0 auto;
+
+    &.no-gap {
+        gap: normal;
+    }
+
+    &.control {
+        gap: 2px;
+    }
+
+    &.flex-column {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .fixed {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
+
+        &.w50 { width: 50px; }
+        &.w60 { width: 60px; }
+        &.w70 { width: 70px; }
+        &.w80 { width: 80px; }
+        &.w90 { width: 90px; }
+        &.w100 { width: 100px; }
+        &.w110 { width: 110px; }
+        &.w120 { width: 120px; }
+        &.w130 { width: 130px; }
+        &.w140 { width: 140px; }
+        &.w150 { width: 150px; }
+
+    }
+
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.justify-between{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.justify-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}

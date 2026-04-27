@@ -1,0 +1,60 @@
+@use '../../variable' as *;
+
+// input number stepper
+.number-box-with-spinner {
+	width: 70px;
+	flex-shrink: 0;
+
+	:deep(.gsabis-number-box) {
+		text-align: left;
+
+		// 입력 영역에 패딩 추가하여 스피너와 겹치지 않도록
+		input {
+			padding-right: 28px;
+		}
+	}
+
+	:deep(.number-box-right-area) {
+		position: absolute;
+		right: 1px;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		align-items: center;
+		border-radius: 0 8px 8px 0;
+		overflow: hidden;
+	}
+
+	:deep(.spinner-buttons) {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border-left: 1px solid;
+		@include black('border-left-color', 70);
+	}
+
+	:deep(.spinner-button) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 16px;
+		height: 14px;
+		padding-right: 6px;
+		padding-left: 6px;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		transition: all 0.2s;
+		@include black('color', 10);
+
+		&:is(:hover, :active, :focus) {
+		@include black('background-color', 80);
+		}
+
+		svg {
+		width: 12px;
+		height: 12px;
+		}
+	}
+}

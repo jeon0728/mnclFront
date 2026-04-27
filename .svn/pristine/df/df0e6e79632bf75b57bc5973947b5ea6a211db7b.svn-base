@@ -1,0 +1,38 @@
+@use 'variables/size' as *;
+@use 'variables/weight' as *;
+@use 'functions/colors' as *;
+
+table.g-table {
+	width: 100%;
+	border-spacing: 0;
+	table-layout: fixed;
+
+	> tbody {
+		width: 100%;
+
+		> tr {
+
+			th, td {
+				padding: 2px;
+				font-weight: 400;
+				font-size: $fs-m;
+			}
+
+			th {
+				padding-left: 8px;
+				text-align: left;
+				@include black('color', 10);
+			}
+
+			td {
+				.flex {
+						align-items: center;
+				}
+			}
+		}
+
+		> tr:first-child {
+
+		}
+	}
+}

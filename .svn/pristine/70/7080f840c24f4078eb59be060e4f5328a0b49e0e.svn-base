@@ -1,0 +1,71 @@
+<template>
+  <div class="top-menu-container">
+    <div
+      class="top-menu-wrapper"
+      v-for="( { url, label }, idx ) in items"
+      :key="url"
+    >
+      <span
+        v-if="url"
+        :class="`top-menu${ path === url ? ' select' : '' }`"
+        :key="url + idx"
+        @click="() => handleRoute( url )"
+      >
+        {{ label }}
+      </span>
+    </div>
+  </div>
+</template>
+<script lang="ts" setup>
+  import { ref, watch } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
+
+  const route = useRoute()
+  const path = ref( route.path )
+  const items = ref( menus )
+  const router = useRouter()
+
+  watch( () => route.path, ( value ) => { path.value = value } )
+
+  const handleRoute = ( path: string ) => {
+  
+    router.push( { path } )
+  }
+
+</script>
+<style lang="scss" scoped>
+.top-menu-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 52px;
+  .top-menu-wrapper {
+    align-content: center;
+    user-select: none;
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateY(-2px);
+      margin-bottom: 0;
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    .top-menu {
+      color: #818181;
+      
+      &.select {
+        color: black;
+        border-bottom: 2px solid #14B8A6FF;
+      }
+      
+      &:hover {
+        border-bottom: 2px solid #14B8A6FF;
+      }
+  
+  }
+  }
+}
+</style>

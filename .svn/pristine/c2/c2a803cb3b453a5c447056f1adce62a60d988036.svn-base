@@ -1,0 +1,336 @@
+@use '../../variable' as *;
+
+input, textarea{
+  font-family: inherit;
+  appearance: none;
+  &::placeholder {
+    font-size: $fs-xs;
+  }
+}
+
+// [is-open="true"] .input-container .button >svg:first-of-type{
+//     transform: rotate(180deg);
+// }
+
+//명시도 높이기 위한 body추가
+body .input-container {
+  gap: 4px;
+  padding: 4px 8px;
+  padding-right: 4px;
+  border-radius: $rM;
+  font-size: $fs-s;
+  box-sizing: border-box;
+  transition: $tr-short;
+  overflow: hidden;
+  @include black('border-color', 60);
+  @include black('color', 10);
+  @include black('background-color', white);
+  
+  &:hover {
+    @include black('border-color', 40);
+  }
+
+  // 아이콘 찌그러짐 방지
+  > * + * {
+      flex-shrink: 0;
+      aspect-ratio: 1 / 1;
+  }
+
+  // 버튼 영역 찌그러짐 방지
+  .button {
+    aspect-ratio: 1 / 1;
+    padding: 2px;
+    transition: $tr-short;
+    border-radius: $rS;
+
+    &:hover,
+    &:focus {
+      @include black('background-color', 80);
+      border: none;
+      outline: none;
+    }
+    // 버튼 호버 영역 잡기 (버튼안에 div있는 경우 있음 예:코드박스,어싱크박스)
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $rS;
+      &:hover,
+      &:focus {
+        @include black('background-color', 80);
+        border: none;
+        outline: none;
+      }
+    }
+  }
+
+  // img 는 mdi아이콘이므로 추후 지울 가능성 있음
+  > .button svg,
+  > .button img {
+      width: 18px;
+      height: 18px;
+      aspect-ratio: 1 / 1;
+      flex-shrink: 0;
+      border-radius: $rS;
+      transition: background-color $tr-short;
+      cursor: pointer;
+      @include black('color', 10);
+  }
+
+  // mdi 임시 깨짐 처리
+  > .button > img {
+    width: 16px;
+  }
+
+  // 버튼 안에 여러개의 아이콘 담기는 경우 대비
+  .button{
+    width: auto;
+    gap: 4px;
+  }
+
+  .button .icon-chevron svg{
+    color: inherit;
+  }
+
+  &:not(.essential, .grid, .read-only):is(:focus-within, :hover) {
+    @include black('border-color', 40);
+  }
+
+  &.read-only{
+    border: 0;
+    background-color: transparent;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  &.disabled {
+    filter: none;
+    @include black('background-color', 70);
+    @include black('border-color', 60);
+    @include black('color', 20);
+    input::placeholder {
+      @include black('color', 20);
+    }
+    cursor: not-allowed;
+    pointer-events: none;
+    input {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+  &.essential {
+    @include colors('border-color', systemRed);
+    &:focus-within {
+      box-shadow: 0 0 1px 1px #FF9500;
+    }
+  }
+}
+
+// 템플릿 인풋 컨테이너 전용
+div.input-container[actions]{
+  max-width: 160px;
+  gap: 8px;
+  @include black('background-color', white);
+  .button{
+    width: auto;
+    gap: 8px;
+    &:first-child svg:hover{
+        background-color: transparent;
+    }
+    svg{
+        flex-shrink: 0;
+    }
+  }
+}
+// 템플릿 인풋 컨테이너 전용
+
+// 카드 액션에 들어있는 인풋 크기 조정용 클래스 추가
+div.input-container.card-head {
+  height: 28px !important;
+  border-radius: $rS;
+}
+
+div.input-container input {
+  flex: 1;
+  height: 100%;
+  font-weight: 400;
+  font-size: $fs-s;
+  background-color: transparent;
+  color: inherit;
+  border-radius: 0;
+}
+
+//checkbox (명시성위헤 body 추가 )
+div{
+  &.checkboxContainer{
+      &:is(:hover, :focus, :focus-within) .checkboxControl{
+          box-shadow: 0 0 0 4px #3b82f614;
+      }
+      &[aria-checked=true] .checkboxControl{
+          @include colors('border-color', secondary);
+          @include colors('background', secondary);
+      }
+  }
+  .checkboxControl{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include black('border-color', 60);
+      &:before{
+          content: "";
+          width: 8px;
+          height: 7px;
+      }
+      &::after{
+          content: none;
+      }
+  }
+}
+.checkboxContainer.disabled .checkboxControl{
+  @include disabledColor;
+}
+// 체크박스 + 라벨일 경우 스타일 및 갭 조정
+.checkboxContainer + label {
+  flex-grow: 0;
+  font-size: $fs-xs;
+  @include black('color', 20);
+}
+.checkboxContainer .checkboxLabel{
+  font-size: $fs-xs;
+  @include black('color', 20);
+}
+.checkbox-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  > div {
+      flex-shrink: 0;
+  }
+  label:first-of-type {
+      margin-right: 8px;
+  }
+}
+
+// 컬러 적을땐 # 빼고 적을 것.
+//_icons.scss 참조.
+div.checkboxContainer[aria-checked=true] .checkboxControl:before{
+  background-image: url(icon(check, ffffff));
+}
+
+div.checkboxContainer.disabled .checkboxControl:before{
+  background-image: url(icon(check, d9d9d9));
+}
+
+//radio
+//checked
+body .radio-item.is-checked{
+  &:is(:hover, :focus-visible, :focus-within) .radio-control{
+      box-shadow: $shadow-radio-checked;
+  }
+  .radio-dot{
+      transform: scale(0);
+      @include black('background', white);
+  }
+  .radio-control{
+      border-width: 5px;
+      @include colors('border-color', secondary);
+  }
+}
+//none checked
+body .radio{
+  &-item:is(:hover, :focus-visible, :focus-within){
+      box-shadow: none;
+  }
+  &-item:is(:hover, :focus-visible, :focus-within) .radio-control{
+      box-shadow: $shadow-radio;
+  }
+  &-control{
+      @include black('border-color', 40);
+  }
+  &-dot{
+      width: calc(var(--size, 16px) / 2);
+      height: calc(var(--size, 16px) / 2);
+      transform: scale(0.8);
+      @include black('background', 40);
+  }
+}
+// disabled
+.radio-item.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  .radio-control {
+    @include black('border-color', 70);
+    @include black('background-color', 80);
+  }
+  .radio-dot {
+    @include black('background', 70);
+  }
+}
+// 라디오 그룹 갭
+.group[role="radiogroup"],
+.group {
+  --rg-gap: 16px;
+}
+
+//textarea
+body .textarea{
+  &-wrapper {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0 6px 0 0;
+    font-size: $fs-xs;
+    line-height: 1.5;
+    overflow-y: auto;
+    @include black('color', 20);
+    @include custom-scrollbar;
+  }
+  &-container{
+    padding: 8px;
+    border-radius: $rM;
+    transition: border-color $tr-short;
+    @include black('border-color', 60);
+    &:hover, &:focus-within {
+      @include black('border-color', 40);
+    }
+  }
+}
+
+//select box
+div.disabled {
+  filter: none;
+  .input-container {
+    @include black('background-color', 70);
+    @include black('border-color', 60);
+    @include black('color', 20);
+    input::placeholder {
+      @include black('color', 20);
+    }
+  }
+}
+.disabled > *{
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+div.essential {
+  .input-container {
+    @include colors('border-color', systemRed);
+    &:is(:hover, :focus-within) {
+      @include colors('border-color', systemRed);
+    }
+    &:focus-within {
+      box-shadow: $shadow-essential;
+    }
+  }
+}
+
+// input number stepper
+.gsabis-number-box-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+
+  .gsabis-number-box {
+      flex: 1;
+  }
+}

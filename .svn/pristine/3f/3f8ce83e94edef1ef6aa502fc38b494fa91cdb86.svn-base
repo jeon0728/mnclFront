@@ -1,0 +1,39 @@
+<template>
+  <div class="contents-inner">
+    <ul>
+      <li>
+        <Label>레이블텍스트</Label>
+        <TextBox :height="32"/>
+      </li>
+      <li>
+        <Label>레이블텍스트</Label>
+        <TextBox :height="32"/>
+      </li>
+      <li>
+        <Label>레이블텍스트</Label>
+        <TextBox :height="32"/>
+      </li>
+      <li>
+        <Label>레이블텍스트</Label>
+        <TextBox :height="32"/>
+      </li>
+      <li>
+        <Label>레이블텍스트</Label>
+        <TextBox :height="32"/>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <Label>레이블텍스트</Label>
+        <TextBox :height="32"/>
+      </li>
+      <li>
+        <Label>레이블텍스트</Label>
+        <TextBox :height="32"/>
+      </li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+</template>

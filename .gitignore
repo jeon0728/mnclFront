@@ -1,0 +1,32 @@
+# Nuxt / Node
+node_modules
+.nuxt
+.output
+.nitro
+.data
+.env
+.env.*
+!.env.example
+dist
+.cache
+
+# Logs & debug
+*.log
+npm-debug.log*
+.pnpm-debug.log*
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+
+# Test / coverage
+coverage
+.nyc_output

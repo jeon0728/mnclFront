@@ -1,0 +1,224 @@
+<template>
+  <div class="mncl-page">
+    <h1 class="mncl-page__title">HBL Inquiry</h1>
+    <!-- Search -->
+    <div class="search-row">
+      <span class="search-label">HBL No.</span>
+      <div class="search-controls flex">
+        <TextBox
+          v-model="hblNo"
+          add-container-class="search-input"
+          placeholder="Insert HBL number here"
+        />
+        <Button class="accent sizeL" @click="handleSearch">search</Button>
+      </div>
+    </div>
+
+    <!-- BL Info panel -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-head-icon">
+          <img src="@/shared/assets/image/ClipboardText.svg" alt="check icon" />
+        </div>
+        <span class="panel-head-label">BL NO.</span>
+        <span class="panel-head-value">{{ mnclRow?.hblNo ?? mnclRow?.blNo ?? '' }}</span>
+      </div>
+      <div class="panel-divider"></div>
+      <div class="panel-body">
+        <div class="bl-grid">
+          <div class="bl-card">
+            <span class="bl-card-label">Destination</span>
+            <span class="bl-card-value">{{ mnclRow?.polName ?? '' }}</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">Vessel</span>
+            <span class="bl-card-value">{{ mnclRow?.vesselName ?? '' }}</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">Voyage</span>
+            <span class="bl-card-value">{{ mnclRow?.voyageNo ?? '' }}</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">Cut Date</span>
+            <span class="bl-card-value">{{ mnclRow?.deliverDateTime ?? '' }}</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">ETD</span>
+            <span class="bl-card-value">{{ mnclRow?.onboardDate ?? '' }}</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">ETA</span>
+            <span class="bl-card-value">{{ mnclRow?.arrivalDate ?? '' }}</span>
+          </div>
+          <div class="bl-card span2">
+            <span class="bl-card-label">T/S Tariff</span>
+            <span class="bl-card-value">{{ mnclRow?.companyEng ?? '' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="bottom-row flex">
+      <!-- Delivery Agent -->
+      <div class="panel panel-delivery">
+        <div class="panel-head">
+          <div class="panel-head-icon">
+            <img src="@/shared/assets/image/Handshake.svg" alt="hand shake icon" />
+          </div>
+          <span class="panel-head-label">DELIVERY AGENT</span>
+        </div>
+        <div class="panel-divider"></div>
+        <div class="panel-body">
+          <div class="agent-card">
+            <div class="agent-card-title-row">
+              <span class="agent-card-title">{{ mnclRow?.companyEng ?? '' }}</span>
+            </div>
+            <div class="agent-card-divider"></div>
+            <div class="agent-card-body">
+              <p>{{ mnclRow?.addEngSea ?? '' }}</p>
+              <p>
+                {{ mnclRow?.attnManSea ?? ''
+                }}<template
+                  v-if="mnclRow?.emailSea != null && String(mnclRow.emailSea).trim() !== ''"
+                >
+                  &lt;{{ String(mnclRow.emailSea).trim() }}&gt;
+                </template>
+              </p>
+              <p v-if="mnclRow?.faxNoSea != null && String(mnclRow.faxNoSea).trim() !== ''">
+                {{ String(mnclRow.faxNoSea).trim() }}
+              </p>
+              <p v-if="mnclRow?.telNoSea != null && String(mnclRow.telNoSea).trim() !== ''">
+                {{ String(mnclRow.telNoSea).trim() }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Local Charge -->
+      <div class="panel panel-charge">
+        <div class="panel-head">
+          <div class="panel-head-icon">
+            <img src="@/shared/assets/image/CurrencyCircleDollar.svg" alt="charge icon" />
+          </div>
+          <span class="panel-head-label">LOCAL CHARGE</span>
+        </div>
+        <div class="panel-divider"></div>
+        <div class="panel-body scroll">
+          <table class="charge-table">
+            <colgroup>
+              <col />
+              <col />
+              <col />
+              <col />
+              <col />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>ITEM</th>
+                <th class="center">CUR</th>
+                <th class="right">PRICE</th>
+                <th>PER</th>
+                <th class="right">MN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(row, idx) in mnclLocalChangeList" :key="idx">
+                <td>{{ row.item ?? '' }}</td>
+                <td class="center">{{ row.currCode ?? '' }}</td>
+                <td class="right">{{ formatChargeNum(row.price) }}</td>
+                <td>{{ row.per ?? '' }}</td>
+                <td class="right">{{ formatChargeNum(row.min) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /bottom-row -->
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import { getMnclList, type MnclListDto, type MnclLocalChangeDto } from '@/ui/mncl/api'
+  import { useHttp, usePage } from '@/shared/composables'
+
+  useHead({ title: '조회' })
+
+  const hblNo = ref('')
+  const mnclRow = ref<MnclListDto | null>(null)
+  const mnclLocalChangeList = ref<MnclLocalChangeDto[]>([])
+
+  const [httpRequest] = useHttp()
+  const { errorMessage } = usePage()
+
+  const formatChargeNum = (v: number | string | undefined) => {
+    if (v === null || v === undefined || v === '') return '—'
+    const n = typeof v === 'number' ? v : Number(v)
+    if (Number.isFinite(n))
+      return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    return String(v)
+  }
+
+  /**
+   * 백엔드가 단건을 객체로 줄 수도 있고, 길이 1 배열로 줄 수도 있음.
+   * 배열을 그대로 넣으면 템플릿의 mnclRow?.polName 이 모두 undefined 가 된다.
+   */
+  const normalizeMnclSingle = (raw: unknown): MnclListDto | null => {
+    if (raw === null || raw === undefined) return null
+    if (Array.isArray(raw)) {
+      const first = raw[0]
+      if (first && typeof first === 'object') return first as MnclListDto
+      return null
+    }
+    if (typeof raw === 'object') return raw as MnclListDto
+    return null
+  }
+
+  /** `ResponseVo` 또는 본문만 온 경우 모두 수용 */
+  const extractSearchData = (body: unknown) => {
+    if (!body || typeof body !== 'object') return null
+    const b = body as Record<string, unknown>
+    const payload = b.data
+    const inner =
+      payload !== undefined && payload !== null && typeof payload === 'object'
+        ? (payload as Record<string, unknown>)
+        : b
+    const single = normalizeMnclSingle(inner.mnclList ?? inner.mncllist)
+    const rawList = inner.mnclLocalChangeList
+    const list = (Array.isArray(rawList) ? rawList : []) as MnclLocalChangeDto[]
+    return {
+      mnclList: single,
+      mnclLocalChangeList: list
+    }
+  }
+
+  const handleSearch = async () => {
+    const trimmed = hblNo.value?.trim() ?? ''
+    if (!trimmed) {
+      errorMessage('HBL No.를 입력해 주세요.')
+      return
+    }
+
+    const { data, error } = await httpRequest(getMnclList({ hblNo: trimmed }))
+
+    if (error) {
+      errorMessage(error.message)
+      return
+    }
+
+    const parsed = extractSearchData(data)
+    if (!parsed) {
+      mnclRow.value = null
+      mnclLocalChangeList.value = []
+      return
+    }
+
+    mnclRow.value = parsed.mnclList
+    mnclLocalChangeList.value = parsed.mnclLocalChangeList
+  }
+</script>
+
+<style scoped lang="scss" src="@/shared/assets/scss/pages/list.scss"></style>

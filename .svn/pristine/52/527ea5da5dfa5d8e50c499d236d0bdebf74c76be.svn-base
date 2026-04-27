@@ -1,0 +1,258 @@
+<template>
+  <PageLayout title="DASH BOARD">
+
+    <template #content>
+      <Card>
+        <template #content>
+          <div class="contents-inner">
+            <ul>
+              <li>
+                <Label>Carrier</Label>
+                <CodeBox placeholder="선사검색"/>
+              </li>
+              <li>
+                <Label>SC contract</Label>
+                <CodeBox placeholder="SC contract 검색"/>
+              </li>
+              <li>
+                <Label>조회조건 From</Label>
+                <DateBox/>
+              </li>
+              <li>
+                <Label>조회조건 To</Label>
+                <DateBox/>
+              </li>
+            </ul>
+          </div>
+        </template>
+      </Card>
+
+      <!-- detail 영역 -->
+      <div class="dashboard-detail">
+        <div class="flex-1">
+          <Card description="Allocation Details (TEU)">
+            <template #content>
+              <ul class="grid grid-2">
+                <li class="flex flex-1 justify-between allocated">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Allocated</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhStackSimple :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between booked">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Booked</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhCalendarCheck :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between available">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Available</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhSquaresFour :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between pending">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">pending Confirmation</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhChatTeardropDots :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+              </ul>
+            </template>
+          </Card>
+        </div>
+        <div class="flex-1">
+          <Card description="Booking Details">
+            <template #content>
+              <ul class="grid grid-3">
+                <li class="flex flex-1 justify-between requested">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Requested</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhQuestionMark :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between amended">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Amended</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhEraser :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between confirmed">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Confirmed</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhCheck :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between pending">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">pending</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhChatTeardropDots :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between declined">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Declined</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhX :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between cancelled">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Cancelled</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhExclamationMark :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+              </ul>
+            </template>
+          </Card>
+        </div>
+        <div class="flex-1">
+          <Card description="S/I Details">
+            <template #content>
+              <ul class="grid grid-6">
+                <li class="flex flex-1 justify-between submitted">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Submitted</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhPaperPlaneTilt :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between amended">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Amended</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhEraser :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between accepted">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Accepted</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhCheck :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between span pending">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">pending</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhChatTeardropDots :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+                <li class="flex flex-1 justify-between span rejected">
+                  <div class="flex-column">
+                    <div class="dashboard-detail-name">Rejected</div>
+                    <div class="dashboard-detail-num">2,340</div>
+                  </div>
+                  <i class="dashboard-detail-icon">
+                    <PhX :size="24" :fill="'#fff'"/>
+                  </i>
+                </li>
+              </ul>
+            </template>
+          </Card>
+        </div>
+      </div>
+
+      <!-- chart 영역 -->
+      <div class="dashboard-chart">
+        <div class="flex-1">
+          <Card>
+            <template #content>
+              <div class="dashboard-chart-inner first">
+                <div class="dashboard-chart-title">title</div>
+                <div class="dashboard-chart-donut"></div>
+                <ul class="grid grid-2">
+                  <li class="flex align-center booked">
+                    <div class="dashboard-chart-bar"></div>
+                    <div class="flex-colimn">
+                      <div class="dashboard-chart-name">Booked</div>
+                      <div class="dashboard-chart-num"><strong>1,720</strong> TEU</div>
+                    </div>
+                  </li>
+                  <li class="flex align-center available">
+                    <div class="dashboard-chart-bar"></div>
+                    <div class="flex-colimn">
+                      <div class="dashboard-chart-name">Available</div>
+                      <div class="dashboard-chart-num"><strong>1,720</strong> TEU</div>
+                    </div>
+                  </li>
+                  <li class="flex align-center allocated">
+                    <div class="dashboard-chart-bar"></div>
+                    <div class="flex-colimn">
+                      <div class="dashboard-chart-name">Allocated</div>
+                      <div class="dashboard-chart-num"><strong>1,720</strong> TEU</div>
+                    </div>
+                  </li>
+                  <li class="flex align-center pending">
+                    <div class="dashboard-chart-bar"></div>
+                    <div class="flex-colimn">
+                      <div class="dashboard-chart-name">pending</div>
+                      <div class="dashboard-chart-num"><strong>1,720</strong> TEU</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </template>
+          </Card>
+        </div>
+        <div class="flex-1">
+          <Card>
+            <template #content>
+              <div class="dashboard-chart-inner">
+
+              </div>
+            </template>
+          </Card>
+        </div>
+        <div class="flex-1">
+          <Card>
+            <template #content>
+              <div class="dashboard-chart-inner">
+
+              </div>
+            </template>
+          </Card>
+        </div>
+      </div>
+    </template>
+  </PageLayout>
+</template>
+
+<style scoped lang="scss" src="@/shared/assets/scss/pages/dashboard.scss"></style>

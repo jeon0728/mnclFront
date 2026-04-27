@@ -1,0 +1,61 @@
+<template>
+  <div class="page-layout-container">
+    <div class="page-layout-header">
+      <div v-if="!!props.title" class="page-layout-title">
+        {{ props.title }}
+      </div>
+      <div class="page-layout-actions">
+        <slot name="actions"/>
+      </div>
+    </div>
+    <div v-if="!!$slots.search" class="page-layout-search">
+      <Card>
+        <template #content>
+          <slot name="search"/>
+        </template>
+      </Card>
+    </div>
+    <div v-if="!!$slots.content" class="page-layout-content">
+      <slot name="content"/>
+    </div>
+  </div>
+</template>
+<script lang="ts" setup>
+/**
+ * @vue/component
+ * @description
+ *  - 공통 페이지 레이아웃을 제공하는 컴포넌트입니다.
+ *  - 헤더(제목, 액션), 검색 영역, 메인 콘텐츠 영역으로 구성됩니다.
+ *
+ * @example
+ * <PageLayout title="사용자 관리">
+ *   <template #actions>
+ *     <Button>추가</Button>
+ *   </template>
+ *   <template #search>
+ *     <SearchInput />
+ *   </template>
+ *   <template #content>
+ *     <UserTable />
+ *   </template>
+ * </PageLayout>
+ *
+ * @slots
+ * - actions: 헤더 우측에 배치되는 액션 버튼들
+ * - search: 검색 컴포넌트 영역 (Card로 래핑됨)
+ * - content: 메인 콘텐츠 영역
+ */
+  import '@/shared/assets/scss/components/layouts/page-layout.scss'
+
+  const props = defineProps<PageLayoutProps>()
+  defineSlots< {
+    actions: () => any,
+    search: () => any,
+    content: () => any,
+  }> ()
+
+  type PageLayoutProps = {
+    title?: string
+
+  }
+</script>

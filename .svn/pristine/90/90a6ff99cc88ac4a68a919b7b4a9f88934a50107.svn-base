@@ -1,0 +1,62 @@
+@use '../functions/colors' as *;
+@use '../functions/icons' as *;
+@use '../variables/shadow' as *;
+@use '../variables/transition' as *;
+@use '../variables/radius' as *;
+
+@mixin checkRadioDefault() {
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid;
+	transition: $tr-short;
+	@include black('border-color', 70);
+	@include black('background-color', white);
+	&:is(:hover, :focus-visible, :focus-within) {
+		box-shadow: $shadow-normal;
+	}
+	&:is(.disabled, [disabled], :disabled) {
+		cursor: not-allowed;
+		pointer-events: none;
+		@include black('background-color', 80);
+	}
+}
+@mixin checkbox() {
+		appearance: none;
+		border-radius: $rS;
+		&:checked{
+		@include colors('border-color', secondary);
+		@include colors('background-color', secondary);
+	}
+	&:checked:before{
+		content: "";
+		width: 8px;
+		height: 6px;
+		background-image: url(icon(check, ffffff));
+	}
+}
+@mixin radio() {
+	border-radius: 50%;
+	&:checked {
+		@include colors('border-color', secondary);
+		@include colors('background-color', secondary);
+	}
+	&:checked::before{
+		content: "";
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		@include black('background-color', white);
+	}
+}
+@mixin select() {
+	padding-right: 24px;
+	background-image: url(icon(select, 333333));
+	background-position: right 8px center;
+	background-repeat: no-repeat;
+	background-size: 16px 16px;
+	outline: none;
+}

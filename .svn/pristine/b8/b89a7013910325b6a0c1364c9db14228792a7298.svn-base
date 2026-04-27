@@ -1,0 +1,129 @@
+<template>
+  <div class="mncl-page">
+    <h1 class="mncl-page__title">HBL Inquiry</h1>
+    <!-- Search -->
+    <div class="search-row">
+      <span class="search-label">HBL No.</span>
+      <div class="search-controls flex">
+        <TextBox add-container-class="search-input" placeholder="Insert HBL number here"></TextBox>
+        <Button class="accent sizeL">search</Button>
+      </div>
+    </div>
+
+    <!-- BL Info panel -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-head-icon">
+          <img src="@/shared/assets/image/ClipboardText.svg" alt="check icon">
+        </div>
+        <span class="panel-head-label">BL NO.</span>
+        <!-- 변경되는 값 -->
+        <span class="panel-head-value">BL이름블라블라</span>
+      </div>
+      <div class="panel-divider"></div>
+      <div class="panel-body">
+        <div class="bl-grid">
+          <div class="bl-card">
+            <span class="bl-card-label">Destination</span>
+            <span class="bl-card-value">텍스트텍스트텍스트</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">Vessel</span>
+            <span class="bl-card-value">텍스트텍스트텍스트</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">Voyage</span>
+            <span class="bl-card-value">텍스트텍스트텍스트</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">Cut Date</span>
+            <span class="bl-card-value">텍스트텍스트텍스트</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">ETD</span>
+            <span class="bl-card-value">텍스트텍스트텍스트</span>
+          </div>
+          <div class="bl-card">
+            <span class="bl-card-label">ETA</span>
+            <span class="bl-card-value">텍스트텍스트텍스트</span>
+          </div>
+          <div class="bl-card span2">
+            <span class="bl-card-label">T/S Tariff</span>
+            <span class="bl-card-value">텍스트텍스트텍스트</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="bottom-row flex">
+
+      <!-- Delivery Agent -->
+      <div class="panel panel-delivery">
+        <div class="panel-head">
+          <div class="panel-head-icon">
+            <img src="@/shared/assets/image/Handshake.svg" alt="hand shake icon">
+          </div>
+          <span class="panel-head-label">DELIVERY AGENT</span>
+        </div>
+        <div class="panel-divider"></div>
+        <div class="panel-body">
+          <div class="agent-card">
+            <div class="agent-card-title-row">
+              <span class="agent-card-title">CONSOL ALLIENCE - SYDNEY</span>
+            </div>
+            <div class="agent-card-divider"></div>
+            <div class="agent-card-body">
+              <p>UNIT 4, 45 DAVIES ROAD PADSTOW NSW 2211 (N.I.F NO. 85 105 752 921) HENRY Katie Rayner &lt;kaiter@email.com&gt; 51 411 825 711</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Local Charge -->
+      <div class="panel panel-charge">
+        <div class="panel-head">
+          <div class="panel-head-icon">
+            <img src="@/shared/assets/image/CurrencyCircleDollar.svg" alt="charge icon">
+          </div>
+          <span class="panel-head-label">LOCAL CHARGE</span>
+        </div>
+        <div class="panel-divider"></div>
+        <div class="panel-body scroll">
+          <table class="charge-table">
+            <colgroup>
+              <col /><col /><col /><col /><col />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>ITEM</th>
+                <th class="center">CUR</th>
+                <th class="right">PRICE</th>
+                <th>PER</th>
+                <th class="right">MN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PSC</td>
+                <td class="center">AUD</td>
+                <td class="right">130.00</td>
+                <td>RT</td>
+                <td class="right">130.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /bottom-row -->
+  </div>
+
+ 
+</template>
+
+<script setup lang="ts">
+  useHead({ title: '조회' })
+</script>
+
+<style scoped lang="scss" src="@/shared/assets/scss/pages/list.scss"></style>

@@ -1,0 +1,250 @@
+@use "../../variable" as *;
+
+.header {
+  width: 100%;
+  height: $header-height;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid;
+  font-size: $fs-m;
+  @include colors("background-color", teritary);
+  @include black("border-bottom-color", 70);
+  @include black("color", 80);
+
+  // 셀렉트 박스 공통 스타일(화이트)
+  div.input-container {
+    cursor: pointer;
+    @include black("color", 80);
+    @include black("border-color", 70);
+    @include black("background-color", white);
+
+    &:focus-within,
+    &:active {
+      border-color: transparent;
+    }
+    
+    .button svg,
+    >svg{
+      aspect-ratio: 1 / 1;
+      @include black("color", 80);
+    }
+    svg:hover{
+      background: transparent;
+    }
+  }
+
+  //셀렉트 공통 스타일
+  .corp-select .input-container{
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  .corp-select,
+  .warehouse-select{
+    flex-basis: 120px;
+  }
+
+  .lang-select {
+    flex-basis: 120px;
+  }
+
+}
+
+.header {
+  &-left {
+    display: flex;
+    padding-left: min(24px, 2vw);
+    align-items: center;
+    gap: 16px;
+    user-select: none;
+    box-sizing: border-box;
+
+    // logo
+    &-title {
+      flex-shrink: 0;
+      display: flex;
+      cursor: pointer;
+      //반응형 이미지 필요없으면 지워도 됩
+      > img{
+        max-width: 100%;
+        max-height: 50px;
+      }
+    }
+  }
+
+  &-right {
+    position: relative;
+    // isolate 충돌로 인한 zindex 맞춰주기 
+    z-index: 100;
+    isolation: isolate;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    white-space: nowrap;
+    padding-right: min(64px, calc(2vw + 40px));
+    //  아바타 컨테이너
+    > .popover-container{
+      position: absolute !important;
+      width: 224px !important;
+      right: 16px;
+      z-index: -1 !important;
+      display: flex !important;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+}
+
+.header-search {
+  &-container {
+    display: contents;
+  }
+  &-btn {
+    cursor: pointer;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    gap: 4px;
+    padding: 2px 10px;
+    border-radius: $r2XL;
+    font-size: $fs-xs;
+    @include black("background-color", 80);
+    @include black("color", 30);
+    &:hover{
+      @include black("background-color", 90);
+    }
+  }
+}
+
+//헤더 프로필
+.header .profile{
+  &-container {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    user-select: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: $fs-m;
+    transition: filter $tr-short;
+  }
+
+  &-user-name {
+    @include black("color", 70);
+  }
+  
+  &-user-dept {
+    font-size: $fs-xs;
+    @include black("color", 60);
+  }
+}
+
+.profile-container .profile-image {
+  &:where(:active, :focus-visible) {
+    filter: brightness(0.8);
+  }
+  &:focus-visible{
+    outline: none;
+  }
+}
+
+
+//공통
+.profile-actions,
+.header .profile{
+  &-image,
+  &-avatar {
+    flex-shrink: 0;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    text-align: center;
+    @include black("color", white);
+    img {
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &-image {
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    overflow: hidden;
+    @include black("border-color", 30);
+    @include black("background-color", 30);
+  }
+}
+
+// 프로필 팝업
+.popover .profile-actions {
+  margin: 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @include black("color", 30);
+  
+  &-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &-user-name {
+    @include black("color", 10);
+    line-height: 1.5;
+  }
+
+  &-user-dept {
+    @include black("color", 30);
+    line-height: 1.5;
+  }
+
+  li {
+    flex-shrink: 0;
+    margin-top: 12px;
+    padding: 6px 30px;
+    list-style: none;
+    cursor: pointer;
+    font-size: $fs-s;
+    line-height: 1;
+    border-radius: $r2XL;
+    border: 1px solid;
+    @include black("border-color", 100);
+    
+    &:first-of-type{
+      padding: 0;
+      border: none;
+      cursor: default;
+    }
+
+    &.info {
+      @include black("border-color", 50);
+      @include black("background-color", 90);
+      &:hover{
+        @include black("background-color", 80);
+      }
+    }
+
+    &.login-out:hover {
+      @include colors("color", systemRed);
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@use '../variable' as *;
+
+// si-form 스타일 조정
+.si-pol {
+    margin-top: -48px;
+    gap: 32px;
+    ul.flex-column {
+        row-gap: 8px;
+        justify-content: flex-end;
+    }
+    .lists {
+        gap: 16px;
+    }
+    .lists li {
+        flex: 0;
+        width: 100%;
+    }
+}

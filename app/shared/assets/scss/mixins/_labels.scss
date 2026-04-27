@@ -1,0 +1,26 @@
+@use '../functions/colors' as *;
+@use '../variables/size' as *;
+
+@mixin label() {
+	font-size: $fs-m;
+	font-weight: 600;
+	@include black('color', 30);
+}
+
+@mixin labelM() {
+	font-size: $fs-s;
+	font-weight: 500;
+	@include black('color', 10);
+}
+
+@mixin labelS() {
+	font-size: $fs-s;
+	font-weight: 400;
+	@include black('color', 40);
+}
+
+@mixin labelXS() {
+	font-size: $fs-xs;
+	font-weight: 400;
+	@include black('color', 40);
+}

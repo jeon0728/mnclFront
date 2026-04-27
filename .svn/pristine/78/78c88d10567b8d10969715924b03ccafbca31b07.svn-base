@@ -1,0 +1,65 @@
+import type { MessageOptions } from '@/shared/types/store'
+import { useMessageStore } from '@/shared/store'
+
+type AsyncMessageHandler<T> = ( message: string ) => Promise<T>
+type UseMessage<T = boolean> = ( options?: MessageOptions ) => AsyncMessageHandler<T>
+
+export function useDefaultMessage<T = any>( options: MessageOptions = {} ): AsyncMessageHandler<T> {
+  const messageStore = useMessageStore()
+
+  return ( message, option?: MessageOptions ) => {
+    return new Promise<T>( ( resolve ) => {``
+      messageStore.setAddMessages( {
+        message,
+        options: { ...options, ...option },
+        resolve
+      } )
+    } )
+  }
+}
+
+export function useInfoMessage( options?: MessageOptions ) {
+  return useDefaultMessage( { ...options, type: 'info' } )
+}
+
+export function useWarningMessage( options?: MessageOptions ) {
+  return useDefaultMessage( { ...options, type: 'warning' } )
+}
+
+export function useErrorMessage( options?: MessageOptions ) {
+  return useDefaultMessage( { ...options, type: 'error' } )
+}
+
+export function useQuestionMessage( options?: MessageOptions ) {
+  return useDefaultMessage( { ...options, type: 'question' } )
+}
+
+export function useYesNoCancelMessage( options?: MessageOptions ) {
+  return useDefaultMessage<Yesnocancel>( { ...options, type: 'yesnocancel' } )
+}
+
+/**
+ * 메시지 훅 통합
+ *
+ * 여러 타입의 메시지 핸들러를 한 번에 사용할 수 있는 Composable
+ *
+ * @param {MessageOptions} [options] 기본 메시지 옵션
+ * @returns {{
+ *   infoMessage: (message: string, option?: MessageOptions) => Promise<any>,
+ *   errorMessage: (message: string, option?: MessageOptions) => Promise<any>,
+ *   warningMessage: (message: string, option?: MessageOptions) => Promise<any>,
+ *   questionMessage: (message: string, option?: MessageOptions) => Promise<any>,
+ *   yesNoCancelMessage: (message: string, option?: MessageOptions) => Promise<Yesnocancel>,
+ *   defaultMessage: (message: string, option?: MessageOptions) => Promise<any>
+ * }} 메시지 핸들러 객체
+ */
+export function useMessage( options?: MessageOptions ) {
+  return {
+    infoMessage: useInfoMessage( options ),
+    errorMessage: useErrorMessage( options ),
+    warningMessage: useWarningMessage( options ),
+    questionMessage: useQuestionMessage( options ),
+    yesNoCancelMessage: useYesNoCancelMessage( options ),
+    defaultMessage: useDefaultMessage( options )
+  }
+}

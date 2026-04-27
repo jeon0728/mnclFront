@@ -1,0 +1,46 @@
+@use '../../variable' as *;
+
+.command-palette{
+  &-wrapper{
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1000;
+  }
+  &-input input::placeholder{
+    @include black("color", 30);
+  }
+}
+
+// 스타일 중복 회피
+.command-palette-wrapper {
+
+  > div.command-palette-input {
+    border-radius: $rXL;
+    box-shadow: $shadow-normal;
+    padding: 24px 20px;
+    position: relative;
+    transition: all 0.2s ease;
+    border: 0;
+    @include black("background-color", white);
+    @include black("color", 20);
+
+
+    &:focus-within,
+    &:active {
+      @include black("background-color", white);
+    }
+
+    .button > svg{
+      @include black("color", 20);
+    }
+
+    input{
+      height: auto;
+      font-size: $fs-s;
+    }
+  }
+}

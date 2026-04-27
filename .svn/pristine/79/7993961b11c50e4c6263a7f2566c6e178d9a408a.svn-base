@@ -1,0 +1,94 @@
+@use '../../variable' as *;
+@use '../../mixins/buttons' as button;
+
+.button-container.gsabis-button {
+	min-width: $bw-min;
+	height: $bs-l;
+	font-size: $fs-s;
+	border-radius: $rS;
+	@include button.default;
+	@include button.defaultColor;
+	// buttontype과 연계되는 버튼
+	&.transactional {
+		@include button.transactionalColor;
+		&.fill,&.isActive,&.is-active {
+			@include button.transactionalColorFill;
+		}
+	}
+	&.delete {
+		@include button.deleteColor;
+		&.fill,&.isActive,&.is-active {
+			@include button.deleteColorFill;
+		}
+	}
+	&.excel {
+		@include button.excelColor;
+		&.fill,&.isActive,&.is-active {
+			@include button.excelColorFill;
+		}
+	}
+	// 직접 입력
+	&.accent {
+		@include button.primaryColor;
+		&.light {
+			@include button.primaryColorLight;
+		}
+	}
+	&.secondAccent {
+		@include button.secondaryColor
+	}
+	&.disabled {
+		@include button.disabledColor;
+	}
+	&.none {
+		@include button.none;
+	}
+	&.noneHoverOpacity {
+		@include button.noneHoverOpacity;
+	}
+	&.noneBorder {
+		@include button.noneBorder;
+	}
+	&.defaultOutline {
+		@include button.defaultOutlineColor;
+	}
+
+	// 버튼 사이즈
+	&.sizeS {
+		@include button.sizeS;
+	}
+	&.sizeL {
+		@include button.sizeL;
+	}
+	&.sizeXS {
+		@include button.sizeXS;
+	}
+	&.iconSizeL {
+		@include button.iconSizeL;
+	}
+	&.iconSizeS {
+		@include button.iconSizeS;
+	}
+	&.autoW {
+		width: auto;
+		min-width: 0;
+	}
+
+	// 버튼 모양
+	&.filter {
+		@include button.filter;
+	}
+	&.roundM {
+		border-radius: $rM;
+	}
+	&.grid-button {
+		@include button.sizeS;
+		&.sizeGridS {
+			@include button.sizeGridS;
+		}
+	}
+}
+
+.loading {
+	animation: spin 1s linear infinite;
+}

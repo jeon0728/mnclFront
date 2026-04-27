@@ -1,0 +1,183 @@
+@use '../variable' as *;
+
+ul {
+	list-style: none;
+}
+
+:deep(.card-container) {
+	margin-top: 0;
+}
+
+:deep(.contents-inner) {
+	padding: 16px;
+	border: 1px solid;
+	border-radius: $rM;
+	@include black('border-color', 60);
+}
+
+.dashboard-detail {
+	margin-top: 24px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(515px, 1fr));
+	gap: 24px;
+	row-gap: 8px;
+
+	li {
+		padding: 20px 8px;
+		border: 1px solid;
+		border-radius: $rM;
+		box-shadow: $shadow-normal;
+		@include black('border-color', 60);
+	}
+	&-name {
+		font-size: $fs-xs;
+		@include black('color', 40);
+	}
+	&-num {
+		font-size: 20px;
+		font-weight: 700;
+		@include black('color', 0);
+	}
+	&-icon {
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background-color: black;
+	}
+}
+
+.grid {
+	display: grid;
+	gap: 12px;
+	&-2 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	&-3 {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	&-6 {
+		grid-template-columns: repeat(6, 1fr);
+		> li {
+			grid-column-start: span 2;
+		}
+	}
+	.span {
+		grid-column-start: span 3;
+		grid-row-start: 2;
+	}
+}
+
+.dashboard-detail li{
+	&.allocated, &.submitted {
+		@include colors('background-color', info, 0, 0.1, rgba(0, 122, 255, 0.10));
+		i {
+			@include colors('background-color', info);
+		}
+	}
+	&.booked, &.confirmed, &.accepted {
+		@include colors('background-color', success, 0, 0.1, rgba(52, 199, 89, 0.10));
+		i {
+			@include colors('background-color', success);
+		}
+	}
+	&.available, &.amended {
+		@include colors('background-color', warn, 0, 0.1, rgba(255, 204, 0, 0.10));
+		i {
+			@include colors('background-color', warn);
+		}
+	}
+	&.pending, &.cancelled {
+		@include colors('background-color', pending, 0, 0.1, rgba(255, 149, 0, 0.10));
+		i {
+			@include colors('background-color', pending);
+		}
+	}
+	&.requested {
+		@include colors('background-color', requested, 0, 0.1, rgba(88, 86, 214, 0.10));
+		i {
+			@include colors('background-color', requested);
+		}
+	}
+	&.declined, &.rejected {
+		@include colors('background-color', declined, 0, 0.1, rgba(255, 59, 48, 0.10));
+		i {
+			@include colors('background-color', declined);
+		}
+	}
+}
+
+.dashboard-chart {
+	margin-top: 24px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(515px, 1fr));
+	gap: 24px;
+	row-gap: 8px;
+	&-inner {
+		padding: 16px 24px;
+		box-shadow: $shadow-normal;
+		&.first {
+			padding: 24px 48px;
+			background: linear-gradient(0deg, rgba(52, 199, 89, 0.10) 0%, rgba(255, 255, 255, 0.10) 100%);
+
+			.dashboard-chart-title {
+				text-align: center;
+				font-size: $fs-xs;
+				@include black('color', 30);
+			}
+		}
+	}
+	&-title {
+		font-size: 16px;
+		font-weight: 500;
+	}
+	&-donut {
+		margin-top: 12px;
+	}
+	ul {
+		margin-top: 36px;
+	}
+	li {
+		gap: 12px;
+		padding: 8px;
+		border: 1px solid;
+		border-radius: $rM;
+		@include black('border-color', 50);
+		@include black('background-color', white);
+	}
+	&-bar{
+		width: 8px;
+		height: 32px;
+		border-radius: 24px;
+		@include colors('background-color', success);
+	}
+	&-name {
+		font-size: $fs-xs;
+		@include black('color', 30);
+	}
+	&-num {
+		font-weight: 700;
+		font-size: 16px;
+		strong {
+			font-size: 20px;
+			@include black('color', 0);
+		}
+	}
+}
+
+.dashboard-chart li{
+	&.booked .dashboard-chart-bar{
+		@include colors('background-color', success);
+	}
+	&.available .dashboard-chart-bar{
+		@include colors('background-color', warn);
+	}
+	&.allocated .dashboard-chart-bar{
+		@include colors('background-color', info);
+	}
+	&.pending .dashboard-chart-bar{
+		@include colors('background-color', pending);
+	}
+}

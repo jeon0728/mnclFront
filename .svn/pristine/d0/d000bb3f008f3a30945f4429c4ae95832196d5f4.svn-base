@@ -1,0 +1,20 @@
+<template>
+  <div class="side-mobile-menu-item menu-depth-1 active">
+    <PhChartPieSlice/>
+  </div>
+  <div class="side-mobile-menu-item menu-depth-1">
+    <PhNut/>
+  </div>
+  <div class="side-mobile-menu-item menu-depth-1">
+    <PhHandshake/>
+  </div>
+  <div class="side-mobile-menu-item menu-depth-1">
+    <PhArticle/>
+  </div>
+  <div class="side-mobile-menu-item menu-depth-1">
+    <PhCalendarCheck/>
+  </div>
+  <div class="side-mobile-menu-item menu-depth-1">
+    <PhCalendarCheck/>
+  </div>
+</template>

@@ -1,0 +1,38 @@
+@use '../../variable' as *;
+
+// .pagination-bar-container
+.pagination-bar {
+  &-container {
+    font-size: $fs-xs;
+    justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-bottom: 4px;
+  }
+  &-icon,&-page {
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content : center;
+    gap: 0;
+    border-radius: $rS;
+    @include black('background-color', white);
+    &:not(.active):hover {
+      @include black('background-color', 80);
+    }
+    
+    &.active {
+      cursor: default;
+      @include black('background-color', 60);
+      @include black('color', white);
+    }
+  }
+  &-icon {
+    padding: 4px;
+  }
+}

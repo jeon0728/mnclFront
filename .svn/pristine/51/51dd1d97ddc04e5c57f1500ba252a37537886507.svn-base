@@ -1,0 +1,106 @@
+<template>
+  <Popover :active="isOpen">
+    <template #component>
+      <div
+        class="profile-container"
+        @click="togglePopover"
+        tabindex="-1"
+        @focusout="isOpen = false"
+      >
+        <!-- <div class="profile-user-name">{{ profileName }}</div> -->
+        <div class="profile-image">
+          <template v-if="!hasError && props.profileImage">
+            <img
+              :src="props.profileImage"
+              alt="profile"
+              width="40"
+              height="40"
+              @error="hasError = true"
+            />
+          </template>
+          <template v-else>
+            <div class="profile-actions-avatar">
+              {{ profileName?.charAt(0) || '👤' }}
+              <!-- <div v-if="profileName?.charAt(0)">
+              {{profileName?.charAt(0)}}
+            </div>
+            <PhUser v-else :size="20"/> -->
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <template #popover>
+      <ul class="profile-actions" @mousedown.prevent.stop>
+        <li class="profile-actions-container">
+          <template v-if="props.profileImage">
+            <img
+              :src="props.profileImage"
+              alt="profile"
+              width="40"
+              height="40"
+              @error="hasError = true"
+            />
+          </template>
+          <template v-else>
+            <div class="profile-actions-image">
+              {{ profileName?.charAt(0) || '👤' }}
+            </div>
+          </template>
+
+          <div>
+            <div class="profile-actions-user-name">{{ profileName }}</div>
+            <div class="profile-actions-user-dept">{{ corpName }}</div>
+          </div>
+        </li>
+
+        <li class="info" @click="handleProfileSettings">개인 설정</li>
+        <li class="login-out" @click="handleLogout">로그아웃</li>
+      </ul>
+    </template>
+  </Popover>
+</template>
+
+<script setup lang="ts">
+  import { computed, ref } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { logout } from './api'
+  import { ACCESS_TOKEN, CORP_ID } from '@/shared/constants/common/auth'
+  import { useSession } from '@/shared/composables'
+  import type { ProfileProps } from './Profile.types'
+
+  const props = defineProps<ProfileProps>()
+
+  const router = useRouter()
+  const session = useSession()
+  const hasError = ref(false)
+  const isOpen = ref(false)
+
+  const profileName = computed(() => props.userName || session('userNm'))
+  const corpName = computed(() => session('corpNm'))
+
+  const handleProfileSettings = () => {
+    isOpen.value = false
+    router.push('/mncl/list')
+  }
+
+  const handleLogout = async () => {
+    await logout()
+
+    await new Promise((resolve) => setTimeout(resolve, 50))
+
+    // session_valid 플래그 삭제
+    document.cookie = 'session_valid=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT'
+
+    sessionStorage.removeItem(ACCESS_TOKEN)
+    sessionStorage.removeItem(CORP_ID)
+    window.location.href = '/'
+  }
+
+  const togglePopover = () => {
+    isOpen.value = !isOpen.value
+  }
+</script>
+
+<style scoped></style>

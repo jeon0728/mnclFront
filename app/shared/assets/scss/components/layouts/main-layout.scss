@@ -1,0 +1,31 @@
+@use '../../variable' as *;
+
+//.main-layout-container
+.main-layout-container {
+  width: 100%;
+  height: 100%;
+}
+
+.main__router-tab {
+  flex: 1;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.content {
+  height: calc(100% - 73px);
+  max-width: 1080px;
+  margin: 0 auto;
+
+  &__main {
+    gap: 0;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

@@ -1,0 +1,35 @@
+<template>
+  <Overlay :isVisible="isOpen">
+    <div
+      class="command-palette-wrapper"
+      @mousedown="( e ) => {
+        e.stopPropagation()
+        inputRef.focus()
+      }"
+      @keydown="( { code } ) => code === 'Escape' && closeCommandPalette()"
+      @focusout="() => closeCommandPalette()"
+    >
+      <InputWrapper
+        ref="inputRef"
+        class="command-palette-input"
+        placeholder="전체검색"
+      >
+        <template #rightArea>
+          <PhMagnifyingGlass weight="bold" className="command-palette-icon"/>
+        </template>
+      </InputWrapper>
+    </div>
+  </Overlay>
+</template>
+<script lang="ts" setup>
+  import { Overlay } from '@/shared/containers'
+  import { PhMagnifyingGlass } from '@phosphor-icons/vue'
+  import { useCommandPaletteStore } from '@/shared/store'
+  import '@/shared/assets/scss/components/containers/command-palette.scss'
+  import { storeToRefs } from 'pinia'
+
+  const inputRef = ref<HTMLInputElement>()
+  const { closeCommandPalette } = useCommandPaletteStore()
+  const { isOpen } = storeToRefs( useCommandPaletteStore() )
+
+</script>

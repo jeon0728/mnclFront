@@ -1,0 +1,150 @@
+@use '../variable' as *;
+
+$card-bg: #004599;
+
+.mncl-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        margin: 24px 0;
+        font-size: 20px;
+        font-weight: 700;
+  }
+}
+
+// 검색
+.search{
+    &-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+    } 
+    &-label {
+        width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
+        @include black('color', 0);
+    }
+    &-input {
+        max-width: 500px;
+        height: 40px !important;
+    }
+}
+
+// bl
+.bl {
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+    &-card {
+        border-radius: $rS;
+        padding: 10px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        @include black('background-color', 90);
+    }
+}
+
+.bl-card {
+    &.span2 {
+        grid-column: span 2;
+    }
+    &-label {
+        font-size: 12px;
+        line-height: 1.3;
+        @include black('color', 40);
+    }
+    &-value {
+        font-size: 16px;
+        line-height: 1.3;
+        @include black('color', 0);
+    }
+}
+
+.bottom-row {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    overflow: hidden;
+    .panel-delivery {
+        flex: 1;
+    }
+    .panel-charge {
+        flex: 2;
+    }
+}
+
+.panel-charge {
+    display: flex;
+    flex-direction: column;
+    .panel-body {
+        flex: 1;
+        overflow: auto;
+        @include custom-scrollbar;
+    }
+}
+
+.agent-card {
+    background: $card-bg;
+    border-radius: $rS;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &-title-row {
+        display: flex;
+        align-items: center;
+    }
+
+    &-title {
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        @include black('color', white);
+    }
+
+    &-divider {
+        height: 1px;
+        @include black('background-color', 70);
+    }
+    &-body {
+        font-size: 12px;
+        line-height: 1.4;
+        @include black('color', 90);
+    }
+}
+
+.charge-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+// table
+.charge-table colgroup col:nth-child(1) { width: auto; }
+.charge-table colgroup col:nth-child(2) { width: 60px; }
+.charge-table colgroup col:nth-child(3) { width: 120px; }
+.charge-table colgroup col:nth-child(4) { width: 60px; }
+.charge-table colgroup col:nth-child(5) { width: 120px; }
+
+@media screen and (max-width: 1080px) {
+    .bottom-row {
+        flex-direction: column;
+    }
+    .bottom-row .panel-delivery {
+        flex: 0 0 auto;
+    }
+    .bottom-row .panel-charge {
+        overflow: auto;
+        max-height: 100%;
+    }
+}

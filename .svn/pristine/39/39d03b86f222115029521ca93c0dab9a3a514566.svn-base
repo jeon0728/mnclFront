@@ -1,0 +1,71 @@
+.select-box-item {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: background-color .2s ease;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  &.focus:hover {
+    background-color: #d4e2f6;
+  }
+}
+
+// 전역 popover 중 select-box-item을 포함한 경우에만 스크롤 적용
+:global(.popover:has(.select-box-item)) {
+  /* 스크롤 활성화 - CSS 변수 사용, 없으면 기본값 250px */
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: var(--popover-max-height, 250px) !important;
+  
+  /* 스크롤바 스타일링 */
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: inherit;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-width: 3px;
+    border-style: solid;
+    background-color: #DEDEDE;
+    
+    &:hover {
+      background: #BEBEBE;
+    }
+  }
+}
+
+:deep(.gsabis-select-wrapper) {
+	:global(.popover) {
+		/* 스크롤바 스타일링 */
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: inherit;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-width: 3px;
+      border-style: solid;
+      background-color: #DEDEDE;
+      
+      &:hover {
+        background: #BEBEBE;
+      }
+    }
+	}
+}

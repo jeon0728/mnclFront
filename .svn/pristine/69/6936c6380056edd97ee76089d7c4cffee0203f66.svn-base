@@ -1,0 +1,87 @@
+@use '../variable' as *;
+
+.alloc-modal {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.kpi-row {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 12px;
+}
+.kpi-card {
+	border: 1px solid;
+	border-radius: 8px;
+	padding: 12px;
+	@include black('border-color', 60);
+	@include black('background-color', white);
+}
+.kpi-title {
+	font-size: 16px;
+	margin-bottom: 6px;
+	@include black('color', 30);
+}
+.kpi-value {
+	font-size: 28px;
+	font-weight: 500;
+}
+.chart-card {
+	border: 1px solid;
+	border-radius: 8px;
+	padding: 12px;
+	@include black('border-color', 60);
+	@include black('background-color', white);
+}
+.table-card {
+	border: 1px solid;
+	border-radius: 8px;
+	overflow: hidden;
+	@include black('border-color', 60);
+	@include black('background-color', white);
+}
+.alloc-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: $fs-s;
+}
+.alloc-table thead th {
+	color: #fff;
+	text-align: right;
+	padding: 10px;
+	position: sticky;
+	top: 0;
+	@include black('color', white);
+	@include colors('background-color', teritary);
+	&:first-child {
+		text-align: center;
+	}
+	&:not(:first-child) {
+        padding-right: 15%;
+    }
+}
+.alloc-table tbody td,
+.alloc-table tfoot th {
+	text-align: right;
+	padding: 10px;
+	border-top: 1px solid;
+	@include black('border-top-color', 80);
+	&:first-child {
+		text-align: center;
+	}
+	&:not(:first-child) {
+        padding-right: 15%;
+    }
+}
+.alloc-table tfoot th {
+	text-align: right;
+	@include black('background-color', 100);
+	&:first-child {
+		text-align: center;
+	}
+}
+.t-num {
+	text-align: center;
+	
+}
+

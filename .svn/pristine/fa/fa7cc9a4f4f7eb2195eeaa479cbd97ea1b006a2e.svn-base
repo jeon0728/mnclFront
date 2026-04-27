@@ -1,0 +1,60 @@
+<template>
+  <main class="content">
+    <div class="content__main flex h100p w100p">
+      <div class="main__menu">
+        <SideMenu
+          :menuList="menuList"
+          :width="`${menuWidth}px`"
+          :isMenuCollapse="isMenuCollapseRef"
+          @toggleMenuCollapse="handleToggleMenuCollapse"
+        />
+      </div>
+      <div class="main__router-tab">
+        <slot/>
+      </div>
+    </div>
+  </main>
+</template>
+
+<script lang="ts" setup>
+  import { ref, watch } from 'vue'
+  import { SideMenu } from '@/shared/containers'
+  import { COLLAPSE_SIDE_MENU_WIDTH, DEFAULT_SIDE_MENU_WIDTH } from '@/shared/constants/menu'
+  import { menuList, useMenuStore  } from '@/shared/store'
+  import type { MenuData } from '@/shared/types/store'
+  import type { MainContentProps } from '@/shared/containers/MainContent/MainContent.types'
+
+  const menuStore = useMenuStore()
+  const props = defineProps<MainContentProps>()
+  const isMenuCollapseRef = ref(props.isMenuCollapse)
+
+  const hasMenuId = (list: MenuData[] = [], menuId?: string | null): boolean =>
+    !!menuId &&
+    list.some((item) => item.menuId === menuId || hasMenuId(item.children || [], menuId))
+
+  const menuWidth = ref(DEFAULT_SIDE_MENU_WIDTH)
+
+  const handleToggleMenuCollapse = () => {
+    isMenuCollapseRef.value = !isMenuCollapseRef.value
+  }
+
+  watch(
+    menuList,
+    (list) => {
+      if (list.length) {
+        menuStore.init(list)
+      }
+    },
+    { immediate: true }
+  )
+
+  watch(
+    () => props.isMenuCollapse,
+    (collapse) => {
+      menuWidth.value = collapse ? COLLAPSE_SIDE_MENU_WIDTH : DEFAULT_SIDE_MENU_WIDTH
+    },
+    { immediate: true }
+  )
+</script>
+
+<style src="@/shared/assets/scss/components/containers/content.scss"/>

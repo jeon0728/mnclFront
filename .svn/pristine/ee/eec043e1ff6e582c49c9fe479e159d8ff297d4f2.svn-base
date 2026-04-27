@@ -1,0 +1,96 @@
+@use '../variable' as *;
+
+.booking-regist {
+	table {
+		border-radius: 8px 8px 0 0;
+		overflow: hidden;
+	}
+	thead {
+		width: 100%;
+		th {
+			text-align: left;
+			padding: 12px 8px;
+			border-bottom: 2px solid;
+			font-weight: 500;
+			@include colors('border-bottom-color', primary);
+			@include black('background-color', 80);
+		}
+	}
+	table.g-table tbody tr {
+		th,td {
+			padding: 12px 8px;
+			vertical-align: middle;
+			border-top: 1px solid;
+			@include black('border-color', 60);
+		}
+	}
+}
+
+.booking-table {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	.input-container {
+		max-width: 300px;
+		&.flex-1 {
+			flex: 1;
+			max-width: 100%;
+		}
+	}
+
+	:deep(.gsabis-select-box .input-container) {
+		max-width: 300px;
+	}
+
+	:deep(.gsabis-select-box.flex-1 .input-container) {
+		max-width: 100%;
+	}
+
+	:deep(.gsabis-date-box .input-container) {
+		max-width: 130px;
+	}
+    
+	&-grid {
+		display: grid;
+		grid-template-columns: 70px 1fr 70px 1fr;
+		align-items: center;
+		gap: 12px;
+		.label {
+			@include labelS;
+		}
+		.input-container {
+			max-width: 300px;
+		}
+	}
+
+	&-flex {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		p, .label {
+			margin: 0;
+			@include labelS;
+		}
+		:deep(.gsabis-select-box .input-container) {
+			width: 120px;
+		}
+		:deep(.w-250 .gsabis-select-box .input-container) {
+			width: 250px;
+		}
+		.input-container.w-150 {
+			width: 150px;
+		}
+		:deep(.w-150 .input-container) {
+			width: 150px;
+		}
+		:deep(.code.input-container) {
+			width: 150px;
+		}
+	}
+
+	&-grid-2 {
+		display: grid;
+		align-items: center;
+		row-gap: 12px;
+	}
+}

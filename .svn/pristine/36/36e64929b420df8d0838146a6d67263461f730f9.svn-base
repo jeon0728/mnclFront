@@ -1,0 +1,75 @@
+<template>
+  <Card>
+    <template #content>
+      <div class="contents-inner blTemplete">
+        <ul class="blTemplete-lists">
+          <li>
+            <div class="title">
+              Shipper
+            </div>
+            <div class="input-label-column">
+              <Label>Name</Label>
+              <TextBox/>
+            </div>
+            <div class="input-label-column">
+              <Label>ADDRESS</Label>
+              <Textarea :height="68"/>
+            </div>
+          </li>
+          <li>
+            <div class="title">
+              Consignee
+            </div>
+            <div class="input-label-column">
+              <Label>Name</Label>
+              <TextBox/>
+            </div>
+            <div class="input-label-column">
+              <Label>ADDRESS</Label>
+              <Textarea :height="68"/>
+            </div>
+          </li>
+          <li>
+            <div class="title">
+              Notify Party
+              <Button 
+                class="sizeXS"
+                buttonVariant="transactional" 
+              >SAME AS Consignee</Button>
+            </div>
+            <div class="input-label-column">
+              <Label>Name</Label>
+              <TextBox/>
+            </div>
+            <div class="input-label-column">
+              <Label>ADDRESS</Label>
+              <Textarea :height="68"/>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <Label>Forwarding Agent</Label>
+            <Textarea :height="96"/>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <Label>Export References</Label>
+            <Textarea :height="96"/>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <Label>Marks & No.</Label>
+            <Textarea :height="150"/>
+          </li>
+          <li>
+            <Label>Description of Packages</Label>
+            <Textarea :height="150"/>
+          </li>
+        </ul>
+      </div>
+    </template>
+  </Card>
+</template>

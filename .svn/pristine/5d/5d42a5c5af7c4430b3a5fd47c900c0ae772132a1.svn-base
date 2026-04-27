@@ -1,0 +1,22 @@
+@use '../../variable' as *;
+
+.label {
+  div {
+    width: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.radio-item .radio-label {
+  @include black('color', 20);
+}
+
+.req:before {
+    display: inline-flex;
+    margin-right: 4px;
+    font-size: $fs-xs;
+    content: "*";
+    @include colors('color', systemRed);
+}

@@ -1,0 +1,86 @@
+@use '../variable' as *;
+
+:deep(.z-tab__body-wrapper) {
+    margin-top: 8px;
+}
+
+// 레이아웃 정리
+.schedule-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.schedule-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  min-height: 0;
+}
+
+// 검색폼 스타일
+// .search-wrapper {}
+
+// 검색폼 위
+.search-row-custom {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 150px 166px minmax(200px, 1fr) minmax(200px, 1fr) 2.5fr 120px 316px;
+  grid-template-rows: auto;
+  gap: 32px;
+  row-gap: 16px;
+
+  @media screen and (max-width: 1690px) {
+    grid-template-columns: 150px 166px repeat(2, minmax(200px, 0.2fr));
+  }
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }
+}
+//검색폼 아래 (삭제)
+
+.custom-fields-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+// 라벨 + 인풋
+.search-field-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+
+  > label {
+    @include label;
+  }
+
+  // 그리드 컬럼 위치 조정용
+  &.date-field {
+    grid-column: 6 / 7;
+    @media screen and (max-width: 1690px) {
+      grid-column: 1 / 2;
+    }
+  }
+
+  &.period-field {
+    @media screen and (max-width: 1690px) {
+      grid-column: span 2;
+    }
+  }
+}
+
+.period-inputs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: $fs-xs;
+  @include black('color', 40);
+
+  .gsabis-date-box {
+    width: 140px;
+  }
+}

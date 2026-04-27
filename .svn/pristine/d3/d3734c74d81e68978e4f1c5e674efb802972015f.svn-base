@@ -1,0 +1,10 @@
+$shadow-normal: 1px 2px 8px 0px rgba(0, 0, 0, 0.1) !default;
+// 쉐도우 펑션용 쉐도우
+$shadow-default: 1px 2px 8px 0px !default;
+// 카드 쉐도우
+$shadow-inner: -1px 3px 29px 20px rgba(0, 0, 0, 0.02) !default;
+// 라디오 쉐도우
+$shadow-radio: 0 0 1px 1px rgba(0, 0, 0, 0.25) !default;
+$shadow-radio-checked: 0 0 1px 2px rgba(25, 118, 210, 0.1) !default;
+// 인풋 필수 쉐도우
+$shadow-essential: 0 0 1px 1px #FF9500;

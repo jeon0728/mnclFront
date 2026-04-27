@@ -1,0 +1,86 @@
+<template>
+  <header class="header flex">
+    <!-- 왼쪽 영역 -->
+    <div class="header-left">
+      <div class="header-left-title flex" style="cursor: pointer" @click="onClickHome">
+        <img v-if="isDefaultLogo" src="@/shared/assets/image/logo.png" alt="logo" height="36"/>
+        <img v-else :src="logoUrl" alt="logo" height="36"/>
+      </div>
+
+      <!-- itemLeftArea 가 없으면 에러발생 컴포넌트 에러 -->
+      <div style="display: none">
+        <SelectBox>
+          <template #itemLeftArea="{}"> </template>
+        </SelectBox>
+      </div>
+    </div>
+
+    <!-- 오른쪽 영역 -->
+    <div class="header-right">
+      <!-- <div class="header-search-container" @click="openCommandPalette">
+        <CommandPalette />
+        <span class="header-search-btn">
+          <PhMagnifyingGlass :size="16" />
+          ctrl + k 전체검색
+        </span>
+      </div> -->
+
+      <Profile :profileImage="''"/>
+    </div>
+  </header>
+</template>
+
+<script setup lang="ts">
+  import {
+    useCommandPaletteStore,
+    useCorpsStore,
+    useSessionStore,
+    useWhCdStore,
+    useLogoStore, useMenuStore, menuMap, menuList, getMenuMap 
+  } from '@/shared/store'
+  import { PhGlobeSimple, PhMagnifyingGlass, PhPushPin } from '@phosphor-icons/vue'
+  import { useRouter } from 'vue-router'
+  import { useGlobalShortcut, useHttp, useSession } from '@/shared/composables'
+  import { Profile } from '@/shared/containers/Profile'
+  import { CommandPalette } from '@/shared/containers'
+  import { ACCESS_TOKEN, CORP_ID, LANGUAGES } from '@/shared/constants/common/auth'
+
+  const router = useRouter()
+  const session = useSession()
+  const sessionStore = useSessionStore()
+  const menuStore = useMenuStore()
+
+  const whCdStore = useWhCdStore()
+  const { openCommandPalette } = useCommandPaletteStore()
+  const corpsStore = useCorpsStore()
+  const logoStore = useLogoStore()
+
+  const sessionValue = computed(() => session('whCd'))
+  const langValue = computed(() => session('langCd'))
+  const corpValue = computed(() => String(session('corpId')))
+
+  const logoUrl = computed(() => logoStore.getLogoUrl)
+
+  // 기본 로고인지 확인 (storeLogo가 기본 로고 경로 문자열이거나 잘못된 경로인 경우)
+  const isDefaultLogo = computed(() => {
+    const storeLogo = logoStore.getLogoUrl
+    return (
+      storeLogo === '/shared/assets/image/logo.png' ||
+      !storeLogo ||
+      storeLogo.startsWith('/shared/')
+    )
+  })
+
+  useGlobalShortcut({ shortcutKey: 'k', ctrl: true }, () => {
+    openCommandPalette()
+  })
+
+  const onClickHome = () => {
+    const menuId = menuStore.selectHome(menuList.value)
+    const menuUrl = getMenuMap(menuId).menuUrl
+    menuStore.selectMenu(menuId)
+    router.push(menuUrl)
+  }
+</script>
+
+<style src="@/shared/assets/scss/components/containers/header.scss"/>

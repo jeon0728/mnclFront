@@ -1,0 +1,36 @@
+@use '../variable' as *;
+
+.profile-content-wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.profile-form {
+	padding: 24px;
+}
+
+.phone-input-group {
+	display: flex;
+	gap: 8px;
+}
+
+.phone-input {
+	flex: 1;
+}
+
+.profile-value {
+	font-size: $fs-xs;
+	padding: 10px 0;
+	margin-top: 4px;
+	@include black(color, 30);
+}
+
+.input-wrapper {
+	max-width: 250px;
+	width: 100%;
+}
+
+.label {
+	margin-bottom: 8px;
+	@include labelM;
+}

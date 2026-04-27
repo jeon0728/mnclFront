@@ -1,0 +1,25 @@
+@use '../functions/colors' as *;
+
+@mixin custom-scrollbar($width: 10px, $thumb-color: 70) {
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    @include black("background-color", 95);
+    &-track {
+      background-color: inherit;
+    }
+    &-thumb {
+      border-width: 3px;
+      border-style: solid;
+      @include black("border-color", 95);
+      @include black("background-color", 70);
+      &:hover {
+        @include black("background-color", 50);
+      }
+
+      &:active {
+        @include black("background-color", 50);
+      }
+    }
+  }
+}

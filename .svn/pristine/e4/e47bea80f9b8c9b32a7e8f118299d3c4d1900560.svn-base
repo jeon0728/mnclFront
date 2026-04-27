@@ -1,0 +1,151 @@
+@use '../variable' as *;
+@use '../components/ui/badge' as *;
+@use '../mixins/tables' as table;
+
+.title{
+	margin-bottom: 16px;
+	text-align: start;
+	font-size: $fs-l;
+}
+
+// 470px넘으면 flex-1
+.book-status-table-flex {
+	> ul {
+    display: flex;
+		flex-wrap: wrap;
+    gap: 32px
+	}
+	li {
+		flex: 1 1 470px;
+	}
+}
+
+// 부킹현황, 비중 테이블
+.book-status-table {
+	@include table.status-table;
+  &-title{
+		font-size: $fs-s;
+		font-weight: 500;
+  }
+  &-value{
+    font-size: $fs-l;
+  }
+	&.portion {
+		.book-status-table-value {
+			@include black('color', 30);
+		}
+	}
+}
+
+// 두번째 섹션 플렉스
+.book-status-flex {
+	margin-top: 24px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+	> * {
+		flex: 2;
+	}
+	> * + * {
+		flex: 1;
+	}
+}
+
+// 진행중인 부킹 카드
+.book-status-card {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	&-list {
+		padding: 16px;
+		border: 1px solid;
+		border-radius: $rM;
+		@include black('border-color', 80);
+	}
+	&-name {
+		font-weight: 600;
+		@include black('color', black);
+	}
+	&-route {
+		margin-top: 4px;
+		line-height: 1.5;
+	}
+	&-sailing {
+		margin-top: 4px;
+		font-size: $fs-s;
+		@include black('color', 40);
+	}
+	&-content {
+		margin-top: 12px;
+		gap: 16px;
+		flex-wrap: wrap;
+	}
+	&-right {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+}
+
+// 부킹현황 리스트형 + 차트
+.book-status {
+	&-lists{
+		display: flex;
+		flex-wrap: wrap;
+		row-gap: 16px;
+		column-gap: 24px;
+	}
+	&-list{
+		display: flex;
+		min-width: 200px;
+		padding: 20px 16px;
+		justify-content: space-between;
+		align-items: center;
+		flex: 1 0 0;
+		border-radius: $rM;
+		@include black('background-color', 90);
+		&-title {
+			font-weight: 600;
+			@include black('color', 20);
+		}
+		&-value {
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			@include colors('color', primary);
+		}
+	}
+	&-chart {
+		padding: 24px 48px;
+		border-radius: $rM;
+		border: 1px solid;
+		@include black('border-color', 70);
+	}
+	&-chart-lists {
+		margin-top: 16px;
+		display: flex;
+		padding: 20px 16px;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 16px;
+		align-self: stretch;
+		border-radius: $rM;
+		@include black('background-color', 90);
+	}
+	&-chart-list {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+		&-title {
+			line-height: 150%;
+			@include black('color', 20);
+		}
+		&-value {
+			font-weight: 600;
+			line-height: 150%;
+			@include colors('color', secondary);
+		}
+	}
+}

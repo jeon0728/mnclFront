@@ -1,0 +1,73 @@
+<template>
+  <div class="contents-inner allocation">
+    <ul>
+      <li>
+        <Label>Allocation</Label>
+        <TextBox/>
+      </li>
+      <li>
+        <Label>Unit</Label>
+        <SelectBox/>
+      </li>
+      <li>
+        <Label>Booked</Label>
+        <TextBox readOnly value="500"/>
+      </li>
+      <li>
+        <Label>Available</Label>
+        <TextBox/>
+      </li>
+      <li>
+        <Label>Remarks</Label>
+        <SelectBox/>
+      </li>
+      <li>
+        <Label>Date</Label>
+        <DateBox/>
+      </li>
+      <li>
+        <div class="button-wrap-flex">
+          <Button class="accent iconSizeL">
+            <PhPlus :size="24"/>
+          </Button>
+        </div>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <Label>Allocation</Label>
+        <TextBox/>
+      </li>
+      <li>
+        <Label>Unit</Label>
+        <SelectBox/>
+      </li>
+      <li>
+        <Label>Booked</Label>
+        <TextBox readOnly/>
+      </li>
+      <li>
+        <Label>Available</Label>
+        <TextBox/>
+      </li>
+      <li>
+        <Label>Remarks</Label>
+        <SelectBox/>
+      </li>
+      <li>
+        <Label>Date</Label>
+        <DateBox/>
+      </li>
+      <li>
+        <div class="button-wrap-flex">
+          <Button class="accent iconSizeL">
+            <PhPlus :size="24"/>
+          </Button>
+          <Button class="iconSizeL">
+            <PhMinus :size="24"/>
+          </Button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>

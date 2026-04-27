@@ -1,0 +1,30 @@
+@use '../../variable' as *;
+
+// 안씀
+.gsabis2-stepbox{
+	max-width: 202px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	font-size: 10px;
+	@include black("color", 0);
+	&-container{
+		flex: 1;
+		display: flex;
+		gap: 4px;
+		align-items: center;
+		flex-direction: column;
+		opacity: 0.4;
+		&.active {
+			opacity: 1;
+		}
+	}
+	&-chip {
+		display: flex;
+		width: 100%;
+		height: 4px;
+		align-items: flex-start;
+		align-self: stretch;
+		@include colors("background-color", secondary);
+	}
+}

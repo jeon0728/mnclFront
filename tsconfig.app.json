@@ -1,0 +1,32 @@
+{
+  "extends": "./.nuxt/tsconfig.app.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./app/*"]
+    },
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
+    "exactOptionalPropertyTypes": false,
+    "strict": true,
+    "strictNullChecks": false,
+    "allowJs": true,
+    "noImplicitAny": false,
+    "useUnknownInCatchVariables": false,
+    "types": [
+      "node",
+      "nuxt",
+    ]
+  },
+  "include": [
+    "app/**/*",
+    ".nuxt/**/*",
+    "**/*.ts",
+    "**/*.vue",
+    "**/*.d.ts"
+  ]
+}

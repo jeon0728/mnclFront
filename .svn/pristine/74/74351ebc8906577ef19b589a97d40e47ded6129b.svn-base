@@ -1,0 +1,48 @@
+@use '../../variable' as *;
+
+//팝오버 전체 프리셋 설정
+#zenith-modal .popover{
+  padding: 4px;
+  border-radius: $rM;
+  box-shadow: 1px 2px 8px 0 rgba(0, 0, 0, 0.10);
+  @include black('background-color', 100);
+  @include black('border-color', 80);
+  
+  /* 스크롤바 스타일링 */
+  @include custom-scrollbar;
+}
+
+// select-box-item이 있는 popover에 스크롤 적용
+.popover:has(.select-box-item) {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: var(--popover-max-height, 250px) !important;
+}
+
+// asyncbox 있는 popover에 스크롤 적용
+.popover > div[style*="overflow-y: auto"] {
+  @include custom-scrollbar;
+}
+
+// 달력
+.calendar-header {
+  align-items: center;
+}
+
+.calendar-header .icon-chevron svg {
+  width: 16px;
+  height: 16px;
+}
+
+.calendar-header .text {
+  background-color: transparent;
+  font-size: $fs-s;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.calendar-header .today {
+  &::before{
+    content: "Today";
+  }
+}

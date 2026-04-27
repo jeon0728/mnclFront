@@ -1,0 +1,49 @@
+@use '../../variable' as *;
+
+.panel {
+  margin-bottom: 24px;
+  &-head {
+    min-height: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 12px;
+    border-radius: $rS $rS 0 0;
+    overflow: hidden;
+    @include colors('background-color', primary);
+  }
+  &-divider {
+    height: 1px;
+    flex-shrink: 0;
+    @include black('background-color', 80);
+  }
+  &-body {
+    border: 1px solid;
+    border-top: none;
+    border-radius: 0 0 $rS $rS;
+    padding: 12px;
+    overflow: hidden;
+    @include black('border-color', 70);
+    @include black('background-color', white);
+  }
+}
+
+.panel-head {
+  &-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  &-label {
+    font-size: 14px;
+    white-space: nowrap;
+    @include black('color', white);
+  }
+  &-value {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    @include black('color', white);
+  }
+}

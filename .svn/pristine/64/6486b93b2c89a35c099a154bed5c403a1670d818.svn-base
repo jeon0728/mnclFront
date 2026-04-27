@@ -1,0 +1,125 @@
+<template>
+  <div class="mncl-page">
+    <h1 class="mncl-page__title">등록</h1>
+    <!-- Search -->
+    <div class="search-row">
+      <span class="search-label">조회기간</span>
+      <div class="search-controls flex">
+        <DateBox add-container-class="search-input"></DateBox>
+        <DateBox add-container-class="search-input"></DateBox>
+        <Button class="accent sizeL">search</Button>
+      </div>
+      <Button class="sizeL right" buttonType="download" @click="handleDownloadTemplate">
+        {{ 'Excel 양식 다운로드' }}
+      </Button>
+      <Button class="sizeL" buttonType="upload" @click="() => excelRef?.click()">
+        {{ 'Excel 업로드' }}
+      </Button>
+      <input
+        ref="excelRef"
+        type="file"
+        :style="{ display: 'none' }"
+        @change="(e) => handleUploadExcel(e)"
+      />
+    </div>
+
+    <div class="panel panel-charge">
+      <div class="panel-head">
+        <div class="panel-head-icon">
+          <img src="@/shared/assets/image/CurrencyCircleDollar.svg" alt="charge icon">
+        </div>
+        <span class="panel-head-label">LOCAL CHARGE 등록</span>
+      </div>
+      <div class="panel-divider"></div>
+      <div class="panel-body scroll">
+        <table class="charge-table">
+          <colgroup>
+            <col /><col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>BL NO.</th>
+              <th class="center">업데이트 일시</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PSC</td>
+              <td class="center">AUD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { downloadMnclTemplate, uploadExcel, type MnclExcelUploadResponse } from '@/ui/mncl/api'
+  import { usePage, useHttp } from '@/shared/composables'
+  import { GsabisGridButton as GridButton } from '@/shared/ui'
+  import { FormBuilder } from '@/shared/utils'
+
+  const excelRef = ref<HTMLInputElement | null>(null)
+
+  useHead({ title: '등록' })
+  const [excelRequest] = useHttp()
+  const { questionMessage, errorMessage, successNotify } = usePage()
+
+  const handleUploadExcel = async (e: Event) => {
+    const target = e.target as HTMLInputElement
+    const { files } = target
+    if (!files || files.length === 0) return
+
+    // 업로드 전에 컨펌 다이얼로그 표시
+    const isConfirm = await questionMessage('엑셀 파일을 업로드하시겠습니까?')
+    if (!isConfirm) {
+      // 취소 시 input 초기화
+      if (excelRef.value) {
+        excelRef.value.value = ''
+      }
+      return
+    }
+
+    const form = FormBuilder.create()
+      .appendFile('file', files.item(0))
+      .appendJson('param', null)
+      .build()
+
+    const { data, error } = await excelRequest<MnclExcelUploadResponse>(uploadExcel(form))
+
+    if (error) {
+      errorMessage(error.message)
+    } else if (data?.code === '0000') {
+      // data.mnclLocalChangeListDtoList — 필요 시 목록·그리드에 연결
+      successNotify(data.message || '엑셀 업로드가 완료되었습니다.')
+      //await navigateTo('/mncl/list')
+    } else {
+      // 서버에서 내려온 실패 메시지 표시
+      errorMessage(data?.message || '엑셀 업로드에 실패했습니다.')
+    }
+
+    if (excelRef.value) {
+      excelRef.value.value = ''
+    }
+  }
+
+  const handleDownloadTemplate = async () => {
+    try {
+      const response = await downloadMnclTemplate()
+      const blob = new Blob([response.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = 'MNCL_업로드양식.xlsx'
+      link.click()
+      window.URL.revokeObjectURL(url)
+    } catch (e) {
+      errorMessage('양식 다운로드에 실패했습니다.')
+    }
+  }
+</script>
+
+<style scoped lang="scss" src="@/shared/assets/scss/pages/regist.scss"></style>

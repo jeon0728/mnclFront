@@ -1,0 +1,99 @@
+@use 'fonts';
+@use 'help/flex';
+@use 'help/height';
+@use 'help/margin';
+@use 'help/padding';
+@use 'help/width';
+@use './components/ui/button.scss';
+@use './components/ui/input.scss';
+@use './components/ui/popover';
+@use 'table';
+@use 'variable' as *;
+@use './components/ag-grid';
+@use '../../../../node_modules/@mdi/font/css/materialdesignicons.css';
+
+// 전역 스타일링 제거
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  @include black('color', 10);
+  @include custom-scrollbar;
+
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden !important;
+  }
+}
+
+html,body, html body{
+  font-family: $font-default;
+}
+
+form {
+  width: 100%;
+  height: 100%;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+div#__nuxt {
+  height: 100%;
+
+  div#__layout {
+    height: 100%;
+  }
+}
+
+#__nuxt {
+  width: 100%;
+  height: 100%;
+
+}
+
+table {
+  th,
+  td {
+    > div.flex {
+      > * {
+      }
+
+      > *:first-of-type {
+        padding-left: 0 !important;
+      }
+
+      > *:last-of-type {
+        padding-right: 0 !important;
+      }
+
+      .fixed {
+        flex: none;
+      }
+    }
+  }
+}
+
+a:-webkit-any-link {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+
+}
+
+ul {
+  list-style: none;
+}

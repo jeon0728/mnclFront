@@ -1,0 +1,48 @@
+<template>
+  <!-- 카드 more 샘플 -->
+  <Card class="more-bottom">
+    <template #content>
+      <div class="card-more bottom flex">
+        <Button
+          :class="{ active: isVisible }"
+          :style="{
+            cursor: 'pointer',
+            transition: 'background-color 0.3s ease',
+          }"
+          @click="toggleVisible"
+        >
+          <template #leftArea>
+            <PhCaretUp v-if="isVisible" :size="16"/>
+            <PhCaretDown v-else :size="16"/>
+          </template>
+        </Button>
+      </div>
+      <div
+        class="flex"
+        :style="{
+          overflow: 'hidden',
+          transition: 'max-height 0.3s ease-in-out, opacity 0.3s ease-in-out',
+          maxHeight: isVisible ? '1000px' : '0',
+          opacity: isVisible ? 1 : 0
+        }"
+        @focus="handleFocus"
+      >
+        <div class="flex-1">
+          ㅇㅎㅇㄹㅇㄹss
+        </div>
+      </div>
+    </template>
+  </Card>
+</template>
+
+<script setup lang="ts">
+  const isVisible = ref( false )
+
+  const handleFocus = () => {
+    if( !isVisible.value ) isVisible.value = true
+  }
+
+  const toggleVisible = () => {
+    isVisible.value = !isVisible.value
+  }
+</script>

@@ -1,0 +1,24 @@
+import { axios } from '@/shared/utils'
+
+export const getCorpList = async ( param ) => {
+  return await axios.post( `/api/v1/corp/search/list`, param )
+}
+
+export const saveCorpInfo = async ( param ) => {
+  return await axios.post( `/api/v1/corp/save`, param )
+}
+
+export const deleteCorpInfo = async ( param ) => {
+  return await axios.post( `/api/v1/corp/delete`, param )
+}
+
+export const uploadCorpFile = async ( param ) => {
+  return await axios.multipart( `/api/v1/w7/gnl/inbound/expect/excel/upload`, param )
+}
+
+export const uploadCorpLogo = async ( param ) => {
+  return await axios.multipart( `/api/v1/corp/logo/upload`, param )
+}
+
+
+

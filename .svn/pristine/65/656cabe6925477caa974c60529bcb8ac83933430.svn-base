@@ -1,0 +1,2 @@
+export const DEFAULT_SIDE_MENU_WIDTH = 276
+export const COLLAPSE_SIDE_MENU_WIDTH = 55

@@ -1,0 +1,191 @@
+<template>
+  <PageLayout title="부킹 현황">
+    <template #actions>
+      <Button buttonType="file">스케줄 조회</Button>
+      <Button ButtonVariant="transactional" ButtonType="new">신규 부킹</Button>
+      <Button ButtonVariant="transactional" ButtonType="search">스케줄 검색</Button>
+    </template>
+    <template #content>
+      <!-- 부킹현황, 산사별ㅇ 부킹 비중 테이블 -->
+      <Card>
+        <template #content>
+          <div class="book-status-table-flex">
+            <ul>
+              <li>
+                <div class="title">
+                  부킹 현황
+                </div>
+                <ul class="book-status-table">
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">진행 중인 부킹</div>
+                    <div class="book-status-table-value">1</div>
+                  </li>
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">확정 대기</div>
+                    <div class="book-status-table-value">1</div>
+                  </li>
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">확정 완료</div>
+                    <div class="book-status-table-value">1</div>
+                  </li>
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">롤오버/취소</div>
+                    <div class="book-status-table-value">1</div>
+                  </li>
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">1주일 내 출항</div>
+                    <div class="book-status-table-value">1</div>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="title">
+                  선사별 부킹 비중
+                </div>
+                <ul class="book-status-table portion">
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">MSC</div>
+                    <div class="book-status-table-value">1%</div>
+                  </li>
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">MAERSK</div>
+                    <div class="book-status-table-value">1%</div>
+                  </li>
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">CMA CGM</div>
+                    <div class="book-status-table-value">1%</div>
+                  </li>
+                  <li class="book-status-table-list">
+                    <div class="book-status-table-title">기타</div>
+                    <div class="book-status-table-value">1%</div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </template>
+      </Card>
+    
+      <div class="book-status-flex">
+        <!-- 진행중인 부킹 -->
+        <!-- 뱃지의 경우 success, pending, decline class오 움직임 -->
+        <Card title="진행중인 부킹">
+          <template #content>
+            <ul class="book-status-card">
+              <li class="book-status-card-list">
+                <div class="book-status-card-head">
+                  <span class="badge-outline success">success</span>
+                  <span class="badge-fill success">확정완료</span>
+                </div>
+                <div class="book-status-card-content flex justify-between">
+                  <div class="book-status-card-left">
+                    <div class="book-status-card-name">name</div>
+                    <div class="book-status-card-route">삼성전자 → 부산항 → LA항 (MSC MAYA)</div>
+                    <div class="book-status-card-sailing">출항: <span>2024-10-22</span> | <span>40HC x2</span></div>
+                  </div>
+                  <div class="book-status-card-right">
+                    <Button class="sizeS accent">상세보기</Button>
+                    <Button class="sizeS autoW">추적</Button>
+                    <Button class="sizeS autoW">재부킹</Button>
+                  </div>
+                </div>
+              </li>
+              <li class="book-status-card-list">
+                <div class="book-status-card-head">
+                  <span class="badge-outline pending">pending</span>
+                  <span class="badge-fill pending">확정대기</span>
+                </div>
+                <div class="book-status-card-content flex justify-between">
+                  <div class="book-status-card-left">
+                    <div class="book-status-card-name">name</div>
+                    <div class="book-status-card-route">삼성전자 → 부산항 → LA항 (MSC MAYA)</div>
+                    <div class="book-status-card-sailing">출항: <span>2024-10-22</span> | <span>40HC x2</span></div>
+                  </div>
+                  <div class="book-status-card-right">
+                    <Button class="sizeS accent">상세보기</Button>
+                    <Button class="sizeS autoW">추적</Button>
+                    <Button class="sizeS autoW">재부킹</Button>
+                  </div>
+                </div>
+              </li>
+              <li class="book-status-card-list">
+                <div class="book-status-card-head">
+                  <span class="badge-outline decline">declined</span>
+                  <span class="badge-fill decline">롤오버</span>
+                </div>
+                <div class="book-status-card-content flex justify-between">
+                  <div class="book-status-card-left">
+                    <div class="book-status-card-name">name</div>
+                    <div class="book-status-card-route">삼성전자 → 부산항 → LA항 (MSC MAYA)</div>
+                    <div class="book-status-card-sailing">출항: <span>2024-10-22</span> | <span>40HC x2</span></div>
+                  </div>
+                  <div class="book-status-card-right">
+                    <Button class="sizeS accent">상세보기</Button>
+                    <Button class="sizeS autoW">추적</Button>
+                    <Button class="sizeS autoW">재부킹</Button>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </template>
+        </Card>
+
+        <!-- 부킹 현황 -->
+        <Card title="부킹현황">
+          <template #content>
+            <ul class="book-status-lists">
+              <li class="book-status-list">
+                <div class="book-status-list-title">진행 중인 부킹</div>
+                <div class="book-status-list-value">1</div>
+              </li>
+              <li class="book-status-list">
+                <div class="book-status-list-title">확정 대기</div>
+                <div class="book-status-list-value">1</div>
+              </li>
+              <li class="book-status-list">
+                <div class="book-status-list-title">확정 완료</div>
+                <div class="book-status-list-value">1</div>
+              </li>
+              <li class="book-status-list">
+                <div class="book-status-list-title">롤오버/취소</div>
+                <div class="book-status-list-value">1</div>
+              </li>
+              <li class="book-status-list">
+                <div class="book-status-list-title">1주일 내 출항</div>
+                <div class="book-status-list-value">1</div>
+              </li>
+            </ul>
+            <div class="title mt-4">선사별 부킹 비중</div>
+
+            <div class="book-status-chart"></div>
+
+            <ul class="book-status-chart-lists">
+              <li class="book-status-chart-list">
+                <div class="book-status-chart-list-title">진행 중인 부킹</div>
+                <div class="book-status-chart-list-value">1</div>
+              </li>
+              <li class="book-status-chart-list">
+                <div class="book-status-chart-list-title">확정 대기</div>
+                <div class="book-status-chart-list-value">1</div>
+              </li>
+              <li class="book-status-chart-list">
+                <div class="book-status-chart-list-title">확정 완료</div>
+                <div class="book-status-chart-list-value">1</div>
+              </li>
+              <li class="book-status-chart-list">
+                <div class="book-status-chart-list-title">롤오버/취소</div>
+                <div class="book-status-chart-list-value">1</div>
+              </li>
+              <li class="book-status-chart-list">
+                <div class="book-status-chart-list-title">1주일 내 출항</div>
+                <div class="book-status-chart-list-value">1</div>
+              </li>
+            </ul>
+          </template>
+        </Card>
+      </div>
+    </template>
+  </PageLayout>
+</template>
+
+<style scoped lang="scss" src="@/shared/assets/scss/pages/booking-status.scss"></style>

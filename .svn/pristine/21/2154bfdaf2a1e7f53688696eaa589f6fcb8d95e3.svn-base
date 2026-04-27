@@ -1,0 +1,58 @@
+@use '../variable' as *;
+
+.mncl-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        margin: 24px 0;
+        font-size: 20px;
+        font-weight: 700;
+  }
+}
+
+// 검색
+.search{
+    &-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+    } 
+    &-label {
+        width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
+        @include black('color', 0);
+    }
+}
+
+.gsabis-date-box {
+    max-width: 140px;
+}
+
+:deep(.search-input) {
+    max-width: 140px;
+    height: 40px !important;
+}
+
+// 버튼
+.right {
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+.panel-charge {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    .panel-body {
+        flex: 1;
+        overflow: auto;
+        @include custom-scrollbar;
+    }
+}

@@ -1,0 +1,41 @@
+<template>
+  <div class="logo-updater">
+    <!-- if 로고 지정되어있지 않은 경우 -->
+    <span class="logo-updater-preview">미리<br/>보기</span>
+    <!-- else 로고 지정되어 있는 경우 -->
+    <span class="logo-updater-preview"><img src="@/shared/assets/image/logo-login.svg" alt="logo"></span>
+    <Button
+      buttonType="attach"
+      class="sizeS autoW"
+      :style="{
+        display: 'inline-block',
+      }"
+      :loading="deleteLoading"
+      @click="() => attachRef?.click()"
+    >
+      {{ lang( '첨부파일' ) }}
+    </Button>
+    <input
+      ref="attachRef"
+      type="file"
+      :style="{ display: 'none' }"
+      @change="e => handleUploadFile( e )"
+    />
+    <Button
+      buttonType="save"
+      buttonVariant="transactional"
+      class="sizeS autoW fill"
+    >
+      {{ lang( '저장' ) }}
+    </Button>
+    <Button
+      buttonType="delete"
+      buttonVariant="delete"
+      class="sizeS autoW fill"
+    >
+      {{ lang( '삭제' ) }}
+    </Button>
+  </div>
+</template>
+
+<style lang="scss" src="@/shared/assets/scss/components/containers/logo-updater.scss"></style>

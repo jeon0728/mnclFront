@@ -1,0 +1,177 @@
+@use '../../variable' as *;
+
+// .page-layout-container
+.page-layout {
+  display: flex;
+  flex-direction: column;
+
+  &-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  // header
+  &-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    padding: 16px 24px;
+    @include colors('background-color', mainBg);
+  }
+  &-title {
+    font-size: $fs-xl;
+    font-weight: 600;
+  }
+  &-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+  }
+  //header end
+  &-content {
+    flex: 1;
+    padding: 0 24px;
+    overflow-y: auto;
+    @include custom-scrollbar;
+  }
+  &-search {
+    padding: 0 24px;
+  }
+}
+
+// popup용 디자인 변경
+.popup.page-layout {
+  padding: 8px 12px 0 12px;
+  height: 100%;
+  @include black('background-color', 95);
+
+  .card-container:first-child {
+    margin-top: 0;
+  }
+
+  // 답 버튼 영역
+  .page-layout__layout-top {
+    margin-bottom: 4px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 4px;
+    user-select: none;
+    font-weight: $fw-bold;
+    font-size: $fs-l;
+
+    .modal-button{
+      padding: 2px 8px;
+      gap: 4px;
+    }
+
+    .layout-top__navi {
+      span {
+        font-size: $page-layout-font-size;
+        font-weight: bold;
+      }
+
+      .navi__favorite {
+        font-size: $page-layout-font-size;
+        cursor: pointer;
+      }
+    }
+
+    .layout-top__buttons {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+
+  // content 영역(카드)
+  .page-layout__content {
+    .card-wrapper {
+      box-shadow: none;
+      border-color: transparent;
+    }
+    .card-content {
+      padding: 0;
+    }
+  }
+
+  // 바텀 버튼 영역
+  .page-layout__layout-bottom {
+    display: flex;
+    gap: 4px;
+    justify-content: space-between;
+    margin: 12px -12px 0 -12px;
+    padding: 12px 24px;
+    border-top: 1px solid;
+    @include black('background-color', white);
+    @include black('border-color', 80);
+    .button-right {
+      margin-left: auto;
+      justify-content: flex-end;
+    }
+  }
+
+  // 서치폼만
+  .g-search {
+    display: inline-flex;
+    margin-right: auto;
+    align-items: center;
+    .input-container{
+      padding: 0;
+      background-color: transparent;
+      border-color: transparent;
+      outline-color: transparent;
+      @include black('color', 10);
+    }
+    &-area{
+      height: 28px;
+      padding: 4px;
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      flex-direction: row-reverse;
+      border-radius: $rS;
+      border: 1px solid;
+      @include black('border-color', 70);
+      @include black('background-color', 80);
+
+      > svg {
+        @include black('color', 30);
+      }
+    }
+  }
+
+  // 모달 서치 구역(서치인풋 제외)
+  .page-layout__search {
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid;
+    border-radius: $rM;
+    @include black('border-color', 60);
+    @include black('background-color', white);
+    label {
+      font-size: $fs-s;
+      font-weight: 500;
+    }
+    .search-form {
+      column-gap: 24px;
+    }
+  }
+
+  .page-layout__no-search {
+  }
+
+  .page-layout__content {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 4px;
+    scroll-margin-inline: 10px;
+    @include custom-scrollbar;
+  }
+}

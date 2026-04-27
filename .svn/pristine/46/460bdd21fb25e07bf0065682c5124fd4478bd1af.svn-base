@@ -1,0 +1,47 @@
+@use '../../variable' as *;
+@use '../../mixins/buttons' as button;
+
+.button-container.gsabis-button {
+	min-width: $bw-min;
+	height: $bs-l;
+	font-size: $fs-s;
+	border-radius: $rS;
+	@include button.default;
+	@include button.defaultColor;
+
+	// 직접 입력
+	&.accent {
+		@include button.primaryColor;
+	}
+	&.disabled {
+		@include button.disabledColor;
+	}
+	&.none {
+		@include button.none;
+	}
+
+	// 버튼 사이즈
+	&.sizeS {
+		@include button.sizeS;
+	}
+	&.sizeL {
+		@include button.sizeL;
+	}
+	&.sizeXS {
+		@include button.sizeXS;
+	}
+	&.iconSizeL {
+		@include button.iconSizeL;
+	}
+	&.iconSizeS {
+		@include button.iconSizeS;
+	}
+	&.autoW {
+		width: auto;
+		min-width: 0;
+	}
+}
+
+.loading {
+	animation: spin 1s linear infinite;
+}

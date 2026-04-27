@@ -1,0 +1,35 @@
+<template>
+  <header class="header flex">
+    <!-- 왼쪽 영역 -->
+    <div class="header-left">
+      <h1 class="header-left-title">
+        <img src="@/shared/assets/image/logo.png" alt="logo" height="30px"/>
+      </h1>
+
+
+    </div>
+  
+    <!-- 오른쪽 영역 -->
+    <div class="header-right">
+      <!-- 검색 영역 -->
+      <div
+        class="header-search-container"
+      >
+        <CommandPalette/>
+        <span class="header-search-btn">
+          <PhMagnifyingGlass :size="16"/>
+          ctrl + k 전체검색
+        </span>
+      </div>
+
+      <Profile :profileImage="''"/>
+    </div>
+  </header>
+</template>
+
+<script setup lang="ts">
+  import { PhArrowSquareOut, PhStar } from '@phosphor-icons/vue'
+
+</script>
+
+<style src="@/shared/assets/scss/components/containers/header.scss"/>

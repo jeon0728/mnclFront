@@ -1,0 +1,134 @@
+@use '../../variable' as *;
+
+// .card-container
+.card {
+  &-container {
+    width: 100%;
+    margin-top: 24px;
+  }
+  // cardheader
+  &-header {
+    margin-bottom: 12px;
+    &-inner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+  &-title {
+    font-size: $fs-l;
+    line-height: 1;
+    padding: 0;
+  }
+  &-description {
+    margin-top: 8px;
+    align-content: center;
+    font-size: $fs-s;
+    @include black('color', 20);
+  }
+  &-actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    &-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+    }
+    &-left {
+      margin-right: auto;
+    }
+  }
+  // cardheader end
+
+  // cardcontents
+  &-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: $rM;
+    border: 1px solid;
+    box-shadow: $shadow-inner;
+    @include colors('border-color', innerBorder);
+    @include black('background-color', white);
+    &.no-border {
+      padding: 0;
+      border: 0;
+    }
+  }
+  &-content {
+    flex: 1;
+    padding: 16px;
+  }
+}
+
+// 더보기 밑에 있는 경우 스타일
+.card-container {
+  &.more-bottom {
+    margin-bottom: 48px;
+    .card-wrapper {
+      border-radius: 8px 8px 0 0;
+      @include black('border-bottom-color', 70);
+    }
+  }
+}
+
+// card-more
+.card{
+  &-container{
+    position: relative;
+  }
+  &-more{
+    $h : 24px;
+
+    display: flex;
+    justify-content: center;
+
+    button.gsabis-button{
+      position: absolute;
+      top: -$h;
+      height: $h;
+      border-radius: $rM $rM 0 0;
+      border-bottom: 0;
+      transition: top $tr-short;
+      box-shadow: $shadow-normal;
+      @include black('border-color', 70);
+      &.active{
+        top: -$h;
+      }
+    }
+  }
+}
+// card-more-bottom
+.card-more.bottom {
+  $h : 24px;
+  button.gsabis-button {
+    top: inherit;
+    bottom: -$h;
+    border-top: 0;
+    border-radius: 0 0 $rM $rM;
+    border-bottom: 1px solid;
+    @include black('border-bottom-color', 70);
+  }
+}
+
+// card-grid
+// title까지 같이 들어가니 타이틀 제외해야함
+.card-container-grid {
+  padding: 16px;
+  border-radius: $rM;
+  border: 1px solid;
+  box-shadow: $shadow-inner;
+  @include colors('border-color', innerBorder);
+  @include black('background-color', white);
+  .card-wrapper {
+    border: 0;
+    box-shadow: none;
+    .card-content {
+      padding: 0;
+    }
+  }
+}

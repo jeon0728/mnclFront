@@ -1,0 +1,44 @@
+import { storeToRefs } from 'pinia'
+import type { NotifyItem } from '@/shared/types/store'
+import { useNotificationStore } from '@/shared/store'
+
+type UseNotify = ( options?: NotifyItem ) => ( message: string, notifyItem?: NotifyItem ) => void
+
+const useDefaultNotify: UseNotify = ( options = { position: 'topLeft' } ) => {
+  const notificationStore = useNotificationStore()
+  const { notifications } = storeToRefs( notificationStore )
+  const { setAddNotification } = notificationStore
+
+  return ( message: string, notifyItem: NotifyItem = { autoClose: true } ) => {
+    setAddNotification( {
+      ...notifyItem,
+      ...options,
+      notifyId: notifyItem.notifyId || String( notifications.value.length + 1 ),
+      message
+    } )
+  }
+}
+
+const useSuccessNotify = ( options?: NotifyItem ) => {
+  return useDefaultNotify( { ...options, type: 'success' } )
+}
+
+const useAlertNotify = ( options?: NotifyItem ) => {
+  return useDefaultNotify( { ...options, type: 'alert' } )
+}
+
+const useWarningNotify = ( options?: NotifyItem ) => {
+  return useDefaultNotify( { ...options, type: 'warning' } )
+}
+
+const useInfoNotify = ( options?: NotifyItem ) => {
+  return useDefaultNotify( { ...options, type: 'info' } )
+}
+
+export const useNotify = () => ( {
+  successNotify: useSuccessNotify(),
+  alertNotify: useAlertNotify(),
+  warningNotify: useWarningNotify(),
+  infoNotify: useInfoNotify(),
+  defaultNotify: useDefaultNotify()
+} )

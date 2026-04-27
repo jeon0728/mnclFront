@@ -1,0 +1,151 @@
+import { defineStore } from 'pinia'
+import type {
+  LoadingModalProps,
+  MessageOptions,
+  ModalData,
+  ModalOptions,
+  NotificationsStore, NotifyPosition, NotifyType
+} from '@/shared/types/store'
+
+// Modal Store
+export const useModalStore = defineStore( 'modal', {
+  state: () => ( {
+    _modals: [] as ModalData[],
+    _modalIdCounter: 0,
+  } ),
+
+  getters: {
+    modals: state => state._modals
+  },
+
+  actions: {
+    addModal( popUp: ModalData ) {
+      // 고유 ID 부여
+      const modalWithId = {
+        ...popUp,
+        _id: ++this._modalIdCounter
+      }
+      this._modals.push( modalWithId )
+    },
+    removeModal() {
+      this._modals = this._modals.slice( 0, this._modals.length - 1 )
+    },
+  }
+} )
+
+// Message Store
+export const useMessageStore = defineStore( 'message', {
+  state: () => ( {
+    _messages: [] as MessageData[]
+  } ),
+  getters: {
+    messages: state => state._messages
+  },
+  actions: {
+    setAddMessages( message: MessageData ) {
+      this._messages.push( message )
+    },
+    setRemoveMessages() {
+      this._messages.pop()
+    },
+    clearMessages() {
+      this._messages = []
+    }
+  }
+} )
+
+/** yes/no/cancel 모달에서 버튼별로 넘기는 값 (Message/index.vue와 동일) */
+export type Yesnocancel = 'yes' | 'no' | 'cancel'
+
+export type MessageData = {
+  message: string,
+  options?: MessageOptions,
+  onConfirm?: () => void,
+  onCancel?: () => void,
+  onYes?: () => void,
+  onNo?: () => void
+  resolve?: ( value: any ) => void
+}
+
+// Notification Store
+export const useNotificationStore = defineStore( 'notification', {
+  state: () => ( {
+    _notifications: [] as NotificationData[]
+  } ),
+  getters:{
+    notifications: state => state._notifications
+  },
+  actions: {
+    setAddNotification( notification: NotificationsStore ) {
+      this._notifications.push( notification )
+    },
+    setRemoveNotification( notifyId: NotificationData[ 'notifyId' ] ) {
+      this._notifications = this._notifications.filter( ( { notifyId: id } ) => notifyId !== id )
+    }
+  }
+} )
+
+type NotificationData = {
+  notifyId?: string
+  icon?: string
+  message?: string
+  notClose?: boolean
+  autoClose?: boolean
+  type?: NotifyType
+  position?: NotifyPosition
+}
+
+// Loading Store
+export const useLoadingStore = defineStore( 'loading', {
+  state: () => ( {
+    _loadingModalProps: {
+      isOpen: false,
+      color: '#fff',
+      isFocusOutClose: false
+    } as LoadingModalProps,
+    _isLoading: false
+  } ),
+  getters: {
+    isLoading: state => state._isLoading
+  },
+  actions: {
+    setLoadingModalProps( loadingModalProps: LoadingModalProps ) {
+      this._loadingModalProps = loadingModalProps
+    },
+    setIsLoading( isLoading: boolean ) {
+      this._isLoading = isLoading
+    }
+  }
+} )
+
+// Command Palette Store
+export const useCommandPaletteStore = defineStore( 'commandPalette', {
+  state: () => ( {
+    _isOpen: false
+  } ),
+  getters: {
+    isOpen: state => state._isOpen
+  },
+  actions: {
+    openCommandPalette() {
+      this._isOpen = true
+    },
+    closeCommandPalette() {
+      this._isOpen = false
+    }
+  }
+} )
+
+export const useModalMapStore = defineStore( 'modalMap', {
+  state: () => ( {
+    _modalMap: false
+  } ),
+  getters: {
+    modalMap: state => state._modalMap
+  },
+  actions: {
+    setModalMap( m ) {
+      this._modalMap = m
+    },
+  }
+} )

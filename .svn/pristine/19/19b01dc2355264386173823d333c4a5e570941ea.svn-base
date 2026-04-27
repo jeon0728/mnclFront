@@ -1,0 +1,128 @@
+<template>
+  <div
+    v-if="!isMobile"
+    :class="`side-${props.isMenuCollapse ? 'mobile-' : ''}menu-wrapper h100p fixed`"
+    :style="{
+      width: `${props.isMenuCollapse ? COLLAPSE_SIDE_MENU_WIDTH : DEFAULT_SIDE_MENU_WIDTH}px`
+    }"
+  >
+    <div class="side-menu-header">
+      <div class="reset" :class="{ active: refresh }" @click="handleRefreshMenu">
+        <PhArrowClockwise style="cursor: pointer" size="24" color="#333333" weight="light"/>
+        새로고침
+      </div>
+
+      <div class="ui-fold" @click.stop="emits('toggleMenuCollapse')">
+        <PhArrowLineRight
+          v-if="props.isMenuCollapse"
+          style="cursor: pointer"
+          size="24"
+          color="#333333"
+          weight="light"
+        />
+        <template v-else>
+          <PhSidebarSimple style="cursor: pointer" size="24" color="#333333" weight="light"/>
+          UI 접기
+        </template>
+      </div>
+    </div>
+
+    <div class="side-menu">
+      <template v-for="(menu, idx) in filteredMenuList" :key="`${menu.menuId}${idx}`">
+        <SideMenuItem v-if="!props.isMenuCollapse" :menu="menu" :menuDepth="1"/>
+        <SideMobileMenuItem v-else :menuIdx="idx" :menu="menu" :menuDepth="1"/>
+      </template>
+    </div>
+  </div>
+
+  <div
+    v-else
+    class="side-mobile-menu-wrapper h100p fixed"
+    :style="{ width: COLLAPSE_SIDE_MENU_WIDTH + 'px' }"
+  >
+    <div class="side-menu">
+      <SideMobileMenuItem
+        v-for="(menu, idx) in filteredMenuList"
+        :key="menu.menuId"
+        :menuIdx="idx"
+        :menu="menu"
+        :menuDepth="1"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import SideMenuItem from './SideMenuItem.vue'
+  import SideMobileMenuItem from './SideMobileMenuItem.vue'
+  import {
+    COLLAPSE_SIDE_MENU_WIDTH,
+    DEFAULT_SIDE_MENU_WIDTH
+  } from '@/shared/constants/common/sideMenu'
+  import type { MenuData } from '@/shared/types/store'
+  import { useIsMobileStore } from '@/shared/store'
+  import { PhArrowClockwise, PhArrowLineRight, PhSidebarSimple } from '@phosphor-icons/vue'
+  import { computed, ref, watch } from 'vue'
+
+  const props = withDefaults(defineProps<SideMenuProps>(), {
+    width: `${DEFAULT_SIDE_MENU_WIDTH}px`
+  })
+  const { menuList, width } = props
+  const emits = defineEmits<{
+    (e: 'toggleMenuCollapse'): void
+  }>()
+
+  const isMobile = toRef(useIsMobileStore(), 'isMobile')
+  const refresh = ref(false)
+
+  const filterMenuByAuth = (menu: MenuData): MenuData | null => {
+    // accYn이 'N'이거나 'n'이면 메뉴 숨김
+    if (menu.accYn === 'N' || menu.accYn === 'n') {
+      return null
+    }
+
+    // 자식 메뉴가 있는 경우, 자식 메뉴도 필터링
+    if (menu.children && menu.children.length > 0) {
+      const filteredChildren = menu.children
+        .map(filterMenuByAuth)
+        .filter((child): child is MenuData => child !== null)
+
+      // 모든 자식 메뉴가 필터링된 경우 부모 메뉴도 숨김
+      if (filteredChildren.length === 0) {
+        return null
+      }
+
+      // 필터링된 자식 메뉴를 가진 새 메뉴 객체 반환
+      return {
+        ...menu,
+        children: filteredChildren
+      }
+    }
+
+    return menu
+  }
+
+  const filteredMenuList = computed(() => {
+    return menuList.map(filterMenuByAuth).filter((menu): menu is MenuData => menu !== null)
+  })
+
+  const handleRefreshMenu = () => {
+    refresh.value = true
+  }
+
+  watch(refresh, (val) => {
+    if (val) {
+      setTimeout(() => {
+        refresh.value = false
+      }, 3000)
+    }
+  })
+
+  interface SideMenuProps {
+    menuList: MenuData[]
+    width?: string
+    isMenuCollapse: boolean
+  }
+</script>
+
+<style src="@/shared/assets/scss/components/containers/side-menu.scss"/>

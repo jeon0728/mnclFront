@@ -1,0 +1,27 @@
+<template>
+  <div class="mncl-page">
+    <h1 class="mncl-page__title">조회</h1>
+    <p class="mncl-page__desc">
+      조회 화면입니다. 필요한 그리드·필터를 이 페이지에 연결하세요.ㅇㅇㅇㅇ
+    </p>
+  </div>
+</template>
+
+<script setup lang="ts">
+  useHead({ title: '조회' })
+</script>
+
+<style scoped>
+  .mncl-page {
+    padding: 24px;
+  }
+  .mncl-page__title {
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .mncl-page__desc {
+    margin: 0;
+    color: #666;
+  }
+</style>

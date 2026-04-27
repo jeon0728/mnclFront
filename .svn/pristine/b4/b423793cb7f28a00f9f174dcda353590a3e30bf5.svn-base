@@ -1,0 +1,143 @@
+@use '../../variable' as *;
+
+.contents-inner{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    row-gap: 16px;
+    column-gap: 32px;
+    &.lists li {
+      flex: 1;
+    }
+  }
+  li {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    flex: 0.005 1 200px;
+    &.flex-1 {
+      flex: 1;
+    }
+
+    .label,
+    .title {
+      text-decoration: none;
+      @include label;
+    }
+    // 타이틀 안의 더 작은 라벨
+    .title{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      .label {
+        @include labelS;
+      }
+      .auto {
+        margin-left: auto;
+      }
+    }
+    .button-wrap-flex {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
+
+// 계약등록 inner
+.contents-inner.allocation{
+  column-gap: 16px;
+  ul {
+    align-items: center;
+    padding: 12px;
+    border-radius: $rM;
+    border: 1px solid;
+    @include colors('background-color', mainBg);
+    @include black('border-color', 80);
+    &:first-of-type {
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+  li {
+    flex: 0.05 1 150px;
+    &.flex-0 {
+      flex: 0;
+    }
+    &.basis {
+      flex: 0.005 1 120px;
+    }
+  }
+}
+
+// 템플릿 입력 inner
+.contents-inner.blTemplete {
+  ul{
+    li{
+      flex: 1;
+    }
+  }
+  ul.blTemplete-lists {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    // 1000~ 2000구역에서 2칸으로 보이게
+    @media screen and ( 1000px < width <= 2000px ) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    li {
+      gap: 12px;
+      .label {
+        font-size: $fs-s;
+        font-weight: 400;
+        @include black('color', 10);
+      }
+      .title {
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .input-label-column {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  }
+}
+
+// si등록 inner
+.contents-inner.si {
+  li {
+    &.flex-1 {
+      flex: 1;
+    }
+    .input-label-flex {
+      >:not(.label) {
+        flex: 1;
+      }
+    }
+  }
+  :is(.input-label-column, .input-label-flex) .label{
+    @include labelS;
+  }
+}
+
+//button inner
+.content-button {
+  margin: 40px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  .sizeL {
+    min-width: 220px;
+  }
+}

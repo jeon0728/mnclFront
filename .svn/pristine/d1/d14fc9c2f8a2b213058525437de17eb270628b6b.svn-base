@@ -1,0 +1,305 @@
+<!-- 부킹 샘플 카드 -->
+ <!-- 스크립트는 고쳐야함 -->
+  <!-- 색은 8개있음 -->
+   <!-- 
+  confirm: #1976D2
+  amend: #D32F2F
+  cancled: #808080
+  declined: #FF3B30
+  pending: #FF9500
+  replaced: #A2845E
+  requested: #AF52DE
+  success: #14A338
+   -->
+  <!-- 운임행 없으면 nodata가 나옴 -->
+<template>
+  <template #content>
+    <Card>
+      <template #content>
+        <div class="booking-card none">
+          <PhSmileySad :size="24"/>
+          <p>
+            기준에 맞는 필터가 없습니다.<br>
+            필터를 다시 확인해주세요.
+          </p>
+        </div>
+      </template>
+    </Card>
+    <Card>
+      <template #content>
+        <div class="booking-card" :class="{ active : isVisible }">
+          <!-- Header -->
+          <div class="booking-card-header" style="background-color: #FF9500;">
+            <div class="booking-card-header-left">
+              <span class="booking-number">EBKG09939401</span>
+              <span class="badge" style="color: #FF9500;">Pending</span>
+              <span class="badge badge-carrier">ZIM</span>
+              <span class="divider">|</span>
+              <span class="date-text">2025-10-19</span>
+            </div>
+            <div class="booking-card-header-right">
+              <Button v-if="isVisible" class="sizeXS noneBorder">Create SI</Button>
+              <button class="btn-toggle" @click="toggleVisible">
+                <PhCaretUp v-if="isVisible" :size="16"/>
+                <PhCaretDown v-else :size="16"/>
+              </button>
+            </div>
+          </div>
+
+          <!-- Route Section -->
+          <div class="route-section">
+            <div class="location-info">
+              <div class="location-label">출발</div>
+              <div class="location-name departure">BUSAN, KOREA</div>
+              <div class="location-date">2025-04-05</div>
+            </div>
+
+            <div class="route-icon">
+              <div class="route-line"></div>
+            </div>
+
+            <div class="location-info">
+              <div class="location-label">도착</div>
+              <div class="location-name arrival">BUSAN, KOREA</div>
+              <div class="location-date">2025-04-05</div>
+            </div>
+          </div>
+
+          <!-- Details Section -->
+          <div class="details-section">
+            <div class="details-grid">
+              <div class="detail-row">
+                <span class="detail-label">Vessel & Voyage</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">ETD</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">ETA</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">POL</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">POD</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Cargo Detail</span>
+                <span class="detail-value">2025년 10월 14일 20:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">CUT OFF CY</span>
+                <span class="detail-value">1 x 45G0</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">CUT OFF CY</span>
+                <span class="detail-value">1 x 45G0</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-section">
+              <Button>View More</Button>
+              <Button class="accent">Create SI</Button>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="footer-info">
+            <span class="footer-label">마지막 수정일</span>
+            <span class="footer-value">2025-10-19</span>
+          </div>
+        </div>
+        <div class="booking-card">
+          <!-- Header -->
+          <div class="booking-card-header" style="background-color: #14A338;">
+            <div class="booking-card-header-left">
+              <span class="booking-number">EBKG09939401</span>
+              <span class="badge" style="color: #14A338;">Success</span>
+              <span class="badge badge-carrier">ZIM</span>
+              <span class="divider">|</span>
+              <span class="date-text">2025-10-19</span>
+            </div>
+            <div class="booking-card-header-right">
+              <button class="btn-toggle" @click="toggleVisible">
+                <PhCaretUp v-if="isVisible" :size="16"/>
+                <PhCaretDown v-else :size="16"/>
+              </button>
+            </div>
+          </div>
+
+          <!-- Route Section -->
+          <div class="route-section">
+            <div class="location-info">
+              <div class="location-label">출발</div>
+              <div class="location-name departure">BUSAN, KOREA</div>
+              <div class="location-date">2025-04-05</div>
+            </div>
+
+            <div class="route-icon">
+              <div class="route-line"></div>
+            </div>
+
+            <div class="location-info">
+              <div class="location-label">도착</div>
+              <div class="location-name arrival">BUSAN, KOREA</div>
+              <div class="location-date">2025-04-05</div>
+            </div>
+          </div>
+
+          <!-- Details Section -->
+          <div class="details-section">
+            <div class="details-grid">
+              <div class="detail-row">
+                <span class="detail-label">Vessel & Voyage</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">ETD</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">ETA</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">POL</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">POD</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Cargo Detail</span>
+                <span class="detail-value">2025년 10월 14일 20:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">CUT OFF CY</span>
+                <span class="detail-value">1 x 45G0</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">CUT OFF CY</span>
+                <span class="detail-value">1 x 45G0</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-section">
+              <Button>View More</Button>
+              <Button class="accent">Create SI</Button>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="footer-info">
+            <span class="footer-label">마지막 수정일</span>
+            <span class="footer-value">2025-10-19</span>
+          </div>
+        </div>
+        <div class="booking-card">
+          <!-- Header -->
+          <div class="booking-card-header" style="background-color: #1976D2;">
+            <div class="booking-card-header-left">
+              <span class="booking-number">EBKG09939401</span>
+              <span class="badge" style="color: #1976D2;">Confirm</span>
+              <span class="badge badge-carrier">ZIM</span>
+              <span class="divider">|</span>
+              <span class="date-text">2025-10-19</span>
+            </div>
+            <div class="booking-card-header-right">
+              <button class="btn-toggle" @click="toggleVisible">
+                <PhCaretUp v-if="isVisible" :size="16"/>
+                <PhCaretDown v-else :size="16"/>
+              </button>
+            </div>
+          </div>
+
+          <!-- Route Section -->
+          <div class="route-section">
+            <div class="location-info">
+              <div class="location-label">출발</div>
+              <div class="location-name departure">BUSAN, KOREA</div>
+              <div class="location-date">2025-04-05</div>
+            </div>
+
+            <div class="route-icon">
+              <div class="route-line"></div>
+            </div>
+
+            <div class="location-info">
+              <div class="location-label">도착</div>
+              <div class="location-name arrival">BUSAN, KOREA</div>
+              <div class="location-date">2025-04-05</div>
+            </div>
+          </div>
+
+          <!-- Details Section -->
+          <div class="details-section">
+            <div class="details-grid">
+              <div class="detail-row">
+                <span class="detail-label">Vessel & Voyage</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">ETD</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">ETA</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">POL</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">POD</span>
+                <span class="detail-value">2025년 10월 19일 22:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Cargo Detail</span>
+                <span class="detail-value">2025년 10월 14일 20:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">CUT OFF CY</span>
+                <span class="detail-value">1 x 45G0</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">CUT OFF CY</span>
+                <span class="detail-value">1 x 45G0</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-section">
+              <Button>View More</Button>
+              <Button class="accent">Create SI</Button>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="footer-info">
+            <span class="footer-label">마지막 수정일</span>
+            <span class="footer-value">2025-10-19</span>
+          </div>
+        </div>
+      </template>
+    </Card>
+  </template>
+</template>
+
+<script setup lang="ts">
+  const isVisible = ref( false )
+
+  const toggleVisible = () => {
+    isVisible.value = !isVisible.value
+  }
+</script>
+
+<style lang="scss" src="@/shared/assets/scss/components/containers/booking-card.scss"></style>
