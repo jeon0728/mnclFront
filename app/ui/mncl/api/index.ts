@@ -13,7 +13,7 @@ export interface MnclExcelUploadResponse {
 export interface MnclListDto {
   hblNo?: string
   blNo?: string
-  polName?: string
+  podName?: string
   vesselName?: string
   voyageNo?: string
   deliverDateTime?: string
@@ -27,6 +27,7 @@ export interface MnclListDto {
   emailSea?: string
   faxNoSea?: string
   telNoSea?: string
+  hblRemark?: string
 }
 
 /** LOCAL CHARGE 행 */
@@ -108,6 +109,19 @@ export const parseMnclLocalListBody = (body: unknown): MnclLocalRegistRowDto[] =
 
 export const getMnclLocalList = async ( param: { fromDt: string; toDt: string } ) => {
   return await axios.post<MnclLocalListData>( `/api/mncl/search/local/list`, param )
+}
+
+/** 엑셀 업로드 비밀번호 검증 (`code === '0000'` 이면 성공) */
+export interface MnclExcelPasswordVerifyResponse {
+  code: string
+  message?: string
+}
+
+export const verifyMnclExcelPassword = async (param: { password: string }) => {
+  return await axios.post<MnclExcelPasswordVerifyResponse>(
+    `/api/mncl/excel/password/verify`,
+    param
+  )
 }
 
 export const uploadExcel = async ( param: FormData ) => {

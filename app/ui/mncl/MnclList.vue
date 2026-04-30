@@ -62,8 +62,8 @@
                 {{ mnclRow?.attnManSea ?? ''
                 }}<template v-if="agentEmail"> &lt;{{ agentEmail }}&gt;</template>
               </p>
-              <p v-if="agentFax">{{ agentFax }}</p>
-              <p v-if="agentTel">{{ agentTel }}</p>
+              <p v-if="agentTel">TEL: {{ agentTel }}</p>
+              <p v-if="agentFax">FAX: {{ agentFax }}</p>
             </div>
           </div>
         </div>
@@ -128,13 +128,13 @@
   type BlInfoCard = { label: string; field: keyof MnclListDto; span2?: boolean }
 
   const blInfoCards: readonly BlInfoCard[] = [
-    { label: 'Destination', field: 'polName' },
+    { label: 'Destination', field: 'podName' },
     { label: 'Vessel', field: 'vesselName' },
     { label: 'Voyage', field: 'voyageNo' },
     { label: 'Cut Date', field: 'deliverDateTime' },
     { label: 'ETD', field: 'onboardDate' },
     { label: 'ETA', field: 'arrivalDate' },
-    { label: 'T/S Tariff', field: 'companyEng', span2: true }
+    { label: 'T/S Tariff', field: 'hblRemark', span2: true }
   ]
 
   const hblNo = ref('')

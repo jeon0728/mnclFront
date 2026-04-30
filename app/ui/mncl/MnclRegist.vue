@@ -9,18 +9,30 @@
         <DateBox v-model="toDt" add-container-class="search-input" />
         <Button class="accent sizeL" @click="handleSearch">search</Button>
       </div>
+      <!-- <span class="search-label excel-auth-label">업로드 비밀번호</span> -->
+      <div class="search-controls flex excel-auth-controls">
+        <TextBox
+          v-model="excelUploadPassword"
+          type="password"
+          add-container-class="search-input"
+          placeholder="비밀번호"
+          autocomplete="off"
+          @keydown.enter.prevent="handleVerifyExcelPassword"
+        />
+        <Button class="sizeL" @click="handleVerifyExcelPassword">확인</Button>
+      </div>
       <Button class="sizeL right" buttonType="download" @click="handleDownloadTemplate">
         Excel 양식 다운로드
       </Button>
-      <Button class="sizeL" buttonType="upload" @click="openExcelPicker">
+      <Button
+        class="sizeL"
+        buttonType="upload"
+        :disabled="!excelUploadAuthorized"
+        @click="openExcelPicker"
+      >
         Excel 업로드
       </Button>
-      <input
-        ref="excelRef"
-        type="file"
-        :style="{ display: 'none' }"
-        @change="handleUploadExcel"
-      />
+      <input ref="excelRef" type="file" :style="{ display: 'none' }" @change="handleUploadExcel" />
     </div>
 
     <div class="panel panel-charge">
@@ -62,6 +74,7 @@
     getMnclLocalList,
     parseMnclLocalListBody,
     uploadExcel,
+    verifyMnclExcelPassword,
     type MnclExcelUploadResponse,
     type MnclLocalRegistRowDto
   } from '@/ui/mncl/api'
@@ -82,6 +95,12 @@
   ]
 
   const excelRef = ref<HTMLInputElement | null>(null)
+  const excelUploadPassword = ref('')
+  const excelUploadAuthorized = ref(false)
+
+  watch(excelUploadPassword, () => {
+    excelUploadAuthorized.value = false
+  })
 
   const todayForDateBox = () => DateUtil.getTodayDate(DISPLAY_DATE_UNIT)
   const fromDt = ref(todayForDateBox())
@@ -107,6 +126,7 @@
   }
 
   const openExcelPicker = () => {
+    if (!excelUploadAuthorized.value) return
     excelRef.value?.click()
   }
 
@@ -131,6 +151,46 @@
     link.download = filename
     link.click()
     window.URL.revokeObjectURL(url)
+  }
+
+  const parseMnclCodeBody = (body: unknown): { code?: string; message?: string } | null => {
+    if (!body || typeof body !== 'object') return null
+    const b = body as Record<string, unknown>
+    const inner =
+      b.data !== undefined && b.data !== null && typeof b.data === 'object'
+        ? (b.data as Record<string, unknown>)
+        : b
+    const code = inner.code
+    const message = inner.message
+    return {
+      code: typeof code === 'string' ? code : undefined,
+      message: typeof message === 'string' ? message : undefined
+    }
+  }
+
+  const handleVerifyExcelPassword = async () => {
+    const pwd = excelUploadPassword.value.trim()
+    if (!pwd) {
+      errorMessage('비밀번호를 입력해 주세요.')
+      return
+    }
+
+    const { data, error } = await httpRequest(verifyMnclExcelPassword({ password: pwd }))
+    if (error) {
+      errorMessage(error.message)
+      excelUploadAuthorized.value = false
+      return
+    }
+
+    const parsed = parseMnclCodeBody(data)
+    if (parsed?.code === '0000') {
+      excelUploadAuthorized.value = true
+      successNotify(parsed.message || '비밀번호가 확인되었습니다.')
+      return
+    }
+
+    excelUploadAuthorized.value = false
+    errorMessage(parsed?.message || '비밀번호가 올바르지 않습니다.')
   }
 
   const handleSearch = async () => {
